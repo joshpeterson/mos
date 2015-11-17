@@ -14,12 +14,17 @@ namespace Mos6510
       get { return length; }
     }
 
-    public int Value
+    public int GetValue()
     {
-      get;
-      set;
+      return value;
+    }
+
+    public void SetValue(int value)
+    {
+      this.value = value;
     }
 
     private readonly int length;
+    private int value;
   }
 }

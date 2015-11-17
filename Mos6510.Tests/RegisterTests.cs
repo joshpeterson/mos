@@ -17,7 +17,7 @@ namespace Mos6510.Tests
     public void HasAnInitialValueOfZero()
     {
       var register = new Register(8);
-      Assert.That(register.Value, Is.EqualTo(0));
+      Assert.That(register.GetValue(), Is.EqualTo(0));
     }
 
     [Test]
@@ -25,8 +25,8 @@ namespace Mos6510.Tests
     {
       var register = new Register(8);
       const int expectedValue = 42;
-      register.Value = expectedValue;
-      Assert.That(register.Value, Is.EqualTo(expectedValue));
+      register.SetValue(expectedValue);
+      Assert.That(register.GetValue(), Is.EqualTo(expectedValue));
     }
   }
 }
