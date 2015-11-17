@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 namespace Mos6510
 {
@@ -6,25 +7,38 @@ namespace Mos6510
   {
     public Register(int numberOfBits)
     {
-      length = numberOfBits;
+      bits = new BitArray(numberOfBits);
     }
 
     public int Length
     {
-      get { return length; }
+      get { return bits.Length; }
     }
 
     public int GetValue()
     {
-      return value;
+      return ToInt();
     }
 
     public void SetValue(int value)
     {
-      this.value = value;
+      FromInt(value);
     }
 
-    private readonly int length;
-    private int value;
+    private int ToInt()
+    {
+      int[] array = new int[1];
+      bits.CopyTo(array, 0);
+      return array[0];
+    }
+
+    private void FromInt(int value)
+    {
+      var inputBits = new BitArray(new[]{ value });
+      for (var i = 0; i < bits.Length; ++i)
+        bits[i] = inputBits[i];
+    }
+
+    private BitArray bits;
   }
 }

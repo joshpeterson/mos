@@ -28,5 +28,21 @@ namespace Mos6510.Tests
       register.SetValue(expectedValue);
       Assert.That(register.GetValue(), Is.EqualTo(expectedValue));
     }
+
+    [Test]
+    public void AValueWhichIsTooLargeSetsOnlyTheLowBitsOfTheRegister()
+    {
+      var register = new Register(8);
+      register.SetValue(258);
+      Assert.That(register.GetValue(), Is.EqualTo(2));
+    }
+
+    [Test]
+    public void ANegativeValueIsThePostiveRepresentationOfTheBits()
+    {
+      var register = new Register(8);
+      register.SetValue(-100);
+      Assert.That(register.GetValue(), Is.EqualTo(156));
+    }
   }
 }
