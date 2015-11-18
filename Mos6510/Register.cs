@@ -5,6 +5,8 @@ namespace Mos6510
 {
   public class Register
   {
+    private BitArray bits;
+
     public Register(int numberOfBits)
     {
       bits = new BitArray(numberOfBits);
@@ -38,7 +40,5 @@ namespace Mos6510
       for (var i = 0; i < bits.Length; ++i)
         bits[i] = inputBits[i];
     }
-
-    private BitArray bits;
   }
 }
