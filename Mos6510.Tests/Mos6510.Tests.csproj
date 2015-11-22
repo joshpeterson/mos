@@ -39,6 +39,7 @@
     <Compile Include="RegisterTests.cs" />
     <Compile Include="ProgrammingModelTests.cs" />
     <Compile Include="MemoryTests.cs" />
+    <Compile Include="Instructions\RegistryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">
