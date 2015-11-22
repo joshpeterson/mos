@@ -24,5 +24,8 @@ namespace Mos6510.Tests.Instructions
 
   public class InstructionTestDouble : Instruction
   {
+    public void Execute(ProgrammingModel model)
+    {
+    }
   }
 }
