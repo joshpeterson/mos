@@ -41,6 +41,7 @@
     <Compile Include="MemoryTests.cs" />
     <Compile Include="Instructions\RegistryTests.cs" />
     <Compile Include="Instructions\InxTests.cs" />
+    <Compile Include="Instructions\InyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">

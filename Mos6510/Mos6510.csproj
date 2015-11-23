@@ -41,6 +41,8 @@
     <Compile Include="Instructions\Opcodes.cs" />
     <Compile Include="Instructions\Registry.cs" />
     <Compile Include="Instructions\Instruction.cs" />
+    <Compile Include="Instructions\Iny.cs" />
+    <Compile Include="Instructions\RegisterUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
