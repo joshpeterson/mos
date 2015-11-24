@@ -42,6 +42,7 @@
     <Compile Include="Instructions\RegistryTests.cs" />
     <Compile Include="Instructions\InxTests.cs" />
     <Compile Include="Instructions\InyTests.cs" />
+    <Compile Include="FetcherTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">
