@@ -13,7 +13,10 @@ namespace Mos6510
 
     public byte Fetch()
     {
-      var address = _model.GetRegister(RegisterName.PC).GetValue();
+      var pc = _model.GetRegister(RegisterName.PC);
+      var address = pc.GetValue();
+      pc.SetValue(address + 1);
+
       return _memory.GetValue((ushort)address);
     }
   }
