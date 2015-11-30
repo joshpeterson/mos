@@ -13,9 +13,8 @@ namespace Mos6510
 
     public byte Fetch()
     {
-      var addressHigh = _model.GetRegister(RegisterName.PCH).GetValue();
-      var addressLow = _model.GetRegister(RegisterName.PCL).GetValue();
-      return _memory.GetValue((ushort)(addressLow + (addressHigh << 8)));
+      var address = _model.GetRegister(RegisterName.PC).GetValue();
+      return _memory.GetValue((ushort)address);
     }
   }
 }

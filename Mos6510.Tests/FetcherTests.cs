@@ -7,16 +7,13 @@ namespace Mos6510.Tests
   public class FetcherTests
   {
     [Test]
-    public void FetchesTheNextInstructionsFromTheProgramCounter()
+    public void FetchesTheNextInstructionFromTheProgramCounter()
     {
       const ushort expectedAddress = 0xFF10;
       const byte expectedValue = 0x2A;
 
       var model = new ProgrammingModel();
-      model.GetRegister(RegisterName.PCH).
-        SetValue((expectedAddress & 0xFF00) >> 8);
-      model.GetRegister(RegisterName.PCL).
-        SetValue(expectedAddress & 0x00FF);
+      model.GetRegister(RegisterName.PC).SetValue(expectedAddress);
 
       var memory = new Memory();
       memory.SetValue(expectedAddress, expectedValue);

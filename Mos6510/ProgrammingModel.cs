@@ -7,8 +7,7 @@ namespace Mos6510
     A,
     Y,
     X,
-    PCH,
-    PCL,
+    PC,
     S,
     P,
   }
@@ -22,8 +21,7 @@ namespace Mos6510
         { RegisterName.A, new Register(RegisterSize) },
         { RegisterName.Y, new Register(RegisterSize) },
         { RegisterName.X, new Register(RegisterSize) },
-        { RegisterName.PCH, new Register(RegisterSize) },
-        { RegisterName.PCL, new Register(RegisterSize) },
+        { RegisterName.PC, new Register(16) },
         { RegisterName.S, new Register(RegisterSize) },
         { RegisterName.P, new Register(RegisterSize) },
       };

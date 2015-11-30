@@ -9,8 +9,7 @@ namespace Mos6510.Tests
     [TestCase(RegisterName.A)]
     [TestCase(RegisterName.Y)]
     [TestCase(RegisterName.X)]
-    [TestCase(RegisterName.PCH)]
-    [TestCase(RegisterName.PCL)]
+    [TestCase(RegisterName.PC)]
     [TestCase(RegisterName.S)]
     [TestCase(RegisterName.P)]
     public void CanSetTheValueInRegister(RegisterName name)
