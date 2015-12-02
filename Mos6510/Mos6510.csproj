@@ -43,7 +43,9 @@
     <Compile Include="Instructions\Instruction.cs" />
     <Compile Include="Instructions\Iny.cs" />
     <Compile Include="Instructions\RegisterUtils.cs" />
+    <Compile Include="Instructions\AddressingMode.cs" />
     <Compile Include="Fetcher.cs" />
+    <Compile Include="Decoder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

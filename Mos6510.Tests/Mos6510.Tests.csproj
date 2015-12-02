@@ -43,6 +43,7 @@
     <Compile Include="Instructions\InxTests.cs" />
     <Compile Include="Instructions\InyTests.cs" />
     <Compile Include="FetcherTests.cs" />
+    <Compile Include="DecoderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">

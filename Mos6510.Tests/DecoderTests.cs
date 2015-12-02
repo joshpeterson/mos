@@ -12,9 +12,21 @@ namespace Mos6510.Tests
         Opcode expectedOpcode, AddressingMode expectedAddressingMode)
     {
       var decoder = new Decoder();
-      var pair = decoder.Decode(instruction);
+      OpcodeAddressModePair pair;
+      var hasInstruction = decoder.TryDecode(instruction, out pair);
+      Assert.That(hasInstruction, Is.True, @"Try Decode returned false for a
+          valid instruction, which is not expected.");
       Assert.That(pair.Opcode, Is.EqualTo(expectedOpcode));
       Assert.That(pair.AddressingMode, Is.EqualTo(expectedAddressingMode));
+    }
+
+    [Test]
+    public void ReturnsFalseIfTheInstructionIsNotValid()
+    {
+      var decoder = new Decoder();
+      OpcodeAddressModePair pair;
+      Assert.That(decoder.TryDecode(0xFF, out pair), Is.False, @"TryDecode returned
+          true for an invalid instruction, which is not expected.");
     }
   }
 }

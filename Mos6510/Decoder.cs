@@ -19,9 +19,16 @@ namespace Mos6510
                                             AddressingMode = AddressingMode.Implied} },
       };
 
-    public OpcodeAddressModePair Decode(byte instruction)
+    public bool TryDecode(byte instruction, out OpcodeAddressModePair pair)
     {
-      return pairs[instruction];
+      if (!pairs.ContainsKey(instruction))
+      {
+        pair = new OpcodeAddressModePair();
+        return false;
+      }
+
+      pair = pairs[instruction];
+      return true;
     }
   }
 }
