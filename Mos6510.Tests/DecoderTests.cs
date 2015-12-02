@@ -17,7 +17,7 @@ namespace Mos6510.Tests
       Assert.That(hasInstruction, Is.True, @"Try Decode returned false for a
           valid instruction, which is not expected.");
       Assert.That(pair.Opcode, Is.EqualTo(expectedOpcode));
-      Assert.That(pair.AddressingMode, Is.EqualTo(expectedAddressingMode));
+      Assert.That(pair.Mode, Is.EqualTo(expectedAddressingMode));
     }
 
     [Test]

@@ -6,7 +6,7 @@ namespace Mos6510
   public struct OpcodeAddressModePair
   {
     public Opcode Opcode;
-    public AddressingMode AddressingMode;
+    public AddressingMode Mode;
   }
 
   public class Decoder
@@ -14,9 +14,9 @@ namespace Mos6510
     private Dictionary<byte, OpcodeAddressModePair> pairs =
       new Dictionary<byte, OpcodeAddressModePair> {
         { 0xE0, new OpcodeAddressModePair { Opcode = Opcode.Inx,
-                                            AddressingMode = AddressingMode.Implied} },
+                                            Mode = AddressingMode.Implied} },
         { 0xC0, new OpcodeAddressModePair { Opcode = Opcode.Iny,
-                                            AddressingMode = AddressingMode.Implied} },
+                                            Mode = AddressingMode.Implied} },
       };
 
     public bool TryDecode(byte instruction, out OpcodeAddressModePair pair)
