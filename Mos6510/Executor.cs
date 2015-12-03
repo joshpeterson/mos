@@ -4,19 +4,19 @@ namespace Mos6510
 {
   public class Executor
   {
-    private readonly Registry _registry;
-    private readonly ProgrammingModel _model;
+    private readonly Registry registry;
+    private readonly ProgrammingModel model;
 
     public Executor(Registry registry, ProgrammingModel model, Memory memory)
     {
-      _registry = registry;
-      _model = model;
+      this.registry = registry;
+      this.model = model;
     }
 
     public void Execute(Opcode opcode, AddressingMode mode)
     {
-      var instruction = _registry.Get(opcode);
-      instruction.Execute(_model);
+      var instruction = registry.Get(opcode);
+      instruction.Execute(model);
     }
   }
 }
