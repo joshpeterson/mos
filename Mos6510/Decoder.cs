@@ -13,9 +13,11 @@ namespace Mos6510
   {
     private Dictionary<byte, OpcodeAddressModePair> pairs =
       new Dictionary<byte, OpcodeAddressModePair> {
+        { 0xC0, new OpcodeAddressModePair { Opcode = Opcode.Iny,
+                                            Mode = AddressingMode.Implied} },
         { 0xE0, new OpcodeAddressModePair { Opcode = Opcode.Inx,
                                             Mode = AddressingMode.Implied} },
-        { 0xC0, new OpcodeAddressModePair { Opcode = Opcode.Iny,
+        { 0xEA, new OpcodeAddressModePair { Opcode = Opcode.Nop,
                                             Mode = AddressingMode.Implied} },
       };
 

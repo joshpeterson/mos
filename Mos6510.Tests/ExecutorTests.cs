@@ -25,15 +25,15 @@ namespace Mos6510.Tests
       Assert.That(instruction.ExecuteCalled, Is.True, @"The Execute method was not
           called on the instruction, which is not expected.");
     }
-  }
 
-  public class InstructionTestDouble : Instruction
-  {
-    public bool ExecuteCalled {get; private set; }
-
-    public void Execute(ProgrammingModel model)
+    public class InstructionTestDouble : Instruction
     {
-      ExecuteCalled = true;
+      public bool ExecuteCalled {get; private set; }
+
+      public void Execute(ProgrammingModel model)
+      {
+        ExecuteCalled = true;
+      }
     }
   }
 }
