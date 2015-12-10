@@ -15,19 +15,20 @@ namespace Mos6510.Tests
     [SetUp]
     public void SetUp()
     {
-      const byte expectedInstruction = 0xEA; // Nop opcode
+      const byte expectedCode = 0xEA; // Nop opcode
 
       var model = new ProgrammingModel();
       model.GetRegister(RegisterName.PC).SetValue(InstructionAddress);
 
       memory = new Memory();
-      memory.SetValue(InstructionAddress, expectedInstruction);
+      memory.SetValue(InstructionAddress, expectedCode);
 
       instruction = new InstructionTestDouble();
-      var registry = new Registry { { Opcode.Nop, instruction } };
+      var registry = new Registry {
+        { expectedCode, Opcode.Nop, instruction, AddressingMode.Implied } };
 
       var fetcher = new Fetcher(model, memory);
-      var decoder = new Decoder();
+      var decoder = new Decoder(registry);
       var executor = new Executor(registry, model, memory);
 
       loop = new CoreLoop(fetcher, decoder, executor);

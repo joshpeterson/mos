@@ -1,3 +1,5 @@
+using Mos6510.Instructions;
+
 namespace Mos6510
 {
   public class CoreLoop

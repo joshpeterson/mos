@@ -13,7 +13,8 @@ namespace Mos6510.Tests
       const Opcode opcode = Opcode.Nop;
 
       var instruction = new InstructionTestDouble();
-      var registry = new Registry { { opcode, instruction } };
+      var registry = new Registry {
+        { 0x00, opcode, instruction, AddressingMode.Implied} };
 
       var model = new ProgrammingModel();
 

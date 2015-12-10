@@ -48,6 +48,7 @@
     <Compile Include="Decoder.cs" />
     <Compile Include="Executor.cs" />
     <Compile Include="CoreLoop.cs" />
+    <Compile Include="Instructions\OpcodeAddressModePair.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
