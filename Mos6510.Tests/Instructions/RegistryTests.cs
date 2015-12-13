@@ -34,6 +34,20 @@ namespace Mos6510.Tests.Instructions
     }
 
     [Test]
+    public void CanGetACodeFromAnInstructionOpcodePair()
+    {
+      const byte expectedCode = 0xFF;
+      const Opcode opcode = Opcode.Nop;
+      const AddressingMode mode = AddressingMode.Implied;
+
+      var instruction = new InstructionTestDouble();
+      var registry = new Registry {
+        { expectedCode, opcode, instruction, AddressingMode.Implied } };
+
+      Assert.That(registry.Get(opcode, mode), Is.EqualTo(expectedCode));
+    }
+
+    [Test]
     public void RegistryReturnsNullForAnUnknownOpcode()
     {
       var registry = new Registry();
@@ -45,6 +59,13 @@ namespace Mos6510.Tests.Instructions
     {
       var registry = new Registry();
       Assert.That(registry.Get(0xFF), Is.Null);
+    }
+
+    [Test]
+    public void RegistryReturnsZeroForAnUnknownOpcodeAndAddresModePair()
+    {
+      var registry = new Registry();
+      Assert.That(registry.Get(Opcode.Nop, AddressingMode.Implied), Is.EqualTo(0));
     }
   }
 

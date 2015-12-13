@@ -25,6 +25,15 @@ namespace Mos6510.Instructions
       return null;
     }
 
+    public byte Get(Opcode opcode, AddressingMode mode)
+    {
+      foreach (var entry in opcodeAndAddressMode)
+        if (entry.Value.Opcode == opcode && entry.Value.Mode == mode)
+          return entry.Key;
+
+      return 0x00;
+    }
+
     // This method is necessary to get dictionary-style initialization.
     public void Add(byte code, Opcode opcode, Instruction instruction,
         AddressingMode mode)
