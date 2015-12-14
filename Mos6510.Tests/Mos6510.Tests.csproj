@@ -46,6 +46,7 @@
     <Compile Include="DecoderTests.cs" />
     <Compile Include="ExecutorTests.cs" />
     <Compile Include="CoreLoopTests.cs" />
+    <Compile Include="UtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">
