@@ -48,6 +48,7 @@
     <Compile Include="CoreLoopTests.cs" />
     <Compile Include="UtilsTests.cs" />
     <Compile Include="AssemblerTests.cs" />
+    <Compile Include="ReplTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">
