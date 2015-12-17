@@ -9,8 +9,6 @@ namespace Mos6510.Tests
     [Test]
     public void CanPrintTheDefaultContentsOfAllRegisters()
     {
-      var repl = new Repl(new ProgrammingModel(), new Memory());
-
       const string expectedRegisters = @"
         Registers:
         A:  0x00
@@ -21,7 +19,8 @@ namespace Mos6510.Tests
         P:  00000000b
             NVXBDIZC";
 
-      Assert.That(repl.PrintRegisters(), Is.EqualTo(expectedRegisters));
+      Assert.That(new Repl(new ProgrammingModel(), new Memory()).PrintRegisters(),
+          Is.EqualTo(expectedRegisters));
     }
 
     [TestCase(RegisterName.A, 42, "A:  0x2A")]
@@ -38,6 +37,32 @@ namespace Mos6510.Tests
       var repl = new Repl(model, new Memory());
 
       Assert.That(repl.PrintRegisters(), Is.StringContaining(expectedValue));
+    }
+
+    [Test]
+    public void CanReadAnInstructionAndInsertItIntoMemoryAtThePCLocation()
+    {
+      const ushort pcValue = 0xFFE0;
+      var model = new ProgrammingModel();
+      model.GetRegister(RegisterName.PC).SetValue(pcValue);
+
+      var memory = new Memory();
+      new Repl(model, memory).TryRead("Inx");
+      Assert.That(memory.GetValue(pcValue), Is.EqualTo(0xE0));
+    }
+
+    [Test]
+    public void TryReadReturnsFalseForAnInvalidInputString()
+    {
+      Assert.That(new Repl(new ProgrammingModel(), new Memory()).TryRead("foo"),
+          Is.False, "TryRead returned true, which is not expected.");
+    }
+
+    [Test]
+    public void TryReadReturnsTrueForAValidInputString()
+    {
+      Assert.That(new Repl(new ProgrammingModel(), new Memory()).TryRead("Inx"),
+          Is.True, "TryRead returned false, which is not expected.");
     }
   }
 }

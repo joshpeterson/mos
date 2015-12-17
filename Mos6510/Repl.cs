@@ -1,14 +1,28 @@
 using System;
+using Mos6510.Instructions;
 
 namespace Mos6510
 {
   public class Repl
   {
     private readonly ProgrammingModel model;
+    private readonly Memory memory;
+    private readonly Assembler assembler = new Assembler(InstructionRegistry.All);
 
     public Repl(ProgrammingModel model, Memory memory)
     {
       this.model = model;
+      this.memory = memory;
+    }
+
+    public bool TryRead(string line)
+    {
+      var code = assembler.GetByteCode(line);
+      if (code == 0x00)
+        return false;
+
+      memory.SetValue((ushort)model.GetRegister(RegisterName.PC).GetValue(), code);
+      return true;
     }
 
     public string PrintRegisters()
