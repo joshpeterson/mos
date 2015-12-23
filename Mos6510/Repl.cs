@@ -7,12 +7,21 @@ namespace Mos6510
   {
     private readonly ProgrammingModel model;
     private readonly Memory memory;
-    private readonly Assembler assembler = new Assembler(InstructionRegistry.All);
+
+    private readonly Assembler assembler;
+
+    private readonly Fetcher fetcher;
+    private readonly Decoder decoder;
+    private readonly Executor executor;
 
     public Repl(ProgrammingModel model, Memory memory)
     {
       this.model = model;
       this.memory = memory;
+      this.assembler = new Assembler(InstructionRegistry.All);
+      this.fetcher = new Fetcher(model, memory);
+      this.decoder = new Decoder(InstructionRegistry.All);
+      this.executor = new Executor(InstructionRegistry.All, model, memory);
     }
 
     public bool TryRead(string line)
@@ -23,6 +32,14 @@ namespace Mos6510
 
       memory.SetValue((ushort)model.GetRegister(RegisterName.PC).GetValue(), code);
       return true;
+    }
+
+    public void Execute()
+    {
+      var code = fetcher.Fetch();
+      OpcodeAddressModePair pair;
+      if (decoder.TryDecode(code, out pair))
+        executor.Execute(pair.Opcode, pair.Mode);
     }
 
     public string PrintRegisters()

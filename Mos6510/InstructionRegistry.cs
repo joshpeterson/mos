@@ -6,7 +6,7 @@ namespace Mos6510
   {
     public static Registry All = new Registry
     {
-      { 0xE0, Opcode.Inx, null, AddressingMode.Implied }
+      { 0xE0, Opcode.Inx, new Inx(), AddressingMode.Implied }
     };
   }
 }

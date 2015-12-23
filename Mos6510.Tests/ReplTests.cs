@@ -64,5 +64,19 @@ namespace Mos6510.Tests
       Assert.That(new Repl(new ProgrammingModel(), new Memory()).TryRead("Inx"),
           Is.True, "TryRead returned false, which is not expected.");
     }
+
+    [Test]
+    public void CanExecuteTheInstructionAtThePCLocation()
+    {
+      const ushort pcValue = 0xFFE0;
+      var model = new ProgrammingModel();
+      model.GetRegister(RegisterName.PC).SetValue(pcValue);
+
+      var memory = new Memory();
+      var repl = new Repl(model, memory);
+      repl.TryRead("Inx");
+      repl.Execute();
+      Assert.That(model.GetRegister(RegisterName.X).GetValue(), Is.EqualTo(1));
+    }
   }
 }
