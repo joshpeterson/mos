@@ -24,5 +24,12 @@ namespace Mos6510.Tests
       var registerAfterSet = model.GetRegister(name);
       Assert.That(registerAfterSet.GetValue(), Is.EqualTo(expectedValue));
     }
+
+    [Test]
+    public void SetsProperDefaultValueForStatusRegister()
+    {
+      var model = new ProgrammingModel();
+      Assert.That(model.GetRegister(RegisterName.P).GetValue(), Is.EqualTo(32));
+    }
   }
 }

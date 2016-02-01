@@ -26,6 +26,13 @@ namespace Mos6510
         { RegisterName.P, new Register(RegisterSize) },
       };
 
+    public ProgrammingModel()
+    {
+      // Set the intial value to 00100000, with the unnused value at 1
+      // and the rest at zero.
+      GetRegister(RegisterName.P).SetValue(32);
+    }
+
     public Register GetRegister(RegisterName name)
     {
       return registers[name];

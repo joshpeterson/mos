@@ -16,7 +16,7 @@ namespace Mos6510.Tests
         X:  0x00
         PC: 0x0000
         S:  0x00
-        P:  00000000b
+        P:  00100000b
             NVXBDIZC";
 
       Assert.That(new Repl(new ProgrammingModel(), new Memory()).PrintRegisters(),
