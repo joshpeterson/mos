@@ -14,6 +14,8 @@ namespace Mos6510
 
   public class ProgrammingModel
   {
+    public const byte NegativeFlagMask = 0x80;
+
     const int RegisterSize = 8;
     private Dictionary<RegisterName, Register> registers =
       new Dictionary<RegisterName, Register>
@@ -30,12 +32,32 @@ namespace Mos6510
     {
       // Set the intial value to 00100000, with the unnused value at 1
       // and the rest at zero.
-      GetRegister(RegisterName.P).SetValue(32);
+      GetRegister(RegisterName.P).SetValue(0x20);
     }
 
     public Register GetRegister(RegisterName name)
     {
       return registers[name];
+    }
+
+    public bool NegativeFlag
+    {
+      get { return CheckStatusRegisterFlag(NegativeFlagMask); }
+      set { UpdateStatusRegisterFlag(NegativeFlagMask, value); }
+    }
+
+    private bool CheckStatusRegisterFlag(byte mask)
+    {
+      return (GetRegister(RegisterName.P).GetValue() & mask) == mask;
+    }
+
+    private void UpdateStatusRegisterFlag(byte mask, bool value)
+    {
+      var p = GetRegister(RegisterName.P);
+      if (value)
+        p.SetValue(p.GetValue() | mask);
+      else
+        p.SetValue(p.GetValue() & ~mask);
     }
   }
 }

@@ -29,7 +29,26 @@ namespace Mos6510.Tests
     public void SetsProperDefaultValueForStatusRegister()
     {
       var model = new ProgrammingModel();
-      Assert.That(model.GetRegister(RegisterName.P).GetValue(), Is.EqualTo(32));
+      Assert.That(model.GetRegister(RegisterName.P).GetValue(), Is.EqualTo(0x20));
+    }
+
+    [TestCase(ProgrammingModel.NegativeFlagMask, true)]
+    [TestCase(~ProgrammingModel.NegativeFlagMask, false)]
+    public void VerifyNegativeFlagGetter(int value, bool expectedResult)
+    {
+      var model = new ProgrammingModel();
+      model.GetRegister(RegisterName.P).SetValue(value);
+      Assert.That(model.NegativeFlag, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase(true, 0x80)]
+    [TestCase(false, 0)]
+    public void VerifyNegativeFlagSetter(bool value, int expectedResult)
+    {
+      var model = new ProgrammingModel();
+      model.NegativeFlag = value;
+      Assert.That(model.GetRegister(RegisterName.P).GetValue() &
+          ProgrammingModel.NegativeFlagMask, Is.EqualTo(expectedResult));
     }
   }
 }
