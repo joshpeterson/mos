@@ -19,5 +19,19 @@ namespace Mos6510.Tests
       Assert.That(model.GetRegister(RegisterName.X).GetValue(),
                   Is.EqualTo(initialValue + 1));
     }
+
+    [TestCase(0x7F, true)]
+    [TestCase(0x7E, false)]
+    public void VerifyValuesOfNegativeFlag(int initialValue, bool expectedResult)
+    {
+      var model = new ProgrammingModel();
+      model.GetRegister(RegisterName.X).SetValue(initialValue);
+      model.NegativeFlag = !expectedResult;
+
+      var instruction = new Inx();
+      instruction.Execute(model);
+
+      Assert.That(model.NegativeFlag, Is.EqualTo(expectedResult));
+    }
   }
 }

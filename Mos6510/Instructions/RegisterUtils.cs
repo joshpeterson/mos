@@ -8,7 +8,10 @@ namespace Mos6510.Instructions
     {
       var register = model.GetRegister(name);
       var previousValue = register.GetValue();
-      register.SetValue(previousValue + 1);
+      var newValue = previousValue + 1;
+      register.SetValue(newValue);
+
+      model.NegativeFlag = (sbyte)newValue < 0;
     }
   }
 }
