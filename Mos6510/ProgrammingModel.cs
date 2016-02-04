@@ -15,6 +15,7 @@ namespace Mos6510
   public class ProgrammingModel
   {
     private const byte NegativeFlagMask = 0x80;
+    private const byte ZeroFlagMask = 0x03;
 
     private const int RegisterSize = 8;
 
@@ -45,6 +46,12 @@ namespace Mos6510
     {
       get { return CheckStatusRegisterFlag(NegativeFlagMask); }
       set { UpdateStatusRegisterFlag(NegativeFlagMask, value); }
+    }
+
+    public bool ZeroFlag
+    {
+      get { return CheckStatusRegisterFlag(ZeroFlagMask); }
+      set { UpdateStatusRegisterFlag(ZeroFlagMask, value); }
     }
 
     private bool CheckStatusRegisterFlag(byte mask)
