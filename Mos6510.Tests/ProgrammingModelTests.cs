@@ -6,6 +6,14 @@ namespace Mos6510.Tests
   [TestFixture]
   public class ProgrammingModelTests
   {
+    private ProgrammingModel model;
+
+    [SetUp]
+    public void SetUp()
+    {
+      model = new ProgrammingModel();
+    }
+
     [TestCase(RegisterName.A)]
     [TestCase(RegisterName.Y)]
     [TestCase(RegisterName.X)]
@@ -15,8 +23,6 @@ namespace Mos6510.Tests
     public void CanSetTheValueInRegister(RegisterName name)
     {
       const int expectedValue = 42;
-
-      var model = new ProgrammingModel();
 
       var registerBeforeSet = model.GetRegister(name);
       registerBeforeSet.SetValue(expectedValue);
@@ -28,7 +34,6 @@ namespace Mos6510.Tests
     [Test]
     public void SetsProperDefaultValueForStatusRegister()
     {
-      var model = new ProgrammingModel();
       Assert.That(model.GetRegister(RegisterName.P).GetValue(), Is.EqualTo(0x20));
     }
 
@@ -36,7 +41,6 @@ namespace Mos6510.Tests
     [TestCase(~0x80, false)]
     public void VerifyNegativeFlagGetter(int value, bool expectedResult)
     {
-      var model = new ProgrammingModel();
       model.GetRegister(RegisterName.P).SetValue(value);
       Assert.That(model.NegativeFlag, Is.EqualTo(expectedResult));
     }
@@ -45,7 +49,6 @@ namespace Mos6510.Tests
     [TestCase(false, 0)]
     public void VerifyNegativeFlagSetter(bool value, int expectedResult)
     {
-      var model = new ProgrammingModel();
       model.NegativeFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
           0x80, Is.EqualTo(expectedResult));
@@ -55,7 +58,6 @@ namespace Mos6510.Tests
     [TestCase(~0x03, false)]
     public void VerifyZeroFlagGetter(int value, bool expectedResult)
     {
-      var model = new ProgrammingModel();
       model.GetRegister(RegisterName.P).SetValue(value);
       Assert.That(model.ZeroFlag, Is.EqualTo(expectedResult));
     }
@@ -64,7 +66,6 @@ namespace Mos6510.Tests
     [TestCase(false, 0)]
     public void VerifyZeroFlagSetter(bool value, int expectedResult)
     {
-      var model = new ProgrammingModel();
       model.ZeroFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
           0x03, Is.EqualTo(expectedResult));
