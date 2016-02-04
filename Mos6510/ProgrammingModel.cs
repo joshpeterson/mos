@@ -14,9 +14,10 @@ namespace Mos6510
 
   public class ProgrammingModel
   {
-    public const byte NegativeFlagMask = 0x80;
+    private const byte NegativeFlagMask = 0x80;
 
-    const int RegisterSize = 8;
+    private const int RegisterSize = 8;
+
     private Dictionary<RegisterName, Register> registers =
       new Dictionary<RegisterName, Register>
       {

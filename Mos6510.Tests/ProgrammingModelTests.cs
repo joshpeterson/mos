@@ -32,8 +32,8 @@ namespace Mos6510.Tests
       Assert.That(model.GetRegister(RegisterName.P).GetValue(), Is.EqualTo(0x20));
     }
 
-    [TestCase(ProgrammingModel.NegativeFlagMask, true)]
-    [TestCase(~ProgrammingModel.NegativeFlagMask, false)]
+    [TestCase(0x80, true)]
+    [TestCase(~0x80, false)]
     public void VerifyNegativeFlagGetter(int value, bool expectedResult)
     {
       var model = new ProgrammingModel();
@@ -48,7 +48,7 @@ namespace Mos6510.Tests
       var model = new ProgrammingModel();
       model.NegativeFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
-          ProgrammingModel.NegativeFlagMask, Is.EqualTo(expectedResult));
+          0x80, Is.EqualTo(expectedResult));
     }
   }
 }
