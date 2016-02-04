@@ -12,6 +12,7 @@ namespace Mos6510.Instructions
       register.SetValue(newValue);
 
       model.NegativeFlag = (sbyte)newValue < 0;
+      model.ZeroFlag = (sbyte)newValue == 0;
     }
   }
 }

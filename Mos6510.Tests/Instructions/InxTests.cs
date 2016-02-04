@@ -33,5 +33,19 @@ namespace Mos6510.Tests
 
       Assert.That(model.NegativeFlag, Is.EqualTo(expectedResult));
     }
+
+    [TestCase(0xFF, true)]
+    [TestCase(0x00, false)]
+    public void VerifyValuesOfZeroFlag(int initialValue, bool expectedResult)
+    {
+      var model = new ProgrammingModel();
+      model.GetRegister(RegisterName.X).SetValue(initialValue);
+      model.ZeroFlag = !expectedResult;
+
+      var instruction = new Inx();
+      instruction.Execute(model);
+
+      Assert.That(model.ZeroFlag, Is.EqualTo(expectedResult));
+    }
   }
 }
