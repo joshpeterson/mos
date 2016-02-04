@@ -14,8 +14,13 @@ namespace Mos6510
 
   public class ProgrammingModel
   {
-    private const byte NegativeFlagMask = 0x80;
+    private const byte CarryFlagMask = 0x01;
     private const byte ZeroFlagMask = 0x03;
+    private const byte IrqDisableFlagMask = 0x04;
+    private const byte DecimalModeFlagMask = 0x08;
+    private const byte BreakCommandFlagMask = 0x10;
+    private const byte OverflowFlagMask = 0x40;
+    private const byte NegativeFlagMask = 0x80;
 
     private const int RegisterSize = 8;
 
@@ -42,16 +47,46 @@ namespace Mos6510
       return registers[name];
     }
 
-    public bool NegativeFlag
+    public bool CarryFlag
     {
-      get { return CheckStatusRegisterFlag(NegativeFlagMask); }
-      set { UpdateStatusRegisterFlag(NegativeFlagMask, value); }
+      get { return CheckStatusRegisterFlag(CarryFlagMask); }
+      set { UpdateStatusRegisterFlag(CarryFlagMask, value); }
     }
 
     public bool ZeroFlag
     {
       get { return CheckStatusRegisterFlag(ZeroFlagMask); }
       set { UpdateStatusRegisterFlag(ZeroFlagMask, value); }
+    }
+
+    public bool IrqDisableFlag
+    {
+      get { return CheckStatusRegisterFlag(IrqDisableFlagMask); }
+      set { UpdateStatusRegisterFlag(IrqDisableFlagMask, value); }
+    }
+
+    public bool DecimalModeFlag
+    {
+      get { return CheckStatusRegisterFlag(DecimalModeFlagMask); }
+      set { UpdateStatusRegisterFlag(DecimalModeFlagMask, value); }
+    }
+
+    public bool BreakCommandFlag
+    {
+      get { return CheckStatusRegisterFlag(BreakCommandFlagMask); }
+      set { UpdateStatusRegisterFlag(BreakCommandFlagMask, value); }
+    }
+
+    public bool OverflowFlag
+    {
+      get { return CheckStatusRegisterFlag(OverflowFlagMask); }
+      set { UpdateStatusRegisterFlag(OverflowFlagMask, value); }
+    }
+
+    public bool NegativeFlag
+    {
+      get { return CheckStatusRegisterFlag(NegativeFlagMask); }
+      set { UpdateStatusRegisterFlag(NegativeFlagMask, value); }
     }
 
     private bool CheckStatusRegisterFlag(byte mask)
