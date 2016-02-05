@@ -56,9 +56,10 @@ namespace Mos6510.Tests
     {
       public bool ExecuteCalled {get; private set; }
 
-      public void Execute(ProgrammingModel model)
+      public int Execute(ProgrammingModel model)
       {
         ExecuteCalled = true;
+        return 0;
       }
     }
   }
