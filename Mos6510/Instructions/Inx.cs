@@ -4,7 +4,7 @@ namespace Mos6510.Instructions
 {
   public class Inx : Instruction
   {
-    public virtual int Execute(ProgrammingModel model)
+    public virtual int Execute(ProgrammingModel model, AddressingMode mode, ushort operand)
     {
       RegisterUtils.IncrementRegister(model, RegisterName.X);
       return 2;

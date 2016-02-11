@@ -31,7 +31,7 @@ namespace Mos6510.Tests
     {
       public bool ExecuteCalled {get; private set; }
 
-      public int Execute(ProgrammingModel model)
+      public int Execute(ProgrammingModel model, AddressingMode mode, ushort operand)
       {
         ExecuteCalled = true;
         return 0;

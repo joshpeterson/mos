@@ -16,7 +16,7 @@ namespace Mos6510
     public void Execute(Opcode opcode, AddressingMode mode)
     {
       var instruction = registry.Get(opcode);
-      instruction.Execute(model);
+      instruction.Execute(model, mode, 0);
     }
   }
 }
