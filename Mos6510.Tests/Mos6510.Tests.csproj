@@ -50,6 +50,7 @@
     <Compile Include="AssemblerTests.cs" />
     <Compile Include="ReplTests.cs" />
     <Compile Include="IntegrationTests.cs" />
+    <Compile Include="Instructions\AndTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">

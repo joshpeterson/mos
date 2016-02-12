@@ -44,6 +44,7 @@
     <Compile Include="Instructions\Iny.cs" />
     <Compile Include="Instructions\RegisterUtils.cs" />
     <Compile Include="Instructions\AddressingMode.cs" />
+    <Compile Include="Instructions\And.cs" />
     <Compile Include="Fetcher.cs" />
     <Compile Include="Decoder.cs" />
     <Compile Include="Executor.cs" />
