@@ -7,6 +7,7 @@ namespace Mos6510.Instructions.Tests
   public class AndTests
   {
     private ProgrammingModel model;
+    private Memory memory;
     private Register accumulator;
     private And and;
 
@@ -14,24 +15,35 @@ namespace Mos6510.Instructions.Tests
     public void SetUp()
     {
       model = new ProgrammingModel();
+      memory = new Memory();
       accumulator = model.GetRegister(RegisterName.A);
       and = new And();
     }
 
-    [TestCase(AddressingMode.Immediate, 0xA, 0x5, 0)]
-    public void AndsWithTheAccumulator(AddressingMode mode, int initial,
-                                        int operand, int expected)
+    [Test]
+    public void ImmediateModeAndsWithTheAccumulator()
     {
-      accumulator.SetValue((byte)initial);
-      and.Execute(model, AddressingMode.Immediate, (ushort)operand);
-      Assert.That(accumulator.GetValue(), Is.EqualTo(expected));
+      accumulator.SetValue(0xA);
+      and.Execute(model, memory, AddressingMode.Immediate, 0x5);
+      Assert.That(accumulator.GetValue(), Is.EqualTo(0));
+    }
+
+    [Test]
+    public void AbsoluteModeAndsWithTheAccumulator()
+    {
+      accumulator.SetValue(0xA);
+      memory.SetValue(0x1000, 0x8);
+      and.Execute(model, memory, AddressingMode.Absolute, 0x1000);
+      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
     }
 
     [TestCase(AddressingMode.Immediate, 0, 2)]
+    [TestCase(AddressingMode.Absolute, 0, 4)]
     public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int operand,
                                                 int expected)
     {
-      Assert.That(and.Execute(model, mode, (ushort)operand), Is.EqualTo(expected));
+      Assert.That(and.Execute(model, memory, mode, (ushort)operand),
+                  Is.EqualTo(expected));
     }
   }
 }
