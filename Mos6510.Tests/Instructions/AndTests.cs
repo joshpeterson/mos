@@ -37,13 +37,31 @@ namespace Mos6510.Instructions.Tests
       Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
     }
 
-    [TestCase(AddressingMode.Immediate, 0, 2)]
-    [TestCase(AddressingMode.Absolute, 0, 4)]
-    public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int operand,
-                                                int expected)
+    [Test]
+    public void AbsoluteXModeAndsWithTheAccumulator()
     {
-      Assert.That(and.Execute(model, memory, mode, (ushort)operand),
-                  Is.EqualTo(expected));
+      accumulator.SetValue(0xA);
+      memory.SetValue(0x1010, 0x8);
+      model.GetRegister(RegisterName.X).SetValue(0x10);
+      and.Execute(model, memory, AddressingMode.AbsoluteX, 0x1000);
+      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
+    }
+
+    [TestCase(AddressingMode.Immediate, 2)]
+    [TestCase(AddressingMode.Absolute, 4)]
+    [TestCase(AddressingMode.AbsoluteX, 4)]
+    public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int expected)
+    {
+      Assert.That(and.Execute(model, memory, mode, 0), Is.EqualTo(expected));
+    }
+
+    [TestCase(AddressingMode.AbsoluteX, 5)]
+    public void ReturnsTheProperNumberOfCyclesWhenCrossingPageBoundary(
+        AddressingMode mode, int expected)
+    {
+      memory.SetValue(0x10F0, 0);
+      model.GetRegister(RegisterName.X).SetValue(0x10);
+      Assert.That(and.Execute(model, memory, mode, 0x10F0), Is.EqualTo(expected));
     }
   }
 }
