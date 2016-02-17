@@ -49,10 +49,20 @@ namespace Mos6510.Instructions.Tests
       Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
     }
 
+    [Test]
+    public void ZeropageModeAndsWithTheAccumulator()
+    {
+      accumulator.SetValue(0xA);
+      memory.SetValue(0x0C0, 0x8);
+      and.Execute(model, memory, AddressingMode.Zeropage, 0xC0);
+      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
+    }
+
     [TestCase(AddressingMode.Immediate, 2)]
     [TestCase(AddressingMode.Absolute, 4)]
     [TestCase(AddressingMode.AbsoluteX, 4)]
     [TestCase(AddressingMode.AbsoluteY, 4)]
+    [TestCase(AddressingMode.Zeropage, 3)]
     public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int expected)
     {
       Assert.That(and.Execute(model, memory, mode, 0), Is.EqualTo(expected));
