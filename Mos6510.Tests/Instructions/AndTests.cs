@@ -37,31 +37,35 @@ namespace Mos6510.Instructions.Tests
       Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
     }
 
-    [Test]
-    public void AbsoluteXModeAndsWithTheAccumulator()
+    [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
+    [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
+    public void AbsoluteIndexedModeAndsWithTheAccumulator(AddressingMode mode,
+                                                          RegisterName register)
     {
       accumulator.SetValue(0xA);
       memory.SetValue(0x1010, 0x8);
-      model.GetRegister(RegisterName.X).SetValue(0x10);
-      and.Execute(model, memory, AddressingMode.AbsoluteX, 0x1000);
+      model.GetRegister(register).SetValue(0x10);
+      and.Execute(model, memory, mode, 0x1000);
       Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
     }
 
     [TestCase(AddressingMode.Immediate, 2)]
     [TestCase(AddressingMode.Absolute, 4)]
     [TestCase(AddressingMode.AbsoluteX, 4)]
+    [TestCase(AddressingMode.AbsoluteY, 4)]
     public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int expected)
     {
       Assert.That(and.Execute(model, memory, mode, 0), Is.EqualTo(expected));
     }
 
-    [TestCase(AddressingMode.AbsoluteX, 5)]
+    [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
+    [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
     public void ReturnsTheProperNumberOfCyclesWhenCrossingPageBoundary(
-        AddressingMode mode, int expected)
+        AddressingMode mode, RegisterName register)
     {
       memory.SetValue(0x10F0, 0);
-      model.GetRegister(RegisterName.X).SetValue(0x10);
-      Assert.That(and.Execute(model, memory, mode, 0x10F0), Is.EqualTo(expected));
+      model.GetRegister(register).SetValue(0x10);
+      Assert.That(and.Execute(model, memory, mode, 0x10F0), Is.EqualTo(5));
     }
   }
 }

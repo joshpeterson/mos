@@ -27,6 +27,16 @@ namespace Mos6510.Instructions
         if ((operand & 0xFF00) != (address & 0xFF00))
           numberOfCycles++;
       }
+      else if (mode == AddressingMode.AbsoluteY)
+      {
+        var y = model.GetRegister(RegisterName.Y).GetValue();
+        var address = (ushort)(operand + y);
+        andValue = memory.GetValue(address);
+
+        numberOfCycles = 4;
+        if ((operand & 0xFF00) != (address & 0xFF00))
+          numberOfCycles++;
+      }
 
       var accumulator = model.GetRegister(RegisterName.A);
       var previousValue = (byte)accumulator.GetValue();

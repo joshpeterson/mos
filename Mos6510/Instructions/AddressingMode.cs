@@ -6,5 +6,6 @@ namespace Mos6510.Instructions
     Immediate,
     Absolute,
     AbsoluteX,
+    AbsoluteY,
   }
 }
