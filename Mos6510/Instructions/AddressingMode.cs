@@ -8,5 +8,7 @@ namespace Mos6510.Instructions
     AbsoluteX,
     AbsoluteY,
     Zeropage,
+    ZeropageX,
+    ZeropageY,
   }
 }
