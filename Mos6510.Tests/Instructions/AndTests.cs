@@ -70,6 +70,20 @@ namespace Mos6510.Instructions.Tests
       Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
     }
 
+    [TestCase(AddressingMode.IndexedIndirectX, RegisterName.X)]
+    [TestCase(AddressingMode.IndexedIndirectY, RegisterName.Y)]
+    public void IndexedIndirectModeAndsWithTheAccumulator(AddressingMode mode,
+                                                          RegisterName register)
+    {
+      accumulator.SetValue(0xA);
+      memory.SetValue(0x8000, 0x8);
+      memory.SetValue(0x0070, 0x00);
+      memory.SetValue(0x0071, 0x80);
+      model.GetRegister(register).SetValue(0x10);
+      and.Execute(model, memory, mode, 0x60);
+      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
+    }
+
     [TestCase(AddressingMode.Immediate, 2)]
     [TestCase(AddressingMode.Absolute, 4)]
     [TestCase(AddressingMode.AbsoluteX, 4)]
@@ -77,6 +91,8 @@ namespace Mos6510.Instructions.Tests
     [TestCase(AddressingMode.Zeropage, 3)]
     [TestCase(AddressingMode.ZeropageX, 4)]
     [TestCase(AddressingMode.ZeropageY, 4)]
+    [TestCase(AddressingMode.IndexedIndirectX, 6)]
+    [TestCase(AddressingMode.IndexedIndirectY, 5)]
     public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int expected)
     {
       Assert.That(and.Execute(model, memory, mode, 0), Is.EqualTo(expected));

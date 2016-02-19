@@ -10,5 +10,7 @@ namespace Mos6510.Instructions
     Zeropage,
     ZeropageX,
     ZeropageY,
+    IndexedIndirectX,
+    IndexedIndirectY
   }
 }

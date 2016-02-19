@@ -58,6 +58,30 @@ namespace Mos6510.Instructions
 
         numberOfCycles = 4;
       }
+      else if (mode == AddressingMode.IndexedIndirectX)
+      {
+        var x = model.GetRegister(RegisterName.X).GetValue();
+        var zeroPageAddress = (ushort)(operand + x);
+        var effectiveAddressLow = memory.GetValue(zeroPageAddress);
+        var effectiveAddressHi = memory.GetValue((ushort)(zeroPageAddress + 1));
+        var effectiveAddress = (ushort)(effectiveAddressHi << 8 |
+                                        effectiveAddressLow);
+        andValue = memory.GetValue(effectiveAddress);
+
+        numberOfCycles = 6;
+      }
+      else if (mode == AddressingMode.IndexedIndirectY)
+      {
+        var y = model.GetRegister(RegisterName.Y).GetValue();
+        var zeroPageAddress = (ushort)(operand + y);
+        var effectiveAddressLow = memory.GetValue(zeroPageAddress);
+        var effectiveAddressHi = memory.GetValue((ushort)(zeroPageAddress + 1));
+        var effectiveAddress = (ushort)(effectiveAddressHi << 8 |
+                                        effectiveAddressLow);
+        andValue = memory.GetValue(effectiveAddress);
+
+        numberOfCycles = 5;
+      }
 
       var accumulator = model.GetRegister(RegisterName.A);
       var previousValue = (byte)accumulator.GetValue();
