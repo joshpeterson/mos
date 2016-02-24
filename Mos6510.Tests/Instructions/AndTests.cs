@@ -95,7 +95,7 @@ namespace Mos6510.Instructions.Tests
     [TestCase(AddressingMode.IndexedIndirectY, 5)]
     public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int expected)
     {
-      Assert.That(and.Execute(model, memory, mode, 0), Is.EqualTo(expected));
+      Assert.That(and.CyclesFor(model, mode, 0), Is.EqualTo(expected));
     }
 
     [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
@@ -105,7 +105,7 @@ namespace Mos6510.Instructions.Tests
     {
       memory.SetValue(0x10F0, 0);
       model.GetRegister(register).SetValue(0x10);
-      Assert.That(and.Execute(model, memory, mode, 0x10F0), Is.EqualTo(5));
+      Assert.That(and.CyclesFor(model, mode, 0x10F0), Is.EqualTo(5));
     }
   }
 }

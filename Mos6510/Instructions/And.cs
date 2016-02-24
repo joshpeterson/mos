@@ -17,14 +17,18 @@ namespace Mos6510.Instructions
         { AddressingMode.IndexedIndirectY, 5 },
       };
 
-    public int Execute(ProgrammingModel model, Memory memory, AddressingMode mode,
+    public void Execute(ProgrammingModel model, Memory memory, AddressingMode mode,
                         ushort operand)
     {
       var accumulator = model.GetRegister(RegisterName.A);
       var previousValue = (byte)accumulator.GetValue();
       var andValue = ArgumentUtils.ArgumentFor(model, memory, mode, operand);
       accumulator.SetValue(previousValue & andValue);
+    }
 
+    public virtual int CyclesFor(ProgrammingModel model, AddressingMode mode,
+                                  ushort operand)
+    {
       var cycles = numberOfCycles[mode];
       if (ArgumentUtils.CrossesPageBoundary(model, mode, operand))
         cycles++;

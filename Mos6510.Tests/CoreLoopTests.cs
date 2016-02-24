@@ -56,10 +56,15 @@ namespace Mos6510.Tests
     {
       public bool ExecuteCalled {get; private set; }
 
-      public int Execute(ProgrammingModel model, Memory memory,
+      public void Execute(ProgrammingModel model, Memory memory,
                           AddressingMode mode, ushort operand)
       {
         ExecuteCalled = true;
+      }
+
+      public virtual int CyclesFor(ProgrammingModel model, AddressingMode mode,
+                                    ushort operand)
+      {
         return 0;
       }
     }
