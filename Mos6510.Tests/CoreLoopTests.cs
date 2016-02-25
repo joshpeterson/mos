@@ -56,7 +56,8 @@ namespace Mos6510.Tests
     {
       public bool ExecuteCalled {get; private set; }
 
-      public virtual void Execute(ProgrammingModel model, Memory memory, byte argument)
+      public virtual void Execute(ProgrammingModel model, Memory memory,
+                                  byte argument)
       {
         ExecuteCalled = true;
       }

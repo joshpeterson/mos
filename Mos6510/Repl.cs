@@ -14,14 +14,17 @@ namespace Mos6510
     private readonly Decoder decoder;
     private readonly Executor executor;
 
+    private readonly CoreLoop coreLoop;
+
     public Repl(ProgrammingModel model, Memory memory)
     {
       this.model = model;
       this.memory = memory;
-      this.assembler = new Assembler(InstructionRegistry.All);
-      this.fetcher = new Fetcher(model, memory);
-      this.decoder = new Decoder(InstructionRegistry.All);
-      this.executor = new Executor(InstructionRegistry.All, model, memory);
+      assembler = new Assembler(InstructionRegistry.All);
+      fetcher = new Fetcher(model, memory);
+      decoder = new Decoder(InstructionRegistry.All);
+      executor = new Executor(InstructionRegistry.All, model, memory);
+      coreLoop = new CoreLoop(fetcher, decoder, executor);
     }
 
     public bool TryRead(string line)
@@ -36,10 +39,7 @@ namespace Mos6510
 
     public void Execute()
     {
-      var code = fetcher.Fetch();
-      OpcodeAddressModePair pair;
-      if (decoder.TryDecode(code, out pair))
-        executor.Execute(pair.Opcode, pair.Mode, 0);
+      coreLoop.SingleStep();
     }
 
     public string PrintRegisters()
