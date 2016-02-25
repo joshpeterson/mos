@@ -21,67 +21,11 @@ namespace Mos6510.Instructions.Tests
     }
 
     [Test]
-    public void ImmediateModeAndsWithTheAccumulator()
+    public void AndsWithTheAccumulator()
     {
       accumulator.SetValue(0xA);
-      and.Execute(model, memory, AddressingMode.Immediate, 0x5);
+      and.Execute(model, memory, 0x5);
       Assert.That(accumulator.GetValue(), Is.EqualTo(0));
-    }
-
-    [Test]
-    public void AbsoluteModeAndsWithTheAccumulator()
-    {
-      accumulator.SetValue(0xA);
-      memory.SetValue(0x1000, 0x8);
-      and.Execute(model, memory, AddressingMode.Absolute, 0x1000);
-      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
-    }
-
-    [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
-    [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
-    public void AbsoluteIndexedModeAndsWithTheAccumulator(AddressingMode mode,
-                                                          RegisterName register)
-    {
-      accumulator.SetValue(0xA);
-      memory.SetValue(0x1010, 0x8);
-      model.GetRegister(register).SetValue(0x10);
-      and.Execute(model, memory, mode, 0x1000);
-      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
-    }
-
-    [Test]
-    public void ZeropageModeAndsWithTheAccumulator()
-    {
-      accumulator.SetValue(0xA);
-      memory.SetValue(0x0C0, 0x8);
-      and.Execute(model, memory, AddressingMode.Zeropage, 0xC0);
-      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
-    }
-
-    [TestCase(AddressingMode.ZeropageX, RegisterName.X)]
-    [TestCase(AddressingMode.ZeropageY, RegisterName.Y)]
-    public void ZeropageIndexedModeAndsWithTheAccumulator(AddressingMode mode,
-                                                          RegisterName register)
-    {
-      accumulator.SetValue(0xA);
-      memory.SetValue(0x0070, 0x8);
-      model.GetRegister(register).SetValue(0x10);
-      and.Execute(model, memory, mode, 0x60);
-      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
-    }
-
-    [TestCase(AddressingMode.IndexedIndirectX, RegisterName.X)]
-    [TestCase(AddressingMode.IndexedIndirectY, RegisterName.Y)]
-    public void IndexedIndirectModeAndsWithTheAccumulator(AddressingMode mode,
-                                                          RegisterName register)
-    {
-      accumulator.SetValue(0xA);
-      memory.SetValue(0x8000, 0x8);
-      memory.SetValue(0x0070, 0x00);
-      memory.SetValue(0x0071, 0x80);
-      model.GetRegister(register).SetValue(0x10);
-      and.Execute(model, memory, mode, 0x60);
-      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
     }
 
     [TestCase(AddressingMode.Immediate, 2)]

@@ -15,7 +15,7 @@ namespace Mos6510.Tests
       var model = new ProgrammingModel();
       model.GetRegister(RegisterName.X).SetValue(initialValue);
       var instruction = new Inx();
-      instruction.Execute(model, null, AddressingMode.Implied, 0);
+      instruction.Execute(model, null, 0);
       Assert.That(model.GetRegister(RegisterName.X).GetValue(),
                   Is.EqualTo(initialValue + 1));
     }
@@ -38,7 +38,7 @@ namespace Mos6510.Tests
       model.NegativeFlag = !expectedResult;
 
       var instruction = new Inx();
-      instruction.Execute(model, null, AddressingMode.Implied, 0);
+      instruction.Execute(model, null, 0);
 
       Assert.That(model.NegativeFlag, Is.EqualTo(expectedResult));
     }
@@ -52,7 +52,7 @@ namespace Mos6510.Tests
       model.ZeroFlag = !expectedResult;
 
       var instruction = new Inx();
-      instruction.Execute(model, null, AddressingMode.Implied, 0);
+      instruction.Execute(model, null, 0);
 
       Assert.That(model.ZeroFlag, Is.EqualTo(expectedResult));
     }

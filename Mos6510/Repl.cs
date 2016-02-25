@@ -39,7 +39,7 @@ namespace Mos6510
       var code = fetcher.Fetch();
       OpcodeAddressModePair pair;
       if (decoder.TryDecode(code, out pair))
-        executor.Execute(pair.Opcode, pair.Mode);
+        executor.Execute(pair.Opcode, pair.Mode, 0);
     }
 
     public string PrintRegisters()

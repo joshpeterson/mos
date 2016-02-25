@@ -71,8 +71,7 @@ namespace Mos6510.Tests.Instructions
 
   public class InstructionTestDouble : Instruction
   {
-    public void Execute(ProgrammingModel model, Memory memory, AddressingMode mode,
-                        ushort operand)
+    public virtual void Execute(ProgrammingModel model, Memory memory, byte argument)
     {
     }
 
