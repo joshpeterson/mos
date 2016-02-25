@@ -23,13 +23,9 @@ namespace Mos6510.Instructions
       accumulator.SetValue((byte)accumulator.GetValue() & argument);
     }
 
-    public virtual int CyclesFor(ProgrammingModel model, AddressingMode mode,
-                                  ushort operand)
+    public virtual int CyclesFor(AddressingMode mode)
     {
-      var cycles = numberOfCycles[mode];
-      if (ArgumentUtils.CrossesPageBoundary(model, mode, operand))
-        cycles++;
-      return cycles;
+      return numberOfCycles[mode];
     }
   }
 }

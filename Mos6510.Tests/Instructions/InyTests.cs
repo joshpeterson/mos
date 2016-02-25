@@ -22,10 +22,8 @@ namespace Mos6510.Tests.Instructions
     [Test]
     public void ReturnsTwoCycles()
     {
-      var model = new ProgrammingModel();
       var instruction = new Iny();
-      Assert.That(instruction.CyclesFor(model, AddressingMode.Implied, 0),
-                  Is.EqualTo(2));
+      Assert.That(instruction.CyclesFor(AddressingMode.Implied), Is.EqualTo(2));
     }
 
     [TestCase(0x7F, true)]

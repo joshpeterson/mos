@@ -61,8 +61,7 @@ namespace Mos6510.Tests
         ExecuteCalled = true;
       }
 
-      public virtual int CyclesFor(ProgrammingModel model, AddressingMode mode,
-                                    ushort operand)
+      public virtual int CyclesFor(AddressingMode mode)
       {
         return 0;
       }

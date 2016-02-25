@@ -15,13 +15,19 @@ namespace Mos6510
       this.memory = memory;
     }
 
-    public void Execute(Opcode opcode, AddressingMode mode, ushort operand)
+    public int Execute(Opcode opcode, AddressingMode mode, ushort operand)
     {
       byte argument = 0;
       if (mode != AddressingMode.Implied)
         argument = ArgumentUtils.ArgumentFor(model, memory, mode, operand);
+
       var instruction = registry.Get(opcode);
       instruction.Execute(model, memory, argument);
+
+      var numberOfCycles = instruction.CyclesFor(mode);
+      if (ArgumentUtils.CrossesPageBoundary(model, mode, operand))
+        numberOfCycles++;
+      return numberOfCycles;
     }
   }
 }

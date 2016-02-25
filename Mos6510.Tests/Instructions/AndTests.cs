@@ -6,26 +6,15 @@ namespace Mos6510.Instructions.Tests
   [TestFixture]
   public class AndTests
   {
-    private ProgrammingModel model;
-    private Memory memory;
-    private Register accumulator;
-    private And and;
-
-    [SetUp]
-    public void SetUp()
-    {
-      model = new ProgrammingModel();
-      memory = new Memory();
-      accumulator = model.GetRegister(RegisterName.A);
-      and = new And();
-    }
-
     [Test]
     public void AndsWithTheAccumulator()
     {
+      var model = new ProgrammingModel();
+      var accumulator = model.GetRegister(RegisterName.A);
       accumulator.SetValue(0xA);
-      and.Execute(model, memory, 0x5);
-      Assert.That(accumulator.GetValue(), Is.EqualTo(0));
+
+      new And().Execute(model, null, 0x8);
+      Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
     }
 
     [TestCase(AddressingMode.Immediate, 2)]
@@ -39,17 +28,7 @@ namespace Mos6510.Instructions.Tests
     [TestCase(AddressingMode.IndexedIndirectY, 5)]
     public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int expected)
     {
-      Assert.That(and.CyclesFor(model, mode, 0), Is.EqualTo(expected));
-    }
-
-    [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
-    [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
-    public void ReturnsTheProperNumberOfCyclesWhenCrossingPageBoundary(
-        AddressingMode mode, RegisterName register)
-    {
-      memory.SetValue(0x10F0, 0);
-      model.GetRegister(register).SetValue(0x10);
-      Assert.That(and.CyclesFor(model, mode, 0x10F0), Is.EqualTo(5));
+      Assert.That(new And().CyclesFor(mode), Is.EqualTo(expected));
     }
   }
 }

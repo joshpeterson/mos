@@ -9,6 +9,7 @@ namespace Mos6510.Tests
   {
     private const Opcode opcode = Opcode.Nop;
     private InstructionTestDouble instruction;
+    private ProgrammingModel model;
     private Memory memory;
     private Executor executor;
 
@@ -19,8 +20,9 @@ namespace Mos6510.Tests
       var registry = new Registry {
         { 0x00, opcode, instruction, AddressingMode.Implied} };
 
+      model = new ProgrammingModel();
       memory = new Memory();
-      executor = new Executor(registry, new ProgrammingModel(), memory);
+      executor = new Executor(registry, model, memory);
     }
 
     [Test]
@@ -49,8 +51,36 @@ namespace Mos6510.Tests
       Assert.That(instruction.ProvidedArgument, Is.EqualTo(expectedArgument));
     }
 
+    [Test]
+    public void ReturnsTheNumberOfCyclesForTheInstruction()
+    {
+      Assert.That(executor.Execute(opcode, AddressingMode.Absolute, 0),
+                  Is.EqualTo(InstructionTestDouble.NumberOfCycles));
+    }
+
+    [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
+    [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
+    public void ReturnsTheProperNumberOfCyclesWhenCrossingPageBoundary(
+        AddressingMode mode, RegisterName register)
+    {
+      model.GetRegister(register).SetValue(0x10);
+      Assert.That(executor.Execute(opcode, mode, 0x10F0),
+                  Is.EqualTo(InstructionTestDouble.NumberOfCycles + 1));
+    }
+
+    [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
+    [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
+    public void ReturnsTheProperNumberOfCyclesWhenNotCrossingPageBoundary(
+        AddressingMode mode, RegisterName register)
+    {
+      model.GetRegister(register).SetValue(0x10);
+      Assert.That(executor.Execute(opcode, mode, 0x10E0),
+                  Is.EqualTo(InstructionTestDouble.NumberOfCycles));
+    }
+
     public class InstructionTestDouble : Instruction
     {
+      public const int NumberOfCycles = 42;
       public bool ExecuteCalled { get; private set; }
       public byte ProvidedArgument {get; private set; }
 
@@ -60,10 +90,9 @@ namespace Mos6510.Tests
         ProvidedArgument = (byte)argument;
       }
 
-      public virtual int CyclesFor(ProgrammingModel model, AddressingMode mode,
-                                    ushort operand)
+      public virtual int CyclesFor(AddressingMode mode)
       {
-        return 0;
+        return NumberOfCycles;
       }
     }
   }
