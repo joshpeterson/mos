@@ -23,7 +23,7 @@ namespace Mos6510
       if (!decoder.TryDecode(instruction, out pair))
         return false;
 
-      executor.Execute(pair.Opcode, pair.Mode, 0);
+      executor.Execute(pair.Opcode, pair.Mode, fetcher.OperandFor(pair.Mode));
 
       return true;
     }
