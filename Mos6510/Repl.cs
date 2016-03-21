@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Mos6510.Instructions;
 
 namespace Mos6510
@@ -29,11 +30,16 @@ namespace Mos6510
 
     public bool TryRead(string line)
     {
-      var code = assembler.GetByteCode(line);
-      if (code == 0x00)
+      var disassembly = assembler.GetDisassembly(line);
+      if (!disassembly.Any())
         return false;
 
-      memory.SetValue((ushort)model.GetRegister(RegisterName.PC).GetValue(), code);
+      foreach (var datum in disassembly)
+      {
+        var pc = model.GetRegister(RegisterName.PC);
+        memory.SetValue((ushort)pc.GetValue(), datum);
+      }
+
       return true;
     }
 

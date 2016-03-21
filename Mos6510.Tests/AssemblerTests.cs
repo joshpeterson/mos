@@ -1,23 +1,42 @@
 using NUnit.Framework;
 using Mos6510;
 using Mos6510.Instructions;
+using System.Linq;
 
 namespace Mos6510.Tests
 {
   [TestFixture]
   public class AssemblerTests
   {
+    private const byte code = 0xFF;
+    private Assembler assembler;
+
+    [SetUp]
+    public void SetUp()
+    {
+      var registry = new Registry {
+        { code, Opcode.Nop, null, AddressingMode.Implied } };
+      assembler = new Assembler(registry);
+    }
+
     [Test]
     public void CanConvertAStringToAByteCode()
     {
-      const byte code = 0xFF;
-      const Opcode opcode = Opcode.Nop;
+      Assert.That(assembler.GetDisassembly("Nop").First(), Is.EqualTo(code));
+    }
 
-      var registry = new Registry {
-        { code, opcode, null, AddressingMode.Implied } };
-      var assembler = new Assembler(registry);
+    [Test]
+    public void CanReadOneByteHexidecimalOperand()
+    {
+      Assert.That(assembler.GetDisassembly("Nop #$40"),
+                  Is.EquivalentTo(new [] { code, 0x40 }));
+    }
 
-      Assert.That(assembler.GetByteCode("Nop"), Is.EqualTo(code));
+    [Test]
+    public void CanReadOneByteDecimalOperand()
+    {
+      Assert.That(assembler.GetDisassembly("Nop #40"),
+                  Is.EquivalentTo(new [] { code, 40 }));
     }
   }
 }

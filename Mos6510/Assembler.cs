@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Mos6510.Instructions;
 
 namespace Mos6510
@@ -12,13 +14,50 @@ namespace Mos6510
       this.registry = registry;
     }
 
-    public byte GetByteCode(string line)
+    public IEnumerable<byte> GetDisassembly(string line)
     {
-      Opcode opcode;
-      if (Utils.TryParseOpcode(line, out opcode))
-        return registry.Get(opcode, AddressingMode.Implied);
+      var tokens = line.Split(new [] {' '});
+      var disassembly = new List<byte>();
 
-      return 0x00;
+      Opcode opcode;
+      if (Utils.TryParseOpcode(tokens[0], out opcode))
+        disassembly.Add(registry.Get(opcode, AddressingMode.Implied));
+
+      for (var i = 1; i < tokens.Length; ++i)
+      {
+        var token = tokens[i];
+        if (IsLiteral(token))
+        {
+          byte result;
+          if (TryParseLiteral(token, out result))
+            disassembly.Add(result);
+        }
+      }
+
+      return disassembly;
+    }
+
+    private bool TryParseLiteral(string token, out byte result)
+    {
+      token = token.Substring(1);
+      var style = NumberStyles.None;
+      if (IsHexValue(token))
+      {
+        token = token.Substring(1);
+        style = NumberStyles.HexNumber;
+      }
+
+      return Byte.TryParse(token, style, null, out result);
+    }
+
+    private static bool IsHexValue(string token)
+    {
+      return token.StartsWith("$");
+    }
+
+    private static bool IsLiteral(string token)
+    {
+      return token.StartsWith("#");
     }
   }
 }
