@@ -26,7 +26,7 @@ namespace Mos6510.Tests
     }
 
     [Test]
-    public void CanReadOneByteHexidecimalOperand()
+    public void CanReadOneByteHexadecimalOperand()
     {
       Assert.That(assembler.GetDisassembly("Nop #$40"),
                   Is.EquivalentTo(new [] { code, 0x40 }));
