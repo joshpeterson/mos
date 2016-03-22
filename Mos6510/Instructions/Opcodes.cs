@@ -5,5 +5,6 @@ namespace Mos6510.Instructions
     Inx,
     Iny,
     Nop,
+    And,
   }
 }
