@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Mos6510.Instructions;
 
 namespace Mos6510
@@ -28,30 +27,39 @@ namespace Mos6510
 
       for (var i = 1; i < tokens.Length; ++i)
       {
-        var token = tokens[i];
-        if (IsLiteral(token))
-        {
-          byte result;
-          if (TryParseLiteral(token, out result))
-            disassembly.Add(result);
-        }
+        var token = StripAbsoluteIdentifier(tokens[i]);
+
+        ushort result;
+        if (TryParseNumber(token, out result))
+          disassembly.AddRange(ConvertArgumentToBytes(result));
       }
 
       return disassembly;
     }
 
-    private AddressingMode AddressingModeFor(IEnumerable<string> tokens)
+    private AddressingMode AddressingModeFor(string[] tokens)
     {
       var mode = AddressingMode.Implied;
-      if (tokens.Count() == 2)
-        mode = AddressingMode.Immediate;
+      if (tokens.Length == 2)
+      {
+        if (IsAbsoluteIdentifier(tokens[1]))
+          mode = AddressingMode.Immediate;
+        else
+          mode = AddressingMode.Absolute;
+      }
 
       return mode;
     }
 
-    private bool TryParseLiteral(string token, out byte result)
+    private string StripAbsoluteIdentifier(string token)
     {
-      token = token.Substring(1);
+      if (IsAbsoluteIdentifier(token))
+        return token.Substring(1);
+      return token;
+    }
+
+    private bool TryParseNumber(string token, out ushort result)
+    {
       var style = NumberStyles.None;
       if (IsHexValue(token))
       {
@@ -59,7 +67,17 @@ namespace Mos6510
         style = NumberStyles.HexNumber;
       }
 
-      return Byte.TryParse(token, style, null, out result);
+      return UInt16.TryParse(token, style, null, out result);
+    }
+
+    private IEnumerable<byte> ConvertArgumentToBytes(ushort argument)
+    {
+      var bytes = new List<byte>();
+      bytes.Add((byte)(argument & 0x00FF));
+      if (argument > Byte.MaxValue)
+        bytes.Add((byte)((argument & 0xFF00) >> 8));
+
+      return bytes;
     }
 
     private static bool IsHexValue(string token)
@@ -67,7 +85,7 @@ namespace Mos6510
       return token.StartsWith("$");
     }
 
-    private static bool IsLiteral(string token)
+    private static bool IsAbsoluteIdentifier(string token)
     {
       return token.StartsWith("#");
     }

@@ -10,6 +10,7 @@ namespace Mos6510.Tests
   {
     private const byte nopCode = 0xFF;
     private const byte andImmediateCode = 0x29;
+    private const byte andAbsoluteCode = 0x2D;
     private Assembler assembler;
 
     [SetUp]
@@ -18,6 +19,7 @@ namespace Mos6510.Tests
       var registry = new Registry {
         { nopCode, Opcode.Nop, null, AddressingMode.Implied },
         { andImmediateCode, Opcode.And, null, AddressingMode.Immediate },
+        { andAbsoluteCode, Opcode.And, null, AddressingMode.Absolute },
       };
       assembler = new Assembler(registry);
     }
@@ -29,17 +31,31 @@ namespace Mos6510.Tests
     }
 
     [Test]
-    public void CanReadOneByteHexadecimalOperand()
+    public void CanReadImmediateModeHexadecimalOperand()
     {
       Assert.That(assembler.GetDisassembly("And #$40"),
                   Is.EquivalentTo(new [] { andImmediateCode, 0x40 }));
     }
 
     [Test]
-    public void CanReadOneByteDecimalOperand()
+    public void CanReadImmediateModeDecimalOperand()
     {
       Assert.That(assembler.GetDisassembly("And #40"),
                   Is.EquivalentTo(new [] { andImmediateCode, 40 }));
+    }
+
+    [Test]
+    public void CanReadAbsoluteModeHexadecimalOperand()
+    {
+      Assert.That(assembler.GetDisassembly("And $1040"),
+                  Is.EquivalentTo(new [] { andAbsoluteCode, 0x40, 0x10 }));
+    }
+
+    [Test]
+    public void CanReadAbsoluteModDecimalOperand()
+    {
+      Assert.That(assembler.GetDisassembly("And 4160"),
+                  Is.EquivalentTo(new [] { andAbsoluteCode, 0x40, 0x10 }));
     }
   }
 }
