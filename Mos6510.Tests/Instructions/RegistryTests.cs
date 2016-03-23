@@ -19,6 +19,19 @@ namespace Mos6510.Tests.Instructions
     }
 
     [Test]
+    public void CanInitializeRegistryWithTwoInstructionsUsingTheSameOpcode()
+    {
+      const Opcode opcode = Opcode.Nop;
+
+      var instruction = new InstructionTestDouble();
+      var registry = new Registry {
+        { 0x00, opcode, instruction, AddressingMode.Implied },
+        { 0x10, opcode, instruction, AddressingMode.Immediate } };
+
+      Assert.That(registry.Get(opcode), Is.EqualTo(instruction));
+    }
+
+    [Test]
     public void CanInitializeRegistryWithACodeAddressingModePair()
     {
       const byte code = 0xFF;
@@ -71,7 +84,8 @@ namespace Mos6510.Tests.Instructions
 
   public class InstructionTestDouble : Instruction
   {
-    public virtual void Execute(ProgrammingModel model, Memory memory, byte argument)
+    public virtual void Execute(ProgrammingModel model, Memory memory,
+                                byte argument)
     {
     }
 

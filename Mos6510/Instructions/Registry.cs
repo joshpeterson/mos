@@ -38,7 +38,8 @@ namespace Mos6510.Instructions
     public void Add(byte code, Opcode opcode, Instruction instruction,
         AddressingMode mode)
     {
-      instructions.Add(opcode, instruction);
+      if (!instructions.ContainsKey(opcode))
+        instructions.Add(opcode, instruction);
       opcodeAndAddressMode.Add(code,
           new OpcodeAddressModePair { Opcode = opcode, Mode = mode });
     }
