@@ -50,9 +50,15 @@ namespace Mos6510
       if (tokens.Length == 3)
       {
         if (tokens[2] == "X" || tokens[2] == "x")
-          mode = AddressingMode.AbsoluteX;
+          if (numberOfArguments == 1)
+            mode = AddressingMode.ZeropageX;
+          else
+            mode = AddressingMode.AbsoluteX;
         else
-          mode = AddressingMode.AbsoluteY;
+          if (numberOfArguments == 1)
+            mode = AddressingMode.ZeropageY;
+          else
+            mode = AddressingMode.AbsoluteY;
       }
       else if (tokens.Length == 2)
       {
