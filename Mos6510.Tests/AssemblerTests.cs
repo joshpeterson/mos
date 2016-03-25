@@ -27,51 +27,29 @@ namespace Mos6510.Tests
     }
 
     [Test]
-    public void CanConvertAStringToAByteCode()
+    public void CanReadNoArgumentInstruction()
     {
       Assert.That(assembler.GetDisassembly("Nop").First(), Is.EqualTo(nopCode));
     }
 
-    [Test]
-    public void CanReadImmediateModeHexadecimalOperand()
+    [TestCase("And #$40", andImmediateCode, 0x40)]
+    [TestCase("And #40", andImmediateCode, 0x28)]
+    public void CanReadOneArgumentInstruction(string input, byte code,
+                                              byte argument)
     {
-      Assert.That(assembler.GetDisassembly("And #$40"),
-                  Is.EquivalentTo(new [] { andImmediateCode, 0x40 }));
+      Assert.That(assembler.GetDisassembly(input),
+                  Is.EquivalentTo(new [] { code, argument }));
     }
 
-    [Test]
-    public void CanReadImmediateModeDecimalOperand()
+    [TestCase("And $1040", andAbsoluteCode, 0x40, 0x10 )]
+    [TestCase("And 4160", andAbsoluteCode, 0x40, 0x10 )]
+    [TestCase("And $1040,X", andAbsoluteXCode, 0x40, 0x10 )]
+    [TestCase("And 4160,X", andAbsoluteXCode, 0x40, 0x10 )]
+    public void CanReadTwoArgumentInstruction(string input, byte code,
+                                              byte argument1, byte argument2)
     {
-      Assert.That(assembler.GetDisassembly("And #40"),
-                  Is.EquivalentTo(new [] { andImmediateCode, 40 }));
-    }
-
-    [Test]
-    public void CanReadAbsoluteModeHexadecimalOperand()
-    {
-      Assert.That(assembler.GetDisassembly("And $1040"),
-                  Is.EquivalentTo(new [] { andAbsoluteCode, 0x40, 0x10 }));
-    }
-
-    [Test]
-    public void CanReadAbsoluteModDecimalOperand()
-    {
-      Assert.That(assembler.GetDisassembly("And 4160"),
-                  Is.EquivalentTo(new [] { andAbsoluteCode, 0x40, 0x10 }));
-    }
-
-    [Test]
-    public void CanReadAbsoluteXModeHexadecimalOperand()
-    {
-      Assert.That(assembler.GetDisassembly("And $1040,X"),
-                  Is.EquivalentTo(new [] { andAbsoluteXCode, 0x40, 0x10 }));
-    }
-
-    [Test]
-    public void CanReadAbsoluteXModeDecimalOperand()
-    {
-      Assert.That(assembler.GetDisassembly("And 4160,X"),
-                  Is.EquivalentTo(new [] { andAbsoluteXCode, 0x40, 0x10 }));
+      Assert.That(assembler.GetDisassembly(input),
+                  Is.EquivalentTo(new [] { code, argument1, argument2 }));
     }
   }
 }
