@@ -37,7 +37,7 @@ namespace Mos6510
       return disassembly;
     }
 
-    private AddressingMode AddressingModeFor(string[] tokens)
+    private static AddressingMode AddressingModeFor(string[] tokens)
     {
       var mode = AddressingMode.Implied;
       if (tokens.Length == 2)
@@ -51,14 +51,14 @@ namespace Mos6510
       return mode;
     }
 
-    private string StripAbsoluteIdentifier(string token)
+    private static string StripAbsoluteIdentifier(string token)
     {
       if (IsAbsoluteIdentifier(token))
         return token.Substring(1);
       return token;
     }
 
-    private bool TryParseNumber(string token, out ushort result)
+    private static bool TryParseNumber(string token, out ushort result)
     {
       var style = NumberStyles.None;
       if (IsHexValue(token))
@@ -70,7 +70,7 @@ namespace Mos6510
       return UInt16.TryParse(token, style, null, out result);
     }
 
-    private IEnumerable<byte> ConvertArgumentToBytes(ushort argument)
+    private static IEnumerable<byte> ConvertArgumentToBytes(ushort argument)
     {
       var bytes = new List<byte>();
       bytes.Add((byte)(argument & 0x00FF));
