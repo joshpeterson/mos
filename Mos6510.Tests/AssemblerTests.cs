@@ -13,6 +13,7 @@ namespace Mos6510.Tests
     private const byte andAbsoluteCode = 0x2D;
     private const byte andAbsoluteXCode = 0x3D;
     private const byte andAbsoluteYCode = 0x39;
+    private const byte andZeropageCode = 0x25;
     private Assembler assembler;
 
     [SetUp]
@@ -24,6 +25,7 @@ namespace Mos6510.Tests
         { andAbsoluteCode, Opcode.And, null, AddressingMode.Absolute },
         { andAbsoluteXCode, Opcode.And, null, AddressingMode.AbsoluteX },
         { andAbsoluteYCode, Opcode.And, null, AddressingMode.AbsoluteY },
+        { andZeropageCode, Opcode.And, null, AddressingMode.Zeropage },
       };
       assembler = new Assembler(registry);
     }
@@ -36,6 +38,8 @@ namespace Mos6510.Tests
 
     [TestCase("And #$40", andImmediateCode, 0x40)]
     [TestCase("And #40", andImmediateCode, 0x28)]
+    [TestCase("And $80", andZeropageCode, 0x80 )]
+    [TestCase("And 64", andZeropageCode, 0x40 )]
     public void CanReadOneArgumentInstruction(string input, byte code,
                                               byte argument)
     {

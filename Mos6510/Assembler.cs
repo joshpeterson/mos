@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Mos6510.Instructions;
 
 namespace Mos6510
@@ -17,7 +18,18 @@ namespace Mos6510
     public IEnumerable<byte> GetDisassembly(string line)
     {
       var tokens = line.Split(new [] {' ', ','});
-      var mode = AddressingModeFor(tokens);
+
+      IEnumerable<byte> arguments = Enumerable.Empty<byte>();
+      if (tokens.Length > 1)
+      {
+        var token = StripAbsoluteIdentifier(tokens[1]);
+
+        ushort result;
+        if (TryParseNumber(token, out result))
+          arguments = ConvertArgumentToBytes(result);
+      }
+
+      var mode = AddressingModeFor(tokens, arguments.Count());
 
       var disassembly = new List<byte>();
 
@@ -25,19 +37,14 @@ namespace Mos6510
       if (Utils.TryParseOpcode(tokens[0], out opcode))
         disassembly.Add(registry.Get(opcode, mode));
 
-      if (tokens.Length > 1)
-      {
-        var token = StripAbsoluteIdentifier(tokens[1]);
+      disassembly.AddRange(arguments);
 
-        ushort result;
-        if (TryParseNumber(token, out result))
-          disassembly.AddRange(ConvertArgumentToBytes(result));
-      }
 
       return disassembly;
     }
 
-    private static AddressingMode AddressingModeFor(string[] tokens)
+    private static AddressingMode AddressingModeFor(string[] tokens,
+                                                    int numberOfArguments)
     {
       var mode = AddressingMode.Implied;
       if (tokens.Length == 3)
@@ -51,6 +58,8 @@ namespace Mos6510
       {
         if (IsAbsoluteIdentifier(tokens[1]))
           mode = AddressingMode.Immediate;
+        else if (numberOfArguments == 1)
+          mode = AddressingMode.Zeropage;
         else
           mode = AddressingMode.Absolute;
       }
