@@ -16,6 +16,8 @@ namespace Mos6510.Tests
     private const byte andZeropageCode = 0x25;
     private const byte andZeropageXCode = 0x35;
     private const byte andZeropageYCode = 0x45;
+    private const byte andIndexedIndirectXCode = 0x21;
+    private const byte andIndexedIndirectYCode = 0x31;
     private Assembler assembler;
 
     [SetUp]
@@ -30,6 +32,8 @@ namespace Mos6510.Tests
         { andZeropageCode, Opcode.And, null, AddressingMode.Zeropage },
         { andZeropageXCode, Opcode.And, null, AddressingMode.ZeropageX },
         { andZeropageYCode, Opcode.And, null, AddressingMode.ZeropageY },
+        { andIndexedIndirectXCode, Opcode.And, null, AddressingMode.IndexedIndirectX},
+        { andIndexedIndirectYCode, Opcode.And, null, AddressingMode.IndexedIndirectY},
       };
       assembler = new Assembler(registry);
     }
@@ -50,6 +54,12 @@ namespace Mos6510.Tests
     [TestCase("And $80,Y", andZeropageYCode, 0x80 )]
     [TestCase("And $80,y", andZeropageYCode, 0x80 )]
     [TestCase("And 64,Y", andZeropageYCode, 0x40 )]
+    [TestCase("And ($80,X)", andIndexedIndirectXCode, 0x80 )]
+    [TestCase("And (64,X)", andIndexedIndirectXCode, 0x40 )]
+    [TestCase("And ($80,x)", andIndexedIndirectXCode, 0x80 )]
+    [TestCase("And ($80),Y", andIndexedIndirectYCode, 0x80 )]
+    [TestCase("And (64),Y", andIndexedIndirectYCode, 0x40 )]
+    [TestCase("And ($80),y", andIndexedIndirectYCode, 0x80 )]
     public void CanReadOneArgumentInstruction(string input, byte code,
                                               byte argument)
     {

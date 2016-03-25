@@ -17,6 +17,9 @@ namespace Mos6510
 
     public IEnumerable<byte> GetDisassembly(string line)
     {
+      var hasParantheses = line.Contains("(") && line.Contains(")");
+      line = RemoveParantheses(line);
+
       var tokens = line.Split(new [] {' ', ','});
 
       IEnumerable<byte> arguments = Enumerable.Empty<byte>();
@@ -29,7 +32,7 @@ namespace Mos6510
           arguments = ConvertArgumentToBytes(result);
       }
 
-      var mode = AddressingModeFor(tokens, arguments.Count());
+      var mode = AddressingModeFor(tokens, arguments.Count(), hasParantheses);
 
       var disassembly = new List<byte>();
 
@@ -44,19 +47,26 @@ namespace Mos6510
     }
 
     private static AddressingMode AddressingModeFor(string[] tokens,
-                                                    int numberOfArguments)
+                                                    int numberOfArguments,
+                                                    bool hasParantheses)
     {
       var mode = AddressingMode.Implied;
       if (tokens.Length == 3)
       {
         if (tokens[2] == "X" || tokens[2] == "x")
           if (numberOfArguments == 1)
-            mode = AddressingMode.ZeropageX;
+            if (hasParantheses)
+              mode = AddressingMode.IndexedIndirectX;
+            else
+              mode = AddressingMode.ZeropageX;
           else
             mode = AddressingMode.AbsoluteX;
         else
           if (numberOfArguments == 1)
-            mode = AddressingMode.ZeropageY;
+            if (hasParantheses)
+              mode = AddressingMode.IndexedIndirectY;
+            else
+              mode = AddressingMode.ZeropageY;
           else
             mode = AddressingMode.AbsoluteY;
       }
@@ -110,6 +120,14 @@ namespace Mos6510
     private static bool IsAbsoluteIdentifier(string token)
     {
       return token.StartsWith("#");
+    }
+
+    private static string RemoveParantheses(string line)
+    {
+      line = line.Replace("(", string.Empty);
+      line = line.Replace(")", string.Empty);
+
+      return line;
     }
   }
 }
