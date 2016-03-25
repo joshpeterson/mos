@@ -30,6 +30,8 @@ namespace Mos6510
         ushort result;
         if (TryParseNumber(token, out result))
           arguments = ConvertArgumentToBytes(result);
+        else
+          return Enumerable.Empty<byte>();
       }
 
       var mode = AddressingModeFor(tokens, arguments.Count(), hasParantheses);
@@ -38,9 +40,10 @@ namespace Mos6510
 
       Opcode opcode;
       if (Utils.TryParseOpcode(TitleCaseFor(tokens[0]), out opcode))
+      {
         disassembly.Add(registry.Get(opcode, mode));
-
-      disassembly.AddRange(arguments);
+        disassembly.AddRange(arguments);
+      }
 
       return disassembly;
     }

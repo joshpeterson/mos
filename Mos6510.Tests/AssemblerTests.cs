@@ -84,5 +84,13 @@ namespace Mos6510.Tests
       Assert.That(assembler.GetDisassembly(input),
                   Is.EquivalentTo(new [] { code, argument1, argument2 }));
     }
+
+    [TestCase("foo")]
+    [TestCase("Foo $2000")]
+    [TestCase("And ABC")]
+    public void ReturnsAnyEmptyListOfBytesForInvalidAssembly(string input)
+    {
+      Assert.That(assembler.GetDisassembly(input), Is.Empty);
+    }
   }
 }
