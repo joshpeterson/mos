@@ -16,7 +16,7 @@ namespace Mos6510
 
     public IEnumerable<byte> GetDisassembly(string line)
     {
-      var tokens = line.Split(new [] {' '});
+      var tokens = line.Split(new [] {' ', ','});
       var mode = AddressingModeFor(tokens);
 
       var disassembly = new List<byte>();
@@ -25,9 +25,9 @@ namespace Mos6510
       if (Utils.TryParseOpcode(tokens[0], out opcode))
         disassembly.Add(registry.Get(opcode, mode));
 
-      for (var i = 1; i < tokens.Length; ++i)
+      if (tokens.Length > 1)
       {
-        var token = StripAbsoluteIdentifier(tokens[i]);
+        var token = StripAbsoluteIdentifier(tokens[1]);
 
         ushort result;
         if (TryParseNumber(token, out result))
@@ -40,7 +40,11 @@ namespace Mos6510
     private static AddressingMode AddressingModeFor(string[] tokens)
     {
       var mode = AddressingMode.Implied;
-      if (tokens.Length == 2)
+      if (tokens.Length == 3)
+      {
+        mode = AddressingMode.AbsoluteX;
+      }
+      else if (tokens.Length == 2)
       {
         if (IsAbsoluteIdentifier(tokens[1]))
           mode = AddressingMode.Immediate;
