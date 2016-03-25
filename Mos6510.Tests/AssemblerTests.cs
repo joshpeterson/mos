@@ -38,10 +38,13 @@ namespace Mos6510.Tests
       assembler = new Assembler(registry);
     }
 
-    [Test]
-    public void CanReadNoArgumentInstruction()
+    [TestCase("Nop", nopCode)]
+    [TestCase("NOP", nopCode)]
+    [TestCase("nop", nopCode)]
+    [TestCase("noP", nopCode)]
+    public void CanReadNoArgumentInstruction(string input, byte code)
     {
-      Assert.That(assembler.GetDisassembly("Nop").First(), Is.EqualTo(nopCode));
+      Assert.That(assembler.GetDisassembly(input).First(), Is.EqualTo(code));
     }
 
     [TestCase("And #$40", andImmediateCode, 0x40)]

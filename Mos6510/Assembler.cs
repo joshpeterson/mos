@@ -37,11 +37,10 @@ namespace Mos6510
       var disassembly = new List<byte>();
 
       Opcode opcode;
-      if (Utils.TryParseOpcode(tokens[0], out opcode))
+      if (Utils.TryParseOpcode(TitleCaseFor(tokens[0]), out opcode))
         disassembly.Add(registry.Get(opcode, mode));
 
       disassembly.AddRange(arguments);
-
 
       return disassembly;
     }
@@ -128,6 +127,14 @@ namespace Mos6510
       line = line.Replace(")", string.Empty);
 
       return line;
+    }
+
+    private static string TitleCaseFor(string input)
+    {
+      var chars = input.ToLower().ToCharArray();
+      chars[0] = char.ToUpper(chars[0]);
+
+      return new string(chars);
     }
   }
 }
