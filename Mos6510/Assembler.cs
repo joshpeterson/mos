@@ -42,7 +42,10 @@ namespace Mos6510
       var mode = AddressingMode.Implied;
       if (tokens.Length == 3)
       {
-        mode = AddressingMode.AbsoluteX;
+        if (tokens[2] == "X" || tokens[2] == "x")
+          mode = AddressingMode.AbsoluteX;
+        else
+          mode = AddressingMode.AbsoluteY;
       }
       else if (tokens.Length == 2)
       {
