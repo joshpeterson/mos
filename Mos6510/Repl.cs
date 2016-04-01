@@ -6,6 +6,8 @@ namespace Mos6510
 {
   public class Repl
   {
+    private readonly InstructionRegistry registry;
+
     private readonly ProgrammingModel model;
     private readonly Memory memory;
 
@@ -19,12 +21,13 @@ namespace Mos6510
 
     public Repl(ProgrammingModel model, Memory memory)
     {
+      registry = new InstructionRegistry();
       this.model = model;
       this.memory = memory;
-      assembler = new Assembler(InstructionRegistry.All);
+      assembler = new Assembler(registry.All);
       fetcher = new Fetcher(model, memory);
-      decoder = new Decoder(InstructionRegistry.All);
-      executor = new Executor(InstructionRegistry.All, model, memory);
+      decoder = new Decoder(registry.All);
+      executor = new Executor(registry.All, model, memory);
       coreLoop = new CoreLoop(fetcher, decoder, executor);
     }
 
