@@ -78,5 +78,17 @@ namespace Mos6510.Tests
       repl.Execute();
       Assert.That(model.GetRegister(RegisterName.X).GetValue(), Is.EqualTo(1));
     }
+
+    [Test]
+    public void WriteTheArgumentForATwoByteInstruction()
+    {
+      const ushort pcInitialValue = 0xFFE0;
+      var model = new ProgrammingModel();
+      model.GetRegister(RegisterName.PC).SetValue(pcInitialValue);
+
+      var memory = new Memory();
+      new Repl(model, memory).TryRead("And #$40");
+      Assert.That(memory.GetValue(pcInitialValue + 1), Is.EqualTo(0x40));
+    }
   }
 }

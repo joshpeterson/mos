@@ -34,18 +34,16 @@ namespace Mos6510
       if (!disassembly.Any())
         return false;
 
+      var address = (ushort)model.GetRegister(RegisterName.PC).GetValue();
       foreach (var datum in disassembly)
-      {
-        var pc = model.GetRegister(RegisterName.PC);
-        memory.SetValue((ushort)pc.GetValue(), datum);
-      }
+        memory.SetValue(address++, datum);
 
       return true;
     }
 
-    public void Execute()
+    public bool Execute()
     {
-      coreLoop.SingleStep();
+      return coreLoop.SingleStep();
     }
 
     public string PrintRegisters()
