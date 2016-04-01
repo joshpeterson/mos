@@ -17,7 +17,8 @@ namespace Mos6510.Instructions
         { AddressingMode.IndexedIndirectY, 5 },
       };
 
-    public virtual void Execute(ProgrammingModel model, Memory memory, byte argument)
+    public virtual void Execute(ProgrammingModel model, Memory memory,
+                                byte argument)
     {
       var accumulator = model.GetRegister(RegisterName.A);
       accumulator.SetValue((byte)accumulator.GetValue() & argument);
