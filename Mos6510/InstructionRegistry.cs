@@ -13,6 +13,7 @@ namespace Mos6510
       {Opcode.Inx, new Inx()},
       {Opcode.Iny, new Iny()},
       {Opcode.And, new And()},
+      {Opcode.Ora, new Ora()},
     };
 
     public InstructionRegistry()
@@ -27,6 +28,14 @@ namespace Mos6510
       All.Add(0x35, Opcode.And, Ins[Opcode.And], AddressingMode.ZeropageX);
       All.Add(0x21, Opcode.And, Ins[Opcode.And], AddressingMode.IndexedIndirectX);
       All.Add(0x31, Opcode.And, Ins[Opcode.And], AddressingMode.IndexedIndirectY);
+      All.Add(0x09, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.Immediate);
+      All.Add(0x0D, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.Absolute);
+      All.Add(0x1D, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.AbsoluteX);
+      All.Add(0x19, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.AbsoluteY);
+      All.Add(0x05, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.Zeropage);
+      All.Add(0x15, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.ZeropageX);
+      All.Add(0x01, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.IndexedIndirectX);
+      All.Add(0x11, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.IndexedIndirectY);
     }
   }
 }

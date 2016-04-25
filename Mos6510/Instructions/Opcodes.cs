@@ -6,5 +6,6 @@ namespace Mos6510.Instructions
     Iny,
     Nop,
     And,
+    Ora,
   }
 }

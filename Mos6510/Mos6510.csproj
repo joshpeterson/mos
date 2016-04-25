@@ -55,6 +55,7 @@
     <Compile Include="Repl.cs" />
     <Compile Include="InstructionRegistry.cs" />
     <Compile Include="Instructions\ArgumentUtils.cs" />
+    <Compile Include="Instructions\Ora.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

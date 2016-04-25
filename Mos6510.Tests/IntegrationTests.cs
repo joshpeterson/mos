@@ -21,6 +21,14 @@ namespace Mos6510.Tests
         new TestCaseData(new SetUp(InitializeForAnd), "And $00,X", "A:  0x80"),
         new TestCaseData(new SetUp(InitializeForAnd), "And ($10,X)", "A:  0x80"),
         new TestCaseData(new SetUp(InitializeForAnd), "And ($10),Y", "A:  0x80"),
+        new TestCaseData(new SetUp(InitializeForOra), "Ora #$80", "A:  0x80"),
+        new TestCaseData(new SetUp(InitializeForOra), "Ora $1000", "A:  0x80"),
+        new TestCaseData(new SetUp(InitializeForOra), "Ora $FF0,X", "A:  0x80"),
+        new TestCaseData(new SetUp(InitializeForOra), "Ora $FF0,Y", "A:  0x80"),
+        new TestCaseData(new SetUp(InitializeForOra), "Ora $10", "A:  0x80"),
+        new TestCaseData(new SetUp(InitializeForOra), "Ora $00,X", "A:  0x80"),
+        new TestCaseData(new SetUp(InitializeForOra), "Ora ($10,X)", "A:  0x80"),
+        new TestCaseData(new SetUp(InitializeForOra), "Ora ($10),Y", "A:  0x80"),
     };
 
     [TestCaseSource("TestCases")]
@@ -46,6 +54,16 @@ namespace Mos6510.Tests
     private static void InitializeForAnd(ProgrammingModel model, Memory memory)
     {
       model.GetRegister(RegisterName.A).SetValue(0xFF);
+      model.GetRegister(RegisterName.X).SetValue(0x10);
+      model.GetRegister(RegisterName.Y).SetValue(0x10);
+      memory.SetValue(0x1000, 0x80);
+      memory.SetValue(0x10, 0x80);
+      memory.SetValue(0x21, 0x10);
+    }
+
+    private static void InitializeForOra(ProgrammingModel model, Memory memory)
+    {
+      model.GetRegister(RegisterName.A).SetValue(0x00);
       model.GetRegister(RegisterName.X).SetValue(0x10);
       model.GetRegister(RegisterName.Y).SetValue(0x10);
       memory.SetValue(0x1000, 0x80);
