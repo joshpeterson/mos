@@ -7,5 +7,6 @@ namespace Mos6510.Instructions
     Nop,
     And,
     Ora,
+    Eor,
   }
 }

@@ -29,6 +29,14 @@ namespace Mos6510.Tests
         new TestCaseData(new SetUp(InitializeForOra), "Ora $00,X", "A:  0x80"),
         new TestCaseData(new SetUp(InitializeForOra), "Ora ($10,X)", "A:  0x80"),
         new TestCaseData(new SetUp(InitializeForOra), "Ora ($10),Y", "A:  0x80"),
+        new TestCaseData(new SetUp(InitializeForEor), "Eor #$FF", "A:  0xF5"),
+        new TestCaseData(new SetUp(InitializeForEor), "Eor $1000", "A:  0xF5"),
+        new TestCaseData(new SetUp(InitializeForEor), "Eor $FF0,X", "A:  0xF5"),
+        new TestCaseData(new SetUp(InitializeForEor), "Eor $FF0,Y", "A:  0xF5"),
+        new TestCaseData(new SetUp(InitializeForEor), "Eor $10", "A:  0xF5"),
+        new TestCaseData(new SetUp(InitializeForEor), "Eor $00,X", "A:  0xF5"),
+        new TestCaseData(new SetUp(InitializeForEor), "Eor ($10,X)", "A:  0xF5"),
+        new TestCaseData(new SetUp(InitializeForEor), "Eor ($10),Y", "A:  0xF5"),
     };
 
     [TestCaseSource("TestCases")]
@@ -68,6 +76,16 @@ namespace Mos6510.Tests
       model.GetRegister(RegisterName.Y).SetValue(0x10);
       memory.SetValue(0x1000, 0x80);
       memory.SetValue(0x10, 0x80);
+      memory.SetValue(0x21, 0x10);
+    }
+
+    private static void InitializeForEor(ProgrammingModel model, Memory memory)
+    {
+      model.GetRegister(RegisterName.A).SetValue(0x0A);
+      model.GetRegister(RegisterName.X).SetValue(0x10);
+      model.GetRegister(RegisterName.Y).SetValue(0x10);
+      memory.SetValue(0x1000, 0xFF);
+      memory.SetValue(0x10, 0xFF);
       memory.SetValue(0x21, 0x10);
     }
   }
