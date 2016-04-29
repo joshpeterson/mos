@@ -22,6 +22,7 @@ namespace Mos6510.Instructions
     {
       var accumulator = model.GetRegister(RegisterName.A);
       accumulator.SetValue((byte)accumulator.GetValue() | argument);
+      RegisterUtils.SetStatusFlags(model, RegisterName.A);
     }
 
     public virtual int CyclesFor(AddressingMode mode)

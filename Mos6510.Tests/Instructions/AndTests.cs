@@ -30,5 +30,31 @@ namespace Mos6510.Tests.Instructions
     {
       Assert.That(new And().CyclesFor(mode), Is.EqualTo(expected));
     }
+
+    [TestCase(0x80, true)]
+    [TestCase(0x00, false)]
+    public void VerifyValuesOfNegativeFlag(int initialValue, bool expectedResult)
+    {
+      var model = new ProgrammingModel();
+      model.GetRegister(RegisterName.A).SetValue(initialValue);
+      model.NegativeFlag = !expectedResult;
+
+      new And().Execute(model, null, 0x80);
+
+      Assert.That(model.NegativeFlag, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase(0x10, true)]
+    [TestCase(0x01, false)]
+    public void VerifyValuesOfZeroFlag(int initialValue, bool expectedResult)
+    {
+      var model = new ProgrammingModel();
+      model.GetRegister(RegisterName.A).SetValue(initialValue);
+      model.ZeroFlag = !expectedResult;
+
+      new And().Execute(model, null, 0x01);
+
+      Assert.That(model.ZeroFlag, Is.EqualTo(expectedResult));
+    }
   }
 }
