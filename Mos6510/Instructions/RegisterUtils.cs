@@ -22,5 +22,21 @@ namespace Mos6510.Instructions
       model.NegativeFlag = (sbyte)value < 0;
       model.ZeroFlag = (sbyte)value == 0;
     }
+
+    public static void SetOverflowFlag(ProgrammingModel model, byte previousValue)
+    {
+      var currentValue = model.GetRegister(RegisterName.A).GetValue();
+      if (((previousValue & 0x80) == 0 && (currentValue & 0x80) != 0) ||
+          ((previousValue & 0x80) != 0 && (currentValue & 0x80) == 0))
+        model.OverflowFlag = true;
+      else
+        model.OverflowFlag = false;
+    }
+
+    public static void SetCarryFlag(ProgrammingModel model, byte previousValue)
+    {
+      var currentValue = model.GetRegister(RegisterName.A).GetValue();
+      model.CarryFlag = currentValue < previousValue;
+    }
   }
 }

@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Instructions\AdcTests.cs" />
     <Compile Include="RegisterTests.cs" />
     <Compile Include="ProgrammingModelTests.cs" />
     <Compile Include="MemoryTests.cs" />
