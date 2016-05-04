@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Mos6510.Instructions;
 
 namespace Mos6510
 {

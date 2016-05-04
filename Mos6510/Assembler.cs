@@ -1,8 +1,8 @@
+using Mos6510.Instructions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Mos6510.Instructions;
 
 namespace Mos6510
 {

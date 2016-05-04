@@ -1,6 +1,4 @@
 using NUnit.Framework;
-using Mos6510;
-using System.Collections;
 
 namespace Mos6510.Tests
 {

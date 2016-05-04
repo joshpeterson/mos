@@ -1,6 +1,5 @@
-using NUnit.Framework;
-using Mos6510;
 using Mos6510.Instructions;
+using NUnit.Framework;
 using System.Linq;
 
 namespace Mos6510.Tests
