@@ -25,7 +25,8 @@ namespace Mos6510.Instructions
       var previousValue = (byte)accumulator.GetValue();
       accumulator.SetValue(previousValue + argument+ carry);
 
-      RegisterUtils.SetStatusFlags(model, RegisterName.A);
+      RegisterUtils.SetZeroFlag(model, RegisterName.A);
+      RegisterUtils.SetNegativeFlag(model, RegisterName.A);
       RegisterUtils.SetOverflowFlag(model, previousValue);
       RegisterUtils.SetCarryFlag(model, previousValue);
     }

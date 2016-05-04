@@ -11,16 +11,24 @@ namespace Mos6510.Instructions
       var newValue = previousValue + 1;
       register.SetValue(newValue);
 
-      SetStatusFlags(model, name);
+      SetZeroFlag(model, name);
+      SetNegativeFlag(model, name);
     }
 
-    public static void SetStatusFlags(ProgrammingModel model, RegisterName name)
+    public static void SetZeroFlag(ProgrammingModel model, RegisterName name)
+    {
+      var register = model.GetRegister(name);
+      var value = register.GetValue();
+
+      model.ZeroFlag = (sbyte)value == 0;
+    }
+
+    public static void SetNegativeFlag(ProgrammingModel model, RegisterName name)
     {
       var register = model.GetRegister(name);
       var value = register.GetValue();
 
       model.NegativeFlag = (sbyte)value < 0;
-      model.ZeroFlag = (sbyte)value == 0;
     }
 
     public static void SetOverflowFlag(ProgrammingModel model, byte previousValue)
