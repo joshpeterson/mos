@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Mos6510.Instructions
 {
-  public class Registry : IEnumerable
+  public sealed class Registry : IEnumerable
   {
     private Dictionary<Opcode, Instruction> instructions =
       new Dictionary<Opcode, Instruction>();
