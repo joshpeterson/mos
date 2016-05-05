@@ -9,5 +9,6 @@ namespace Mos6510.Instructions
     Ora,
     Eor,
     Adc,
+    Clc,
   }
 }
