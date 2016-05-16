@@ -1,4 +1,4 @@
-﻿using Mos6510.Instructions;
+using Mos6510.Instructions;
 using NUnit.Framework;
 
 namespace Mos6510.Tests.Instructions
