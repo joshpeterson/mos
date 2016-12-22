@@ -60,14 +60,14 @@ namespace Mos6510
         P:  {5}b
             NVXBDIZC";
 
-        return string.Format(registerFormat,
-          model.GetRegister(RegisterName.A).GetValue(),
-          model.GetRegister(RegisterName.Y).GetValue(),
-          model.GetRegister(RegisterName.X).GetValue(),
-          model.GetRegister(RegisterName.PC).GetValue(),
-          model.GetRegister(RegisterName.S).GetValue(),
-          Convert.ToString(model.GetRegister(RegisterName.P).GetValue(), 2).
-            PadLeft(8, '0'));
+      return string.Format(registerFormat,
+                           model.GetRegister(RegisterName.A).GetValue(),
+                           model.GetRegister(RegisterName.Y).GetValue(),
+                           model.GetRegister(RegisterName.X).GetValue(),
+                           model.GetRegister(RegisterName.PC).GetValue(),
+                           model.GetRegister(RegisterName.S).GetValue(),
+                           Convert.ToString(model.GetRegister(RegisterName.P).GetValue(), 2).
+                           PadLeft(8, '0'));
     }
   }
 }

@@ -3,7 +3,7 @@ namespace Mos6510.Instructions
   public static class ArgumentUtils
   {
     public static byte ArgumentFor(ProgrammingModel model, Memory memory,
-                                    AddressingMode mode, ushort operand)
+                                   AddressingMode mode, ushort operand)
     {
       ushort address = 0;
       if (mode == AddressingMode.Immediate)
@@ -40,20 +40,20 @@ namespace Mos6510.Instructions
     }
 
     private static ushort IndexedIndirectAddressFor(ProgrammingModel model,
-                                                    Memory memory,
-                                                    RegisterName register,
-                                                    ushort operand)
+        Memory memory,
+        RegisterName register,
+        ushort operand)
     {
-        var zeroPageAddress = OffsetAddressFor(model, register, operand);
-        var effectiveAddressLow = memory.GetValue(zeroPageAddress);
-        var effectiveAddressHi = memory.GetValue((ushort)(zeroPageAddress + 1));
-        return (ushort)(effectiveAddressHi << 8 | effectiveAddressLow);
+      var zeroPageAddress = OffsetAddressFor(model, register, operand);
+      var effectiveAddressLow = memory.GetValue(zeroPageAddress);
+      var effectiveAddressHi = memory.GetValue((ushort)(zeroPageAddress + 1));
+      return (ushort)(effectiveAddressHi << 8 | effectiveAddressLow);
     }
 
     private static ushort OffsetAddressFor(ProgrammingModel model,
-                                            RegisterName register, ushort operand)
+                                           RegisterName register, ushort operand)
     {
-        return (ushort)(operand + model.GetRegister(register).GetValue());
+      return (ushort)(operand + model.GetRegister(register).GetValue());
     }
   }
 }

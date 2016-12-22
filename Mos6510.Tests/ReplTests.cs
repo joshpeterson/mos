@@ -19,7 +19,7 @@ namespace Mos6510.Tests
             NVXBDIZC";
 
       Assert.That(new Repl(new ProgrammingModel(), new Memory()).PrintRegisters(),
-          Is.EqualTo(expectedRegisters));
+                  Is.EqualTo(expectedRegisters));
     }
 
     [TestCase(RegisterName.A, 42, "A:  0x2A")]
@@ -29,7 +29,7 @@ namespace Mos6510.Tests
     [TestCase(RegisterName.S, 42, "S:  0x2A")]
     [TestCase(RegisterName.P, 142, "P:  10001110b")]
     public void CanPrintTheContentsOfRegister(RegisterName register, int value,
-                                              string expectedValue)
+        string expectedValue)
     {
       var model = new ProgrammingModel();
       model.GetRegister(register).SetValue(value);
@@ -54,14 +54,14 @@ namespace Mos6510.Tests
     public void TryReadReturnsFalseForAnInvalidInputString()
     {
       Assert.That(new Repl(new ProgrammingModel(), new Memory()).TryRead("foo"),
-          Is.False, "TryRead returned true, which is not expected.");
+                  Is.False, "TryRead returned true, which is not expected.");
     }
 
     [Test]
     public void TryReadReturnsTrueForAValidInputString()
     {
       Assert.That(new Repl(new ProgrammingModel(), new Memory()).TryRead("Inx"),
-          Is.True, "TryRead returned false, which is not expected.");
+                  Is.True, "TryRead returned false, which is not expected.");
     }
 
     [Test]

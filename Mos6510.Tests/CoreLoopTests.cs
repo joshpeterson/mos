@@ -24,7 +24,8 @@ namespace Mos6510.Tests
 
       instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { expectedCode, Opcode.Nop, instruction, AddressingMode.Absolute } };
+        { expectedCode, Opcode.Nop, instruction, AddressingMode.Absolute }
+      };
 
       var fetcher = new Fetcher(model, memory);
       var decoder = new Decoder(registry);

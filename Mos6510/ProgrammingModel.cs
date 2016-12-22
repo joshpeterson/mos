@@ -26,14 +26,14 @@ namespace Mos6510
 
     private Dictionary<RegisterName, Register> registers =
       new Dictionary<RegisterName, Register>
-      {
-        { RegisterName.A, new Register(RegisterSize) },
-        { RegisterName.Y, new Register(RegisterSize) },
-        { RegisterName.X, new Register(RegisterSize) },
-        { RegisterName.PC, new Register(16) },
-        { RegisterName.S, new Register(RegisterSize) },
-        { RegisterName.P, new Register(RegisterSize) },
-      };
+    {
+      { RegisterName.A, new Register(RegisterSize) },
+      { RegisterName.Y, new Register(RegisterSize) },
+      { RegisterName.X, new Register(RegisterSize) },
+      { RegisterName.PC, new Register(16) },
+      { RegisterName.S, new Register(RegisterSize) },
+      { RegisterName.P, new Register(RegisterSize) },
+    };
 
     public ProgrammingModel()
     {

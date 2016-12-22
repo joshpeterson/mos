@@ -36,12 +36,12 @@ namespace Mos6510.Instructions
 
     // This method is necessary to get dictionary-style initialization.
     public void Add(byte code, Opcode opcode, Instruction instruction,
-        AddressingMode mode)
+                    AddressingMode mode)
     {
       if (!instructions.ContainsKey(opcode))
         instructions.Add(opcode, instruction);
       opcodeAndAddressMode.Add(code,
-          new OpcodeAddressModePair { Opcode = opcode, Mode = mode });
+                               new OpcodeAddressModePair { Opcode = opcode, Mode = mode });
     }
 
     // This method is necessary to get dictionary-style initialization.

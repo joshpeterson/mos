@@ -13,7 +13,8 @@ namespace Mos6510.Tests.Instructions
 
       var instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { 0x00, opcode, instruction, AddressingMode.Implied } };
+        { 0x00, opcode, instruction, AddressingMode.Implied }
+      };
 
       Assert.That(registry.Get(opcode), Is.EqualTo(instruction));
     }
@@ -26,7 +27,8 @@ namespace Mos6510.Tests.Instructions
       var instruction = new InstructionTestDouble();
       var registry = new Registry {
         { 0x00, opcode, instruction, AddressingMode.Implied },
-        { 0x10, opcode, instruction, AddressingMode.Immediate } };
+        { 0x10, opcode, instruction, AddressingMode.Immediate }
+      };
 
       Assert.That(registry.Get(opcode), Is.EqualTo(instruction));
     }
@@ -40,7 +42,8 @@ namespace Mos6510.Tests.Instructions
 
       var instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { code, opcode, instruction, AddressingMode.Implied } };
+        { code, opcode, instruction, AddressingMode.Implied }
+      };
 
       Assert.That(registry.Get(code).Opcode, Is.EqualTo(opcode));
       Assert.That(registry.Get(code).Mode, Is.EqualTo(mode));
@@ -55,7 +58,8 @@ namespace Mos6510.Tests.Instructions
 
       var instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { expectedCode, opcode, instruction, AddressingMode.Implied } };
+        { expectedCode, opcode, instruction, AddressingMode.Implied }
+      };
 
       Assert.That(registry.Get(opcode, mode), Is.EqualTo(expectedCode));
     }

@@ -17,7 +17,8 @@ namespace Mos6510.Tests
     {
       instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { 0x00, opcode, instruction, AddressingMode.Implied} };
+        { 0x00, opcode, instruction, AddressingMode.Implied}
+      };
 
       model = new ProgrammingModel();
       memory = new Memory();
@@ -60,7 +61,7 @@ namespace Mos6510.Tests
     [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
     [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
     public void ReturnsTheProperNumberOfCyclesWhenCrossingPageBoundary(
-        AddressingMode mode, RegisterName register)
+      AddressingMode mode, RegisterName register)
     {
       model.GetRegister(register).SetValue(0x10);
       Assert.That(executor.Execute(opcode, mode, 0x10F0),
@@ -70,7 +71,7 @@ namespace Mos6510.Tests
     [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
     [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
     public void ReturnsTheProperNumberOfCyclesWhenNotCrossingPageBoundary(
-        AddressingMode mode, RegisterName register)
+      AddressingMode mode, RegisterName register)
     {
       model.GetRegister(register).SetValue(0x10);
       Assert.That(executor.Execute(opcode, mode, 0x10E0),

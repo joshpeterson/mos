@@ -39,7 +39,7 @@ namespace Mos6510.Tests
 
       fetcher.Fetch();
       Assert.That(model.GetRegister(RegisterName.PC).GetValue(),
-          Is.EqualTo(initialAddress + 1));
+                  Is.EqualTo(initialAddress + 1));
     }
 
     [TestCase(AddressingMode.Immediate)]
@@ -75,7 +75,7 @@ namespace Mos6510.Tests
 
       fetcher.OperandFor(mode);
       Assert.That(model.GetRegister(RegisterName.PC).GetValue(),
-          Is.EqualTo(initialAddress + 2));
+                  Is.EqualTo(initialAddress + 2));
     }
 
     [TestCase(AddressingMode.Absolute)]
@@ -108,7 +108,7 @@ namespace Mos6510.Tests
 
       fetcher.OperandFor(mode);
       Assert.That(model.GetRegister(RegisterName.PC).GetValue(),
-          Is.EqualTo(initialAddress + 3));
+                  Is.EqualTo(initialAddress + 3));
     }
   }
 }

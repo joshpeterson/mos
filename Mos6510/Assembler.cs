@@ -49,8 +49,8 @@ namespace Mos6510
     }
 
     private static AddressingMode AddressingModeFor(string[] tokens,
-                                                    int numberOfArguments,
-                                                    bool hasParantheses)
+        int numberOfArguments,
+        bool hasParantheses)
     {
       var mode = AddressingMode.Implied;
       if (tokens.Length == 3)
@@ -63,14 +63,13 @@ namespace Mos6510
               mode = AddressingMode.ZeropageX;
           else
             mode = AddressingMode.AbsoluteX;
-        else
-          if (numberOfArguments == 1)
-            if (hasParantheses)
-              mode = AddressingMode.IndexedIndirectY;
-            else
-              mode = AddressingMode.ZeropageY;
+        else if (numberOfArguments == 1)
+          if (hasParantheses)
+            mode = AddressingMode.IndexedIndirectY;
           else
-            mode = AddressingMode.AbsoluteY;
+            mode = AddressingMode.ZeropageY;
+        else
+          mode = AddressingMode.AbsoluteY;
       }
       else if (tokens.Length == 2)
       {

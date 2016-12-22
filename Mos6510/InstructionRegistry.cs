@@ -8,7 +8,7 @@ namespace Mos6510
     public Registry All = new Registry();
 
     private Dictionary<Opcode, Instruction> Ins
-      = new Dictionary<Opcode, Instruction>
+    = new Dictionary<Opcode, Instruction>
     {
       {Opcode.Inx, new Inx()},
       {Opcode.Iny, new Iny()},

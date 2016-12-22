@@ -50,7 +50,7 @@ namespace Mos6510.Tests
     {
       model.CarryFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
-          0x01, Is.EqualTo(expectedResult));
+                  0x01, Is.EqualTo(expectedResult));
     }
 
     [TestCase(0x03, true)]
@@ -67,7 +67,7 @@ namespace Mos6510.Tests
     {
       model.ZeroFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
-          0x03, Is.EqualTo(expectedResult));
+                  0x03, Is.EqualTo(expectedResult));
     }
 
     [TestCase(0x04, true)]
@@ -84,7 +84,7 @@ namespace Mos6510.Tests
     {
       model.IrqDisableFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
-          0x04, Is.EqualTo(expectedResult));
+                  0x04, Is.EqualTo(expectedResult));
     }
 
     [TestCase(0x08, true)]
@@ -101,7 +101,7 @@ namespace Mos6510.Tests
     {
       model.DecimalModeFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
-          0x08, Is.EqualTo(expectedResult));
+                  0x08, Is.EqualTo(expectedResult));
     }
 
     [TestCase(0x10, true)]
@@ -118,7 +118,7 @@ namespace Mos6510.Tests
     {
       model.BreakCommandFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
-          0x10, Is.EqualTo(expectedResult));
+                  0x10, Is.EqualTo(expectedResult));
     }
 
     [TestCase(0x40, true)]
@@ -135,7 +135,7 @@ namespace Mos6510.Tests
     {
       model.OverflowFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
-          0x40, Is.EqualTo(expectedResult));
+                  0x40, Is.EqualTo(expectedResult));
     }
 
     [TestCase(0x80, true)]
@@ -152,7 +152,7 @@ namespace Mos6510.Tests
     {
       model.NegativeFlag = value;
       Assert.That(model.GetRegister(RegisterName.P).GetValue() &
-          0x80, Is.EqualTo(expectedResult));
+                  0x80, Is.EqualTo(expectedResult));
     }
 
   }

@@ -9,11 +9,12 @@ namespace Mos6510.Tests
     [TestCase(0xE0, Opcode.Inx, AddressingMode.Implied)]
     [TestCase(0xC0, Opcode.Iny, AddressingMode.Implied)]
     public void FindsTheProperOpCodeAndAddressingModeForTheInstruction(
-        byte instruction, Opcode expectedOpcode,
-        AddressingMode expectedAddressingMode)
+      byte instruction, Opcode expectedOpcode,
+      AddressingMode expectedAddressingMode)
     {
       var registry = new Registry {
-        { instruction, expectedOpcode, null, expectedAddressingMode } };
+        { instruction, expectedOpcode, null, expectedAddressingMode }
+      };
 
       var decoder = new Decoder(registry);
       OpcodeAddressModePair pair;

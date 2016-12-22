@@ -63,7 +63,7 @@ namespace Mos6510.Tests
     [TestCase("And (64),Y", andIndexedIndirectYCode, 0x40 )]
     [TestCase("And ($80),y", andIndexedIndirectYCode, 0x80 )]
     public void CanReadOneArgumentInstruction(string input, byte code,
-                                              byte argument)
+        byte argument)
     {
       Assert.That(assembler.GetDisassembly(input),
                   Is.EquivalentTo(new [] { code, argument }));
@@ -78,7 +78,7 @@ namespace Mos6510.Tests
     [TestCase("And 4160,Y", andAbsoluteYCode, 0x40, 0x10 )]
     [TestCase("And $1040,y", andAbsoluteYCode, 0x40, 0x10 )]
     public void CanReadTwoArgumentInstruction(string input, byte code,
-                                              byte argument1, byte argument2)
+        byte argument1, byte argument2)
     {
       Assert.That(assembler.GetDisassembly(input),
                   Is.EquivalentTo(new [] { code, argument1, argument2 }));

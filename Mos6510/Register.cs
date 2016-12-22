@@ -36,7 +36,7 @@ namespace Mos6510
 
     private void FromInt(int value)
     {
-      var inputBits = new BitArray(new[]{ value });
+      var inputBits = new BitArray(new[] { value });
       for (var i = 0; i < bits.Length; ++i)
         bits[i] = inputBits[i];
     }

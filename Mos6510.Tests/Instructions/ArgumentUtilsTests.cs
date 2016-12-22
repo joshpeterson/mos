@@ -20,7 +20,7 @@ namespace Mos6510.Tests.Instructions
     {
       byte expectedArgument = 42;
       Assert.That(ArgumentUtils.ArgumentFor(model, memory,
-                  AddressingMode.Immediate, expectedArgument),
+                                            AddressingMode.Immediate, expectedArgument),
                   Is.EqualTo(expectedArgument));
     }
 
@@ -31,7 +31,7 @@ namespace Mos6510.Tests.Instructions
       const ushort address = 0x1000;
       memory.SetValue(address, expectedArgument);
       Assert.That(ArgumentUtils.ArgumentFor(model, memory, AddressingMode.Absolute,
-                  address), Is.EqualTo(expectedArgument));
+                                            address), Is.EqualTo(expectedArgument));
     }
 
     [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
@@ -49,7 +49,7 @@ namespace Mos6510.Tests.Instructions
     {
       memory.SetValue(0x0C0, 0x8);
       Assert.That(ArgumentUtils.ArgumentFor(model, memory, AddressingMode.Zeropage,
-                   0xC0), Is.EqualTo(0x8));
+                                            0xC0), Is.EqualTo(0x8));
     }
 
     [TestCase(AddressingMode.ZeropageX, RegisterName.X)]
@@ -77,7 +77,7 @@ namespace Mos6510.Tests.Instructions
     [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
     [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
     public void ReturnsTrueWhenAPageBoundaryWasCrossed(AddressingMode mode,
-                                                        RegisterName register)
+        RegisterName register)
     {
       model.GetRegister(register).SetValue(0x10);
       Assert.That(ArgumentUtils.CrossesPageBoundary(model, mode, 0x10F0),
@@ -95,7 +95,7 @@ namespace Mos6510.Tests.Instructions
     [TestCase(AddressingMode.ZeropageX, RegisterName.Y)]
     [TestCase(AddressingMode.ZeropageY, RegisterName.Y)]
     public void ReturnsFalseWhenAPageBoundaryWasNotCrossed(AddressingMode mode,
-                                                            RegisterName register)
+        RegisterName register)
     {
       model.GetRegister(register).SetValue(0x10);
       Assert.That(ArgumentUtils.CrossesPageBoundary(model, mode, 0x10E0), Is.False,

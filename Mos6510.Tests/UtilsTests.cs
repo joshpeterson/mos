@@ -11,7 +11,7 @@ namespace Mos6510.Tests
     {
       Opcode unused;
       Assert.That(Utils.TryParseOpcode("Nop", out unused), Is.True,
-          @"TryParseOpcode returned false for a valid opcode,
+                  @"TryParseOpcode returned false for a valid opcode,
             which is not expected.");
     }
 
@@ -20,7 +20,7 @@ namespace Mos6510.Tests
     {
       Opcode unused;
       Assert.That(Utils.TryParseOpcode("Foo", out unused), Is.False,
-          @"TryParseOpcode returned true for an invalid opcode,
+                  @"TryParseOpcode returned true for an invalid opcode,
             which is not expected.");
     }
 
