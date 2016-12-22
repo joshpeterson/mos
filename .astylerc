@@ -1,0 +1,6 @@
+--mode=cs
+--indent=spaces=2
+--max-code-length=83
+--indent-namespaces
+--keep-one-line-blocks
+--keep-one-line-statements
