@@ -4,6 +4,15 @@ templateCs = %{namespace Mos6510.Instructions
 {
   public class <class> : Instruction
   {
+    public void Execute(ProgrammingModel model, Memory memory, byte argument)
+    {
+      throw new System.NotImplementedException();
+    }
+
+    public int CyclesFor(AddressingMode mode)
+    {
+      throw new System.NotImplementedException();
+    }
   }
 }
 }
