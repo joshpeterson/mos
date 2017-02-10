@@ -114,6 +114,9 @@ UpgradeLog*.XML
 # NuGet
 packages/
 
-#Vim
+# Vim
 *.swp
 *~
+
+# NUnit
+testrunner/
