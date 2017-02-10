@@ -53,15 +53,15 @@ namespace Mos6510.Tests
                   0x01, Is.EqualTo(expectedResult));
     }
 
-    [TestCase(0x03, true)]
-    [TestCase(~0x03, false)]
+    [TestCase(0x02, true)]
+    [TestCase(~0x02, false)]
     public void VerifyZeroFlagGetter(int value, bool expectedResult)
     {
       model.GetRegister(RegisterName.P).SetValue(value);
       Assert.That(model.ZeroFlag, Is.EqualTo(expectedResult));
     }
 
-    [TestCase(true, 0x03)]
+    [TestCase(true, 0x02)]
     [TestCase(false, 0)]
     public void VerifyZeroFlagSetter(bool value, int expectedResult)
     {

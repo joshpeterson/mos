@@ -15,7 +15,7 @@ namespace Mos6510
   public class ProgrammingModel
   {
     private const byte CarryFlagMask = 0x01;
-    private const byte ZeroFlagMask = 0x03;
+    private const byte ZeroFlagMask = 0x02;
     private const byte IrqDisableFlagMask = 0x04;
     private const byte DecimalModeFlagMask = 0x08;
     private const byte BreakCommandFlagMask = 0x10;
