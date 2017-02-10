@@ -59,6 +59,7 @@
     <Compile Include="Instructions\OraTests.cs" />
     <Compile Include="Instructions\EorTests.cs" />
     <Compile Include="Instructions\ClcTests.cs" />
+    <Compile Include="Instructions\SbcTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">

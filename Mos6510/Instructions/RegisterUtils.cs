@@ -44,5 +44,11 @@ namespace Mos6510.Instructions
       var currentValue = model.GetRegister(RegisterName.A).GetValue();
       model.CarryFlag = currentValue < previousValue;
     }
+
+    public static void SetCarryFlag(ProgrammingModel model, byte previousValue,
+                                    byte argument)
+    {
+      model.CarryFlag = previousValue < argument;
+    }
   }
 }

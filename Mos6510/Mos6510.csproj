@@ -61,6 +61,7 @@
     <Compile Include="Instructions\Ora.cs" />
     <Compile Include="Instructions\Eor.cs" />
     <Compile Include="Instructions\Clc.cs" />
+    <Compile Include="Instructions\Sbc.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
