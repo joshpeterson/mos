@@ -11,5 +11,6 @@ namespace Mos6510.Instructions
     Adc,
     Clc,
     Lda,
+    Sbc,
   }
 }

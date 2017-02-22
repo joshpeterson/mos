@@ -18,6 +18,7 @@ namespace Mos6510
       {Opcode.Adc, new Adc()},
       {Opcode.Clc, new Clc()},
       {Opcode.Lda, new Lda()},
+      {Opcode.Sbc, new Sbc()},
     };
 
     public InstructionRegistry()
@@ -65,6 +66,14 @@ namespace Mos6510
       All.Add(0xB5, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.ZeropageX);
       All.Add(0xA1, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.IndexedIndirectX);
       All.Add(0xB1, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.IndexedIndirectY);
+      All.Add(0xE9, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.Immediate);
+      All.Add(0xED, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.Absolute);
+      All.Add(0xFD, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.AbsoluteX);
+      All.Add(0xF9, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.AbsoluteY);
+      All.Add(0xE5, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.Zeropage);
+      All.Add(0xF5, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.ZeropageX);
+      All.Add(0xE1, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.IndexedIndirectX);
+      All.Add(0xF1, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.IndexedIndirectY);
     }
   }
 }
