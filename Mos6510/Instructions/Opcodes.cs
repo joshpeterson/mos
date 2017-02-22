@@ -10,5 +10,6 @@ namespace Mos6510.Instructions
     Eor,
     Adc,
     Clc,
+    Lda,
   }
 }
