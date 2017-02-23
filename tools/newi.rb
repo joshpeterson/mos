@@ -18,6 +18,7 @@ templateCs = %{namespace Mos6510.Instructions
 }
 
 templateTest = %{using NUnit.Framework;
+using Mos6510.Instructions;
 
 namespace Mos6510.Tests.Instructions
 {
