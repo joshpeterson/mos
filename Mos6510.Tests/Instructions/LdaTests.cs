@@ -13,7 +13,7 @@ namespace Mos6510.Tests.Instructions
       var accumulator = model.GetRegister(RegisterName.A);
       accumulator.SetValue(0xA);
 
-      new Lda().Execute(model, null, 0x8);
+      new Lda().Execute(model, null, new Argument(0x8, 0));
       Assert.That(accumulator.GetValue(), Is.EqualTo(0x8));
     }
 
@@ -24,7 +24,7 @@ namespace Mos6510.Tests.Instructions
       var model = new ProgrammingModel();
       model.NegativeFlag = !expectedResult;
 
-      new Lda().Execute(model, null, newValue);
+      new Lda().Execute(model, null, new Argument(newValue, 0));
 
       Assert.That(model.NegativeFlag, Is.EqualTo(expectedResult));
     }
@@ -36,7 +36,7 @@ namespace Mos6510.Tests.Instructions
       var model = new ProgrammingModel();
       model.ZeroFlag = !expectedResult;
 
-      new Lda().Execute(model, null, newValue);
+      new Lda().Execute(model, null, new Argument(newValue,0));
 
       Assert.That(model.ZeroFlag, Is.EqualTo(expectedResult));
     }

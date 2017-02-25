@@ -3,32 +3,32 @@ using NUnit.Framework;
 
 namespace Mos6510.Tests.Instructions
 {
-  [TestFixture]
-  class AdcTests
-  {
+[TestFixture]
+class AdcTests
+{
     [Test]
     public void AddsWithTheAccumulator()
     {
-      var model = new ProgrammingModel();
-      var accumulator = model.GetRegister(RegisterName.A);
-      accumulator.SetValue(0xA);
+        var model = new ProgrammingModel();
+        var accumulator = model.GetRegister(RegisterName.A);
+        accumulator.SetValue(0xA);
 
-      new Adc().Execute(model, null, 0x8);
-      Assert.That(accumulator.GetValue(), Is.EqualTo(0x12));
+        new Adc().Execute(model, null, new Argument(0x8,0));
+        Assert.That(accumulator.GetValue(), Is.EqualTo(0x12));
     }
 
     [Test]
     public void AddsWithTheAccumulatorIncludingCarry()
     {
-      var model = new ProgrammingModel();
-      var accumulator = model.GetRegister(RegisterName.A);
-      accumulator.SetValue(0xA);
+        var model = new ProgrammingModel();
+        var accumulator = model.GetRegister(RegisterName.A);
+        accumulator.SetValue(0xA);
 
-      var status = model.GetRegister(RegisterName.S);
-      status.SetValue(status.GetValue() | 0x01);
+        var status = model.GetRegister(RegisterName.S);
+        status.SetValue(status.GetValue() | 0x01);
 
-      new Adc().Execute(model, null, 0x8);
-      Assert.That(accumulator.GetValue(), Is.EqualTo(0x13));
+        new Adc().Execute(model, null, new Argument(0x8,0));
+        Assert.That(accumulator.GetValue(), Is.EqualTo(0x13));
     }
 
     [TestCase(AddressingMode.Immediate, 2)]
@@ -42,59 +42,59 @@ namespace Mos6510.Tests.Instructions
     [TestCase(AddressingMode.IndexedIndirectY, 5)]
     public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int expected)
     {
-      Assert.That(new Adc().CyclesFor(mode), Is.EqualTo(expected));
+        Assert.That(new Adc().CyclesFor(mode), Is.EqualTo(expected));
     }
 
     [TestCase(0x70, true)]
     [TestCase(0x30, false)]
     public void VerifyValuesOfNegativeFlag(int initialValue, bool expectedResult)
     {
-      var model = new ProgrammingModel();
-      model.GetRegister(RegisterName.A).SetValue(initialValue);
-      model.NegativeFlag = !expectedResult;
+        var model = new ProgrammingModel();
+        model.GetRegister(RegisterName.A).SetValue(initialValue);
+        model.NegativeFlag = !expectedResult;
 
-      new Adc().Execute(model, null, 0x10);
+        new Adc().Execute(model, null, new Argument(0x10,0));
 
-      Assert.That(model.NegativeFlag, Is.EqualTo(expectedResult));
+        Assert.That(model.NegativeFlag, Is.EqualTo(expectedResult));
     }
 
     [TestCase(0xFF, true)]
     [TestCase(0x01, false)]
     public void VerifyValuesOfZeroFlag(int initialValue, bool expectedResult)
     {
-      var model = new ProgrammingModel();
-      model.GetRegister(RegisterName.A).SetValue(initialValue);
-      model.ZeroFlag = !expectedResult;
+        var model = new ProgrammingModel();
+        model.GetRegister(RegisterName.A).SetValue(initialValue);
+        model.ZeroFlag = !expectedResult;
 
-      new Adc().Execute(model, null, 0x01);
+        new Adc().Execute(model, null, new Argument(0x01,0));
 
-      Assert.That(model.ZeroFlag, Is.EqualTo(expectedResult));
+        Assert.That(model.ZeroFlag, Is.EqualTo(expectedResult));
     }
 
     [TestCase(0x7F, true)]
     [TestCase(0x7E, false)]
     public void VerifyValuesOfOverflowFlag(int initialValue, bool expectedResult)
     {
-      var model = new ProgrammingModel();
-      model.GetRegister(RegisterName.A).SetValue(initialValue);
-      model.ZeroFlag = !expectedResult;
+        var model = new ProgrammingModel();
+        model.GetRegister(RegisterName.A).SetValue(initialValue);
+        model.ZeroFlag = !expectedResult;
 
-      new Adc().Execute(model, null, 0x01);
+        new Adc().Execute(model, null, new Argument(0x01,0));
 
-      Assert.That(model.OverflowFlag, Is.EqualTo(expectedResult));
+        Assert.That(model.OverflowFlag, Is.EqualTo(expectedResult));
     }
 
     [TestCase(0xFF, true)]
     [TestCase(0x00, false)]
     public void VerifyValuesOfCarryFlag(int initialValue, bool expectedResult)
     {
-      var model = new ProgrammingModel();
-      model.GetRegister(RegisterName.A).SetValue(initialValue);
-      model.ZeroFlag = !expectedResult;
+        var model = new ProgrammingModel();
+        model.GetRegister(RegisterName.A).SetValue(initialValue);
+        model.ZeroFlag = !expectedResult;
 
-      new Adc().Execute(model, null, 0xFF);
+        new Adc().Execute(model, null, new Argument(0xFF,0));
 
-      Assert.That(model.CarryFlag, Is.EqualTo(expectedResult));
+        Assert.That(model.CarryFlag, Is.EqualTo(expectedResult));
     }
-  }
+}
 }

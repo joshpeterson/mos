@@ -2,30 +2,30 @@ using Mos6510.Instructions;
 
 namespace Mos6510
 {
-  public class CoreLoop
-  {
+public class CoreLoop
+{
     private readonly Fetcher fetcher;
     private readonly Decoder decoder;
     private readonly Executor executor;
 
     public CoreLoop(Fetcher fetcher, Decoder decoder, Executor executor)
     {
-      this.fetcher = fetcher;
-      this.decoder = decoder;
-      this.executor = executor;
+        this.fetcher = fetcher;
+        this.decoder = decoder;
+        this.executor = executor;
     }
 
     public bool SingleStep()
     {
-      var instruction = fetcher.Fetch();
+        var instruction = fetcher.Fetch();
 
-      OpcodeAddressModePair pair;
-      if (!decoder.TryDecode(instruction, out pair))
-        return false;
+        OpcodeAddressModePair pair;
+        if (!decoder.TryDecode(instruction, out pair))
+            return false;
 
-      executor.Execute(pair.Opcode, pair.Mode, fetcher.OperandFor(pair.Mode));
+        executor.Execute(pair.Opcode, pair.Mode, fetcher.OperandFor(pair.Mode));
 
-      return true;
+        return true;
     }
-  }
+}
 }

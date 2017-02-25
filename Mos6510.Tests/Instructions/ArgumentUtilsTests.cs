@@ -15,13 +15,24 @@ namespace Mos6510.Tests.Instructions
       model = new ProgrammingModel();
       memory = new Memory();
     }
+
     [Test]
     public void ReturnsTheOperandForImmediateMode()
     {
       byte expectedArgument = 42;
       Assert.That(ArgumentUtils.ArgumentFor(model, memory,
-                                            AddressingMode.Immediate, expectedArgument),
+                                            AddressingMode.Immediate,
+                                            expectedArgument).value,
                   Is.EqualTo(expectedArgument));
+    }
+
+    [Test]
+    public void ReturnsAZeroAddressForImmediateMode()
+    {
+      Assert.That(ArgumentUtils.ArgumentFor(model, memory,
+                                            AddressingMode.Immediate,
+                                            42).address,
+                  Is.EqualTo(0));
     }
 
     [Test]
@@ -30,8 +41,10 @@ namespace Mos6510.Tests.Instructions
       const byte expectedArgument = 0x08;
       const ushort address = 0x1000;
       memory.SetValue(address, expectedArgument);
-      Assert.That(ArgumentUtils.ArgumentFor(model, memory, AddressingMode.Absolute,
-                                            address), Is.EqualTo(expectedArgument));
+      Assert.That(ArgumentUtils.ArgumentFor(model, memory,
+                                            AddressingMode.Absolute,
+                                            address).value,
+                  Is.EqualTo(expectedArgument));
     }
 
     [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
@@ -40,7 +53,7 @@ namespace Mos6510.Tests.Instructions
     {
       memory.SetValue(0x1010, 0x8);
       model.GetRegister(register).SetValue(0x10);
-      Assert.That(ArgumentUtils.ArgumentFor(model, memory, mode, 0x1000),
+      Assert.That(ArgumentUtils.ArgumentFor(model, memory, mode, 0x1000).value,
                   Is.EqualTo(0x8));
     }
 
@@ -49,7 +62,7 @@ namespace Mos6510.Tests.Instructions
     {
       memory.SetValue(0x0C0, 0x8);
       Assert.That(ArgumentUtils.ArgumentFor(model, memory, AddressingMode.Zeropage,
-                                            0xC0), Is.EqualTo(0x8));
+                                            0xC0).value, Is.EqualTo(0x8));
     }
 
     [TestCase(AddressingMode.ZeropageX, RegisterName.X)]
@@ -58,7 +71,7 @@ namespace Mos6510.Tests.Instructions
     {
       memory.SetValue(0x0070, 0x8);
       model.GetRegister(register).SetValue(0x10);
-      Assert.That(ArgumentUtils.ArgumentFor(model, memory, mode, 0x60),
+      Assert.That(ArgumentUtils.ArgumentFor(model, memory, mode, 0x60).value,
                   Is.EqualTo(0x8));
     }
 
@@ -70,8 +83,19 @@ namespace Mos6510.Tests.Instructions
       memory.SetValue(0x0070, 0x00);
       memory.SetValue(0x0071, 0x80);
       model.GetRegister(register).SetValue(0x10);
-      Assert.That(ArgumentUtils.ArgumentFor(model, memory, mode, 0x60),
+      Assert.That(ArgumentUtils.ArgumentFor(model, memory, mode, 0x60).value,
                   Is.EqualTo(0x8));
+    }
+
+    [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]
+    [TestCase(AddressingMode.AbsoluteY, RegisterName.Y)]
+    public void IncludesTheAddressInTheArgument(AddressingMode mode,
+        RegisterName register)
+    {
+      memory.SetValue(0x1010, 0x8);
+      model.GetRegister(register).SetValue(0x10);
+      Assert.That(ArgumentUtils.ArgumentFor(model, memory, mode, 0x1000).address,
+                  Is.EqualTo(0x1010));
     }
 
     [TestCase(AddressingMode.AbsoluteX, RegisterName.X)]

@@ -1,15 +1,15 @@
 namespace Mos6510.Instructions
 {
-  public class Clc : Instruction
-  {
-    public void Execute(ProgrammingModel model, Memory memory, byte argument)
+public class Clc : Instruction
+{
+    public void Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
-      model.CarryFlag = false;
+        model.CarryFlag = false;
     }
 
     public int CyclesFor(AddressingMode mode)
     {
-      return 2;
+        return 2;
     }
-  }
+}
 }

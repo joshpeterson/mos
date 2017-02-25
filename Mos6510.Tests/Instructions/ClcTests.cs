@@ -3,25 +3,25 @@ using NUnit.Framework;
 
 namespace Mos6510.Tests.Instructions
 {
-  [TestFixture]
-  public class ClcTests
-  {
+[TestFixture]
+public class ClcTests
+{
     [Test]
     public void ClearsTheCarryFlag()
     {
-      var model = new ProgrammingModel();
-      model.CarryFlag = true;
+        var model = new ProgrammingModel();
+        model.CarryFlag = true;
 
-      new Clc().Execute(model, null, 0);
+        new Clc().Execute(model, null, new Argument(0,0));
 
-      Assert.That(model.CarryFlag, Is.False,
-                  "The carry flag was not cleared, which is not expected.");
+        Assert.That(model.CarryFlag, Is.False,
+                    "The carry flag was not cleared, which is not expected.");
     }
 
     [Test]
     public void RequiresTwoCycles()
     {
-      Assert.That(new Clc().CyclesFor(AddressingMode.Implied), Is.EqualTo(2));
+        Assert.That(new Clc().CyclesFor(AddressingMode.Implied), Is.EqualTo(2));
     }
-  }
+}
 }

@@ -2,12 +2,12 @@ namespace Mos6510.Instructions
 {
   public static class ArgumentUtils
   {
-    public static byte ArgumentFor(ProgrammingModel model, Memory memory,
-                                   AddressingMode mode, ushort operand)
+    public static Argument ArgumentFor(ProgrammingModel model, Memory memory,
+                                       AddressingMode mode, ushort operand)
     {
       ushort address = 0;
       if (mode == AddressingMode.Immediate)
-        return (byte)operand;
+        return new Argument((byte)operand, address);
       else if (mode == AddressingMode.Absolute || mode == AddressingMode.Zeropage)
         address = operand;
       else if (mode == AddressingMode.AbsoluteX || mode == AddressingMode.ZeropageX)
@@ -19,7 +19,7 @@ namespace Mos6510.Instructions
       else if (mode == AddressingMode.IndexedIndirectY)
         address = IndexedIndirectAddressFor(model, memory, RegisterName.Y, operand);
 
-      return memory.GetValue(address);
+      return new Argument(memory.GetValue(address), address);
     }
 
     public static bool CrossesPageBoundary(ProgrammingModel model,

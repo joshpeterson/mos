@@ -63,6 +63,7 @@
     <Compile Include="Instructions\Clc.cs" />
     <Compile Include="Instructions\Sbc.cs" />
     <Compile Include="Instructions\Lda.cs" />
+    <Compile Include="Instructions\Argument.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
