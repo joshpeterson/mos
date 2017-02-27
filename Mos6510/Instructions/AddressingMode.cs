@@ -1,7 +1,7 @@
 namespace Mos6510.Instructions
 {
-public enum AddressingMode
-{
+  public enum AddressingMode
+  {
     Implied,
     Immediate,
     Absolute,
@@ -12,5 +12,5 @@ public enum AddressingMode
     ZeropageY,
     IndexedIndirectX,
     IndexedIndirectY
-}
+  }
 }

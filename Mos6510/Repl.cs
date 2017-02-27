@@ -3,8 +3,8 @@ using System.Linq;
 
 namespace Mos6510
 {
-public class Repl
-{
+  public class Repl
+  {
     private readonly InstructionRegistry registry;
 
     private readonly ProgrammingModel model;
@@ -20,37 +20,37 @@ public class Repl
 
     public Repl(ProgrammingModel model, Memory memory)
     {
-        registry = new InstructionRegistry();
-        this.model = model;
-        this.memory = memory;
-        assembler = new Assembler(registry.All);
-        fetcher = new Fetcher(model, memory);
-        decoder = new Decoder(registry.All);
-        executor = new Executor(registry.All, model, memory);
-        coreLoop = new CoreLoop(fetcher, decoder, executor);
+      registry = new InstructionRegistry();
+      this.model = model;
+      this.memory = memory;
+      assembler = new Assembler(registry.All);
+      fetcher = new Fetcher(model, memory);
+      decoder = new Decoder(registry.All);
+      executor = new Executor(registry.All, model, memory);
+      coreLoop = new CoreLoop(fetcher, decoder, executor);
     }
 
     public bool TryRead(string line)
     {
-        var disassembly = assembler.GetDisassembly(line);
-        if (!disassembly.Any())
-            return false;
+      var disassembly = assembler.GetDisassembly(line);
+      if (!disassembly.Any())
+        return false;
 
-        var address = (ushort)model.GetRegister(RegisterName.PC).GetValue();
-        foreach (var datum in disassembly)
-            memory.SetValue(address++, datum);
+      var address = (ushort)model.GetRegister(RegisterName.PC).GetValue();
+      foreach (var datum in disassembly)
+        memory.SetValue(address++, datum);
 
-        return true;
+      return true;
     }
 
     public bool Execute()
     {
-        return coreLoop.SingleStep();
+      return coreLoop.SingleStep();
     }
 
     public string PrintRegisters()
     {
-        const string registerFormat = @"
+      const string registerFormat = @"
         Registers:
         A:  0x{0:X2}
         Y:  0x{1:X2}
@@ -60,14 +60,14 @@ public class Repl
         P:  {5}b
             NVXBDIZC";
 
-        return string.Format(registerFormat,
-                             model.GetRegister(RegisterName.A).GetValue(),
-                             model.GetRegister(RegisterName.Y).GetValue(),
-                             model.GetRegister(RegisterName.X).GetValue(),
-                             model.GetRegister(RegisterName.PC).GetValue(),
-                             model.GetRegister(RegisterName.S).GetValue(),
-                             Convert.ToString(model.GetRegister(RegisterName.P).GetValue(), 2).
-                             PadLeft(8, '0'));
+      return string.Format(registerFormat,
+                           model.GetRegister(RegisterName.A).GetValue(),
+                           model.GetRegister(RegisterName.Y).GetValue(),
+                           model.GetRegister(RegisterName.X).GetValue(),
+                           model.GetRegister(RegisterName.PC).GetValue(),
+                           model.GetRegister(RegisterName.S).GetValue(),
+                           Convert.ToString(model.GetRegister(RegisterName.P).GetValue(), 2).
+                           PadLeft(8, '0'));
     }
-}
+  }
 }

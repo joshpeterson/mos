@@ -2,17 +2,17 @@ using Mos6510;
 
 namespace Mos6510.Instructions
 {
-public class Inx : Instruction
-{
+  public class Inx : Instruction
+  {
     public virtual void Execute(ProgrammingModel model, Memory memory,
                                 Argument argument)
     {
-        RegisterUtils.IncrementRegister(model, RegisterName.X);
+      RegisterUtils.IncrementRegister(model, RegisterName.X);
     }
 
     public virtual int CyclesFor(AddressingMode mode)
     {
-        return 2;
+      return 2;
     }
-}
+  }
 }
