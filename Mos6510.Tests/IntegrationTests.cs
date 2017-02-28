@@ -7,7 +7,7 @@ namespace Mos6510.Tests
   {
     public delegate void SetUp(ProgrammingModel model, Memory memory);
 
-    public static object[] TestCases =
+    public static object[] RegisterTestCases =
     {
       new TestCaseData(new SetUp(Empty), "Inx", "X:  0x01"),
       new TestCaseData(new SetUp(Empty), "Iny", "Y:  0x01"),
@@ -35,11 +35,18 @@ namespace Mos6510.Tests
       new TestCaseData(new SetUp(InitializeForEor), "Eor $00,X", "A:  0xF5"),
       new TestCaseData(new SetUp(InitializeForEor), "Eor ($10,X)", "A:  0xF5"),
       new TestCaseData(new SetUp(InitializeForEor), "Eor ($10),Y", "A:  0xF5"),
+      new TestCaseData(new SetUp(InitializeForLda), "Lda #$77", "A:  0x77"),
+      new TestCaseData(new SetUp(InitializeForLda), "Lda $1000", "A:  0xDF"),
     };
 
-    [TestCaseSource("TestCases")]
-    public void InstructionWorksEndToEnd(SetUp setup, string input,
-                                         string expectedOutput)
+    public static object[] MemoryTestCases =
+    {
+      new TestCaseData(new SetUp(InitializeForSta), "Sta $2400", 0x2400, 0xFF),
+    };
+
+    [TestCaseSource("RegisterTestCases")]
+    public void RegisterInstructionWorksEndToEnd(SetUp setup, string input,
+        string expectedOutput)
     {
       var model = new ProgrammingModel();
       var memory = new Memory();
@@ -51,6 +58,24 @@ namespace Mos6510.Tests
       if (!repl.Execute())
         Assert.Fail(string.Format("Unable to execute input: '{0}'", input));
       Assert.That(repl.PrintRegisters(), Is.StringContaining(expectedOutput));
+    }
+
+    [TestCaseSource("MemoryTestCases")]
+    public void MemoryInstructionWorksEndToEnd(SetUp setup, string input,
+        int addressToCheck,
+        int expectedValue)
+    {
+      var model = new ProgrammingModel();
+      var memory = new Memory();
+      setup(model, memory);
+      var repl = new Repl(model, memory);
+
+      if (!repl.TryRead(input))
+        Assert.Fail(string.Format("Unable to read assembly input: '{0}'", input));
+      if (!repl.Execute())
+        Assert.Fail(string.Format("Unable to execute input: '{0}'", input));
+      Assert.That(memory.GetValue((ushort)addressToCheck),
+                  Is.EqualTo(expectedValue));
     }
 
     private static void Empty(ProgrammingModel model, Memory memory)
@@ -85,6 +110,18 @@ namespace Mos6510.Tests
       memory.SetValue(0x1000, 0xFF);
       memory.SetValue(0x10, 0xFF);
       memory.SetValue(0x21, 0x10);
+    }
+
+    private static void InitializeForLda(ProgrammingModel model, Memory memory)
+    {
+      model.GetRegister(RegisterName.A).SetValue(0x0A);
+      memory.SetValue(0x1000, 0xDF);
+    }
+
+    private static void InitializeForSta(ProgrammingModel model, Memory memory)
+    {
+      model.GetRegister(RegisterName.A).SetValue(0xFF);
+      memory.SetValue(0x2400, 0x87);
     }
   }
 }
