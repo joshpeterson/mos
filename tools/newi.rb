@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
-templateCs = %{namespace Mos6510.Instructions
+templateCs = %{using System.Collections.Generic;
+
+namespace Mos6510.Instructions
 {
   public class <class> : Instruction
   {
