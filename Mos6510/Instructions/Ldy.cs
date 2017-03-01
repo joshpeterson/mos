@@ -15,10 +15,7 @@ namespace Mos6510.Instructions
 
     public void Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
-      model.GetRegister(RegisterName.Y).SetValue(argument.value);
-
-      RegisterUtils.SetZeroFlag(model, RegisterName.Y);
-      RegisterUtils.SetNegativeFlag(model, RegisterName.Y);
+      RegisterUtils.LoadRegister(model, RegisterName.Y, argument.value);
     }
 
     public int CyclesFor(AddressingMode mode)

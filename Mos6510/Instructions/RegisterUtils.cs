@@ -13,6 +13,15 @@ namespace Mos6510.Instructions
       SetNegativeFlag(model, name);
     }
 
+    public static void LoadRegister(ProgrammingModel model, RegisterName name,
+                                    byte value)
+    {
+      model.GetRegister(name).SetValue(value);
+
+      RegisterUtils.SetZeroFlag(model, name);
+      RegisterUtils.SetNegativeFlag(model, name);
+    }
+
     public static void SetZeroFlag(ProgrammingModel model, RegisterName name)
     {
       var register = model.GetRegister(name);
