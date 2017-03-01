@@ -13,5 +13,6 @@ namespace Mos6510.Instructions
     Lda,
     Sbc,
     Sta,
+    Ldx,
   }
 }
