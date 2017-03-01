@@ -14,5 +14,6 @@ namespace Mos6510.Instructions
     Sbc,
     Sta,
     Ldx,
+    Ldy,
   }
 }

@@ -21,6 +21,7 @@ namespace Mos6510
       {Opcode.Sbc, new Sbc()},
       {Opcode.Sta, new Sta()},
       {Opcode.Ldx, new Ldx()},
+      {Opcode.Ldy, new Ldy()},
     };
 
     public InstructionRegistry()
@@ -88,6 +89,11 @@ namespace Mos6510
       All.Add(0xBE, Opcode.Ldx, Ins[Opcode.Ldx], AddressingMode.AbsoluteY);
       All.Add(0xA6, Opcode.Ldx, Ins[Opcode.Ldx], AddressingMode.Zeropage);
       All.Add(0xB6, Opcode.Ldx, Ins[Opcode.Ldx], AddressingMode.ZeropageY);
+      All.Add(0xA0, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.Immediate);
+      All.Add(0xAC, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.Absolute);
+      All.Add(0xBC, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.AbsoluteX);
+      All.Add(0xA4, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.Zeropage);
+      All.Add(0xB4, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.ZeropageX);
     }
   }
 }
