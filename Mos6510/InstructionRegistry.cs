@@ -1,4 +1,5 @@
 using Mos6510.Instructions;
+using System;
 using System.Collections.Generic;
 
 namespace Mos6510
@@ -8,24 +9,12 @@ namespace Mos6510
     public Registry All = new Registry();
 
     private Dictionary<Opcode, Instruction> Ins
-    = new Dictionary<Opcode, Instruction>
-    {
-      {Opcode.Inx, new Inx()},
-      {Opcode.Iny, new Iny()},
-      {Opcode.And, new And()},
-      {Opcode.Ora, new Ora()},
-      {Opcode.Eor, new Eor()},
-      {Opcode.Adc, new Adc()},
-      {Opcode.Clc, new Clc()},
-      {Opcode.Lda, new Lda()},
-      {Opcode.Sbc, new Sbc()},
-      {Opcode.Sta, new Sta()},
-      {Opcode.Ldx, new Ldx()},
-      {Opcode.Ldy, new Ldy()},
-    };
+      = new Dictionary<Opcode, Instruction>();
 
     public InstructionRegistry()
     {
+      InitializeInstructions();
+
       All.Add(0xE0, Opcode.Inx, Ins[Opcode.Inx], AddressingMode.Implied);
       All.Add(0xC0, Opcode.Iny, Ins[Opcode.Iny], AddressingMode.Implied);
       All.Add(0x29, Opcode.And, Ins[Opcode.And], AddressingMode.Immediate);
@@ -94,6 +83,18 @@ namespace Mos6510
       All.Add(0xBC, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.AbsoluteX);
       All.Add(0xA4, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.Zeropage);
       All.Add(0xB4, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.ZeropageX);
+    }
+
+    private void InitializeInstructions()
+    {
+      foreach (var opcode in (Opcode[])Enum.GetValues(typeof(Opcode)))
+      {
+        var instruction = (Instruction)GetType().Assembly.CreateInstance(
+                            string.Format("Mos6510.Instructions.{0}",
+                                          Enum.GetName(typeof(Opcode), opcode)));
+        if (instruction != null)
+          Ins.Add(opcode, instruction);
+      }
     }
   }
 }
