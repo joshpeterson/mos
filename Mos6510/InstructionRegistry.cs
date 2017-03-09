@@ -1,6 +1,8 @@
 using Mos6510.Instructions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 
 namespace Mos6510
 {
@@ -8,85 +10,12 @@ namespace Mos6510
   {
     public Registry All = new Registry();
 
-    private Dictionary<Opcode, Instruction> Ins
-      = new Dictionary<Opcode, Instruction>();
+    private Dictionary<Opcode, Instruction> Ins;
 
     public InstructionRegistry()
     {
-      InitializeInstructions();
+      Ins = new Dictionary<Opcode, Instruction>();
 
-      All.Add(0xE0, Opcode.Inx, Ins[Opcode.Inx], AddressingMode.Implied);
-      All.Add(0xC0, Opcode.Iny, Ins[Opcode.Iny], AddressingMode.Implied);
-      All.Add(0x29, Opcode.And, Ins[Opcode.And], AddressingMode.Immediate);
-      All.Add(0x2D, Opcode.And, Ins[Opcode.And], AddressingMode.Absolute);
-      All.Add(0x3D, Opcode.And, Ins[Opcode.And], AddressingMode.AbsoluteX);
-      All.Add(0x39, Opcode.And, Ins[Opcode.And], AddressingMode.AbsoluteY);
-      All.Add(0x25, Opcode.And, Ins[Opcode.And], AddressingMode.Zeropage);
-      All.Add(0x35, Opcode.And, Ins[Opcode.And], AddressingMode.ZeropageX);
-      All.Add(0x21, Opcode.And, Ins[Opcode.And], AddressingMode.IndexedIndirectX);
-      All.Add(0x31, Opcode.And, Ins[Opcode.And], AddressingMode.IndexedIndirectY);
-      All.Add(0x09, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.Immediate);
-      All.Add(0x0D, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.Absolute);
-      All.Add(0x1D, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.AbsoluteX);
-      All.Add(0x19, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.AbsoluteY);
-      All.Add(0x05, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.Zeropage);
-      All.Add(0x15, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.ZeropageX);
-      All.Add(0x01, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.IndexedIndirectX);
-      All.Add(0x11, Opcode.Ora, Ins[Opcode.Ora], AddressingMode.IndexedIndirectY);
-      All.Add(0x49, Opcode.Eor, Ins[Opcode.Eor], AddressingMode.Immediate);
-      All.Add(0x4D, Opcode.Eor, Ins[Opcode.Eor], AddressingMode.Absolute);
-      All.Add(0x5D, Opcode.Eor, Ins[Opcode.Eor], AddressingMode.AbsoluteX);
-      All.Add(0x59, Opcode.Eor, Ins[Opcode.Eor], AddressingMode.AbsoluteY);
-      All.Add(0x45, Opcode.Eor, Ins[Opcode.Eor], AddressingMode.Zeropage);
-      All.Add(0x55, Opcode.Eor, Ins[Opcode.Eor], AddressingMode.ZeropageX);
-      All.Add(0x41, Opcode.Eor, Ins[Opcode.Eor], AddressingMode.IndexedIndirectX);
-      All.Add(0x51, Opcode.Eor, Ins[Opcode.Eor], AddressingMode.IndexedIndirectY);
-      All.Add(0x69, Opcode.Adc, Ins[Opcode.Adc], AddressingMode.Immediate);
-      All.Add(0x6D, Opcode.Adc, Ins[Opcode.Adc], AddressingMode.Absolute);
-      All.Add(0x7D, Opcode.Adc, Ins[Opcode.Adc], AddressingMode.AbsoluteX);
-      All.Add(0x79, Opcode.Adc, Ins[Opcode.Adc], AddressingMode.AbsoluteY);
-      All.Add(0x65, Opcode.Adc, Ins[Opcode.Adc], AddressingMode.Zeropage);
-      All.Add(0x75, Opcode.Adc, Ins[Opcode.Adc], AddressingMode.ZeropageX);
-      All.Add(0x61, Opcode.Adc, Ins[Opcode.Adc], AddressingMode.IndexedIndirectX);
-      All.Add(0x71, Opcode.Adc, Ins[Opcode.Adc], AddressingMode.IndexedIndirectY);
-      All.Add(0x18, Opcode.Clc, Ins[Opcode.Clc], AddressingMode.Implied);
-      All.Add(0xA9, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.Immediate);
-      All.Add(0xAD, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.Absolute);
-      All.Add(0xBD, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.AbsoluteX);
-      All.Add(0xB9, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.AbsoluteY);
-      All.Add(0xA5, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.Zeropage);
-      All.Add(0xB5, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.ZeropageX);
-      All.Add(0xA1, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.IndexedIndirectX);
-      All.Add(0xB1, Opcode.Lda, Ins[Opcode.Lda], AddressingMode.IndexedIndirectY);
-      All.Add(0xE9, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.Immediate);
-      All.Add(0xED, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.Absolute);
-      All.Add(0xFD, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.AbsoluteX);
-      All.Add(0xF9, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.AbsoluteY);
-      All.Add(0xE5, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.Zeropage);
-      All.Add(0xF5, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.ZeropageX);
-      All.Add(0xE1, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.IndexedIndirectX);
-      All.Add(0xF1, Opcode.Sbc, Ins[Opcode.Sbc], AddressingMode.IndexedIndirectY);
-      All.Add(0x8D, Opcode.Sta, Ins[Opcode.Sta], AddressingMode.Absolute);
-      All.Add(0x9D, Opcode.Sta, Ins[Opcode.Sta], AddressingMode.AbsoluteX);
-      All.Add(0x99, Opcode.Sta, Ins[Opcode.Sta], AddressingMode.AbsoluteY);
-      All.Add(0x85, Opcode.Sta, Ins[Opcode.Sta], AddressingMode.Zeropage);
-      All.Add(0x95, Opcode.Sta, Ins[Opcode.Sta], AddressingMode.ZeropageX);
-      All.Add(0x81, Opcode.Sta, Ins[Opcode.Sta], AddressingMode.IndexedIndirectX);
-      All.Add(0x91, Opcode.Sta, Ins[Opcode.Sta], AddressingMode.IndexedIndirectY);
-      All.Add(0xA2, Opcode.Ldx, Ins[Opcode.Ldx], AddressingMode.Immediate);
-      All.Add(0xAE, Opcode.Ldx, Ins[Opcode.Ldx], AddressingMode.Absolute);
-      All.Add(0xBE, Opcode.Ldx, Ins[Opcode.Ldx], AddressingMode.AbsoluteY);
-      All.Add(0xA6, Opcode.Ldx, Ins[Opcode.Ldx], AddressingMode.Zeropage);
-      All.Add(0xB6, Opcode.Ldx, Ins[Opcode.Ldx], AddressingMode.ZeropageY);
-      All.Add(0xA0, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.Immediate);
-      All.Add(0xAC, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.Absolute);
-      All.Add(0xBC, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.AbsoluteX);
-      All.Add(0xA4, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.Zeropage);
-      All.Add(0xB4, Opcode.Ldy, Ins[Opcode.Ldy], AddressingMode.ZeropageX);
-    }
-
-    private void InitializeInstructions()
-    {
       foreach (var opcode in (Opcode[])Enum.GetValues(typeof(Opcode)))
       {
         var instruction = (Instruction)GetType().Assembly.CreateInstance(
@@ -95,6 +24,32 @@ namespace Mos6510
         if (instruction != null)
           Ins.Add(opcode, instruction);
       }
+
+      LoadInstructionData();
+    }
+
+    private void LoadInstructionData()
+    {
+      var assembly = GetType().Assembly;
+      using (var stream = assembly.GetManifestResourceStream("instructions.csv"))
+      using (var reader = new StreamReader(stream))
+      {
+        string line = null;
+        while ((line = reader.ReadLine()) != null)
+          AddInstruction(line);
+      }
+    }
+
+    private void AddInstruction(string line)
+    {
+      var parts = line.Split(',');
+      var opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0]);
+      var code = byte.Parse(parts[1], NumberStyles.HexNumber);
+      var mode = (AddressingMode)Enum.Parse(typeof(AddressingMode), parts[2]);
+
+      Instruction instruction;
+      if (Ins.TryGetValue(opcode, out instruction))
+        All.Add(code, opcode, instruction, mode);
     }
   }
 }
