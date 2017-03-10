@@ -24,7 +24,7 @@ namespace Mos6510
       var instruction = registry.Get(opcode);
       instruction.Execute(model, memory, argument);
 
-      var numberOfCycles = instruction.CyclesFor(mode);
+      var numberOfCycles = registry.CyclesFor(opcode, mode);
       if (ArgumentUtils.CrossesPageBoundary(model, mode, operand))
         numberOfCycles++;
       return numberOfCycles;
