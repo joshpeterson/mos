@@ -44,8 +44,8 @@ namespace Mos6510
     {
       var parts = line.Split(',');
       var opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0]);
-      var code = byte.Parse(parts[1], NumberStyles.HexNumber);
-      var mode = (AddressingMode)Enum.Parse(typeof(AddressingMode), parts[2]);
+      var mode = (AddressingMode)Enum.Parse(typeof(AddressingMode), parts[1]);
+      var code = byte.Parse(parts[2], NumberStyles.HexNumber);
 
       Instruction instruction;
       if (Ins.TryGetValue(opcode, out instruction))
