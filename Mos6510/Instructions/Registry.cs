@@ -8,8 +8,8 @@ namespace Mos6510.Instructions
     private Dictionary<Opcode, Instruction> instructions =
       new Dictionary<Opcode, Instruction>();
 
-    private Dictionary<byte, OpcodeAddressModePair> opcodeAndAddressMode =
-      new Dictionary<byte, OpcodeAddressModePair>();
+    private Dictionary<byte, OpcodeData> opcodeData =
+      new Dictionary<byte, OpcodeData>();
 
     public Instruction Get(Opcode opcode)
     {
@@ -18,16 +18,16 @@ namespace Mos6510.Instructions
       return null;
     }
 
-    public OpcodeAddressModePair Get(byte code)
+    public OpcodeData Get(byte code)
     {
-      if (opcodeAndAddressMode.ContainsKey(code))
-        return opcodeAndAddressMode[code];
+      if (opcodeData.ContainsKey(code))
+        return opcodeData[code];
       return null;
     }
 
     public byte Get(Opcode opcode, AddressingMode mode)
     {
-      foreach (var entry in opcodeAndAddressMode)
+      foreach (var entry in opcodeData)
         if (entry.Value.Opcode == opcode && entry.Value.Mode == mode)
           return entry.Key;
 
@@ -36,12 +36,14 @@ namespace Mos6510.Instructions
 
     // This method is necessary to get dictionary-style initialization.
     public void Add(byte code, Opcode opcode, Instruction instruction,
-                    AddressingMode mode)
+                    AddressingMode mode, int cycles)
     {
       if (!instructions.ContainsKey(opcode))
         instructions.Add(opcode, instruction);
-      opcodeAndAddressMode.Add(code,
-                               new OpcodeAddressModePair { Opcode = opcode, Mode = mode });
+      opcodeData.Add(code, new OpcodeData { Opcode = opcode,
+                                            Mode = mode,
+                                            Cycles = cycles
+                                          });
     }
 
     // This method is necessary to get dictionary-style initialization.

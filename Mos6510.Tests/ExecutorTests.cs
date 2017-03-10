@@ -17,7 +17,7 @@ namespace Mos6510.Tests
     {
       instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { 0x00, opcode, instruction, AddressingMode.Implied}
+        { 0x00, opcode, instruction, AddressingMode.Implied, 0 }
       };
 
       model = new ProgrammingModel();

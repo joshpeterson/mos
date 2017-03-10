@@ -49,7 +49,7 @@ namespace Mos6510
 
       Instruction instruction;
       if (Ins.TryGetValue(opcode, out instruction))
-        All.Add(code, opcode, instruction, mode);
+        All.Add(code, opcode, instruction, mode, 0);
     }
   }
 }

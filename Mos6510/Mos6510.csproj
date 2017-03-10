@@ -52,7 +52,7 @@
     <Compile Include="Decoder.cs" />
     <Compile Include="Executor.cs" />
     <Compile Include="CoreLoop.cs" />
-    <Compile Include="Instructions\OpcodeAddressModePair.cs" />
+    <Compile Include="Instructions\OpcodeData.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Assembler.cs" />
     <Compile Include="Repl.cs" />

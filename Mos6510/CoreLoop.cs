@@ -19,11 +19,11 @@ namespace Mos6510
     {
       var instruction = fetcher.Fetch();
 
-      OpcodeAddressModePair pair;
-      if (!decoder.TryDecode(instruction, out pair))
+      OpcodeData data;
+      if (!decoder.TryDecode(instruction, out data))
         return false;
 
-      executor.Execute(pair.Opcode, pair.Mode, fetcher.OperandFor(pair.Mode));
+      executor.Execute(data.Opcode, data.Mode, fetcher.OperandFor(data.Mode));
 
       return true;
     }

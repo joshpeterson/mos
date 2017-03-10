@@ -12,10 +12,10 @@ namespace Mos6510
       this.registry = registry;
     }
 
-    public bool TryDecode(byte instruction, out OpcodeAddressModePair pair)
+    public bool TryDecode(byte instruction, out OpcodeData data)
     {
-      pair = registry.Get(instruction);
-      return pair != null;
+      data = registry.Get(instruction);
+      return data != null;
     }
   }
 }

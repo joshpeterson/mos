@@ -23,16 +23,20 @@ namespace Mos6510.Tests
     public void SetUp()
     {
       var registry = new Registry {
-        { nopCode, Opcode.Nop, null, AddressingMode.Implied },
-        { andImmediateCode, Opcode.And, null, AddressingMode.Immediate },
-        { andAbsoluteCode, Opcode.And, null, AddressingMode.Absolute },
-        { andAbsoluteXCode, Opcode.And, null, AddressingMode.AbsoluteX },
-        { andAbsoluteYCode, Opcode.And, null, AddressingMode.AbsoluteY },
-        { andZeropageCode, Opcode.And, null, AddressingMode.Zeropage },
-        { andZeropageXCode, Opcode.And, null, AddressingMode.ZeropageX },
-        { andZeropageYCode, Opcode.And, null, AddressingMode.ZeropageY },
-        { andIndexedIndirectXCode, Opcode.And, null, AddressingMode.IndexedIndirectX},
-        { andIndexedIndirectYCode, Opcode.And, null, AddressingMode.IndexedIndirectY},
+        { nopCode, Opcode.Nop, null, AddressingMode.Implied, 0 },
+        { andImmediateCode, Opcode.And, null, AddressingMode.Immediate, 0 },
+        { andAbsoluteCode, Opcode.And, null, AddressingMode.Absolute, 0 },
+        { andAbsoluteXCode, Opcode.And, null, AddressingMode.AbsoluteX, 0 },
+        { andAbsoluteYCode, Opcode.And, null, AddressingMode.AbsoluteY, 0 },
+        { andZeropageCode, Opcode.And, null, AddressingMode.Zeropage, 0 },
+        { andZeropageXCode, Opcode.And, null, AddressingMode.ZeropageX, 0 },
+        { andZeropageYCode, Opcode.And, null, AddressingMode.ZeropageY, 0 },
+        { andIndexedIndirectXCode, Opcode.And, null,
+          AddressingMode.IndexedIndirectX, 0
+        },
+        { andIndexedIndirectYCode, Opcode.And, null,
+          AddressingMode.IndexedIndirectY, 0
+        },
       };
       assembler = new Assembler(registry);
     }

@@ -1,9 +1,10 @@
 namespace Mos6510.Instructions
 {
-  public class OpcodeAddressModePair
+  public class OpcodeData
   {
     public Opcode Opcode;
     public AddressingMode Mode;
+    public int Cycles;
   }
 
 }
