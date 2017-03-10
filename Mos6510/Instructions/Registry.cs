@@ -30,8 +30,15 @@ namespace Mos6510.Instructions
       foreach (var entry in opcodeData)
         if (entry.Value.Opcode == opcode && entry.Value.Mode == mode)
           return entry.Key;
-
       return 0x00;
+    }
+
+    public int CyclesFor(Opcode opcode, AddressingMode mode)
+    {
+      foreach (var entry in opcodeData)
+        if (entry.Value.Opcode == opcode && entry.Value.Mode == mode)
+          return entry.Value.Cycles;
+      return 0;
     }
 
     // This method is necessary to get dictionary-style initialization.

@@ -67,6 +67,22 @@ namespace Mos6510.Tests.Instructions
     }
 
     [Test]
+    public void CanGetCyclesFromAnOpcodePair()
+    {
+      const byte code = 0xFF;
+      const Opcode opcode = Opcode.Nop;
+      const AddressingMode mode = AddressingMode.Implied;
+      const int expectedCycles = 4;
+
+      var instruction = new InstructionTestDouble();
+      var registry = new Registry {
+        { code, opcode, instruction, AddressingMode.Implied, expectedCycles }
+      };
+
+      Assert.That(registry.CyclesFor(opcode, mode), Is.EqualTo(expectedCycles));
+    }
+
+    [Test]
     public void RegistryReturnsNullForAnUnknownOpcode()
     {
       var registry = new Registry();
