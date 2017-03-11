@@ -17,20 +17,6 @@ namespace Mos6510.Tests.Instructions
       Assert.That(accumulator.GetValue(), Is.EqualTo(0xB));
     }
 
-    [TestCase(AddressingMode.Immediate, 2)]
-    [TestCase(AddressingMode.Absolute, 4)]
-    [TestCase(AddressingMode.AbsoluteX, 4)]
-    [TestCase(AddressingMode.AbsoluteY, 4)]
-    [TestCase(AddressingMode.Zeropage, 3)]
-    [TestCase(AddressingMode.ZeropageX, 4)]
-    [TestCase(AddressingMode.ZeropageY, 4)]
-    [TestCase(AddressingMode.IndexedIndirectX, 6)]
-    [TestCase(AddressingMode.IndexedIndirectY, 5)]
-    public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int expected)
-    {
-      Assert.That(new Ora().CyclesFor(mode), Is.EqualTo(expected));
-    }
-
     [TestCase(0x80, true)]
     [TestCase(0x00, false)]
     public void VerifyValuesOfNegativeFlag(int initialValue, bool expectedResult)

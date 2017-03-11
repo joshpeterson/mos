@@ -19,13 +19,6 @@ namespace Mos6510.Tests.Instructions
                   Is.EqualTo(initialValue + 1));
     }
 
-    [Test]
-    public void ReturnsTwoCycles()
-    {
-      var instruction = new Iny();
-      Assert.That(instruction.CyclesFor(AddressingMode.Implied), Is.EqualTo(2));
-    }
-
     [TestCase(0x7F, true)]
     [TestCase(0x7E, false)]
     public void VerifyValuesOfNegativeFlag(int initialValue, bool expectedResult)

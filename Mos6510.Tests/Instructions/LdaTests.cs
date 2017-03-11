@@ -40,18 +40,5 @@ namespace Mos6510.Tests.Instructions
 
       Assert.That(model.ZeroFlag, Is.EqualTo(expectedResult));
     }
-
-    [TestCase(AddressingMode.Immediate, 2)]
-    [TestCase(AddressingMode.Absolute, 4)]
-    [TestCase(AddressingMode.AbsoluteX, 4)]
-    [TestCase(AddressingMode.AbsoluteY, 4)]
-    [TestCase(AddressingMode.Zeropage, 3)]
-    [TestCase(AddressingMode.ZeropageX, 4)]
-    [TestCase(AddressingMode.IndexedIndirectX, 6)]
-    [TestCase(AddressingMode.IndexedIndirectY, 5)]
-    public void ReturnsTheProperNumberOfCycles(AddressingMode mode, int expected)
-    {
-      Assert.That(new Lda().CyclesFor(mode), Is.EqualTo(expected));
-    }
   }
 }

@@ -17,11 +17,5 @@ namespace Mos6510.Tests.Instructions
       Assert.That(model.CarryFlag, Is.False,
                   "The carry flag was not cleared, which is not expected.");
     }
-
-    [Test]
-    public void RequiresTwoCycles()
-    {
-      Assert.That(new Clc().CyclesFor(AddressingMode.Implied), Is.EqualTo(2));
-    }
   }
 }

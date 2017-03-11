@@ -100,11 +100,6 @@ namespace Mos6510.Tests
         ExecuteCalled = true;
         ProvidedArgument = argument;
       }
-
-      public virtual int CyclesFor(AddressingMode mode)
-      {
-        return NumberOfCycles;
-      }
     }
   }
 }

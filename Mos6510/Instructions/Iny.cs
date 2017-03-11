@@ -9,10 +9,5 @@ namespace Mos6510.Instructions
     {
       RegisterUtils.IncrementRegister(model, RegisterName.Y);
     }
-
-    public virtual int CyclesFor(AddressingMode mode)
-    {
-      return 2;
-    }
   }
 }

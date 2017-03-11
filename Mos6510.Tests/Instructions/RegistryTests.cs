@@ -110,10 +110,5 @@ namespace Mos6510.Tests.Instructions
                                 Argument argument)
     {
     }
-
-    public virtual int CyclesFor(AddressingMode mode)
-    {
-      return 0;
-    }
   }
 }

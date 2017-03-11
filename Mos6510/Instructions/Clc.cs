@@ -6,10 +6,5 @@ namespace Mos6510.Instructions
     {
       model.CarryFlag = false;
     }
-
-    public int CyclesFor(AddressingMode mode)
-    {
-      return 2;
-    }
   }
 }
