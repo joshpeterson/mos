@@ -46,11 +46,12 @@ namespace Mos6510
       var opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0]);
       var mode = (AddressingMode)Enum.Parse(typeof(AddressingMode), parts[1]);
       var code = byte.Parse(parts[2], NumberStyles.HexNumber);
-      var cycles = parts.Length == 4 ? int.Parse(parts[3]) : 0;
+      var cycles = int.Parse(parts[3]);
+      var size = int.Parse(parts[4]);
 
       Instruction instruction;
       if (Ins.TryGetValue(opcode, out instruction))
-        All.Add(code, opcode, instruction, mode, cycles);
+        All.Add(code, opcode, instruction, mode, cycles, size);
     }
   }
 }

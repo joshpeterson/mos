@@ -14,7 +14,13 @@ namespace Mos6510.Tests
       int expectedCycles)
     {
       var registry = new Registry {
-        { instruction, expectedOpcode, null, expectedAddressingMode, expectedCycles }
+        { instruction,
+          expectedOpcode,
+          null,
+          expectedAddressingMode,
+          expectedCycles,
+          0
+        }
       };
 
       var decoder = new Decoder(registry);

@@ -41,15 +41,24 @@ namespace Mos6510.Instructions
       return 0;
     }
 
+    public int SizeFor(Opcode opcode, AddressingMode mode)
+    {
+      foreach (var entry in opcodeData)
+        if (entry.Value.Opcode == opcode && entry.Value.Mode == mode)
+          return entry.Value.Size;
+      return 0;
+    }
+
     // This method is necessary to get dictionary-style initialization.
     public void Add(byte code, Opcode opcode, Instruction instruction,
-                    AddressingMode mode, int cycles)
+                    AddressingMode mode, int cycles, int size)
     {
       if (!instructions.ContainsKey(opcode))
         instructions.Add(opcode, instruction);
       opcodeData.Add(code, new OpcodeData { Opcode = opcode,
                                             Mode = mode,
-                                            Cycles = cycles
+                                            Cycles = cycles,
+                                            Size = size
                                           });
     }
 

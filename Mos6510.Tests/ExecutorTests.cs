@@ -17,10 +17,10 @@ namespace Mos6510.Tests
     {
       instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { 0x00, opcode, instruction, AddressingMode.Implied, 42 },
-        { 0x01, opcode, instruction, AddressingMode.Absolute, 42 },
-        { 0x02, opcode, instruction, AddressingMode.AbsoluteX, 42 },
-        { 0x03, opcode, instruction, AddressingMode.AbsoluteY, 42 },
+        { 0x00, opcode, instruction, AddressingMode.Implied, 42, 0 },
+        { 0x01, opcode, instruction, AddressingMode.Absolute, 42, 0 },
+        { 0x02, opcode, instruction, AddressingMode.AbsoluteX, 42, 0 },
+        { 0x03, opcode, instruction, AddressingMode.AbsoluteY, 42, 0 },
       };
 
       model = new ProgrammingModel();

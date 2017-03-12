@@ -13,7 +13,7 @@ namespace Mos6510.Tests.Instructions
 
       var instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { 0x00, opcode, instruction, AddressingMode.Implied, 0 }
+        { 0x00, opcode, instruction, AddressingMode.Implied, 0, 0}
       };
 
       Assert.That(registry.Get(opcode), Is.EqualTo(instruction));
@@ -26,8 +26,8 @@ namespace Mos6510.Tests.Instructions
 
       var instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { 0x00, opcode, instruction, AddressingMode.Implied, 0 },
-        { 0x10, opcode, instruction, AddressingMode.Immediate, 0 }
+        { 0x00, opcode, instruction, AddressingMode.Implied, 0, 0 },
+        { 0x10, opcode, instruction, AddressingMode.Immediate, 0, 0 }
       };
 
       Assert.That(registry.Get(opcode), Is.EqualTo(instruction));
@@ -39,16 +39,18 @@ namespace Mos6510.Tests.Instructions
       const byte code = 0xFF;
       const Opcode opcode = Opcode.Nop;
       const AddressingMode mode = AddressingMode.Implied;
+      const int size = 2;
       const int cycles = 3;
 
       var instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { code, opcode, instruction, AddressingMode.Implied, cycles }
+        { code, opcode, instruction, AddressingMode.Implied, cycles, size }
       };
 
       Assert.That(registry.Get(code).Opcode, Is.EqualTo(opcode));
       Assert.That(registry.Get(code).Mode, Is.EqualTo(mode));
       Assert.That(registry.Get(code).Cycles, Is.EqualTo(cycles));
+      Assert.That(registry.Get(code).Size, Is.EqualTo(size));
     }
 
     [Test]
@@ -60,7 +62,7 @@ namespace Mos6510.Tests.Instructions
 
       var instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { expectedCode, opcode, instruction, AddressingMode.Implied, 0 }
+        { expectedCode, opcode, instruction, AddressingMode.Implied, 0, 0 }
       };
 
       Assert.That(registry.Get(opcode, mode), Is.EqualTo(expectedCode));
@@ -76,10 +78,27 @@ namespace Mos6510.Tests.Instructions
 
       var instruction = new InstructionTestDouble();
       var registry = new Registry {
-        { code, opcode, instruction, AddressingMode.Implied, expectedCycles }
+        { code, opcode, instruction, AddressingMode.Implied, expectedCycles, 0 }
       };
 
       Assert.That(registry.CyclesFor(opcode, mode), Is.EqualTo(expectedCycles));
+    }
+
+    [Test]
+    public void CanGetSizeFromAnOpcodePair()
+    {
+      const byte code = 0xFF;
+      const Opcode opcode = Opcode.Nop;
+      const AddressingMode mode = AddressingMode.Implied;
+      const int cycles = 4;
+      const int expectedSize = 2;
+
+      var instruction = new InstructionTestDouble();
+      var registry = new Registry {
+        { code, opcode, instruction, AddressingMode.Implied, cycles, expectedSize }
+      };
+
+      Assert.That(registry.SizeFor(opcode, mode), Is.EqualTo(expectedSize));
     }
 
     [Test]
