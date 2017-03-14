@@ -58,14 +58,14 @@ namespace Mos6510
         if (tokens[2] == "X" || tokens[2] == "x")
           if (numberOfArguments == 1)
             if (hasParantheses)
-              mode = AddressingMode.IndexedIndirectX;
+              mode = AddressingMode.IndirectX;
             else
               mode = AddressingMode.ZeropageX;
           else
             mode = AddressingMode.AbsoluteX;
         else if (numberOfArguments == 1)
           if (hasParantheses)
-            mode = AddressingMode.IndexedIndirectY;
+            mode = AddressingMode.IndirectY;
           else
             mode = AddressingMode.ZeropageY;
         else

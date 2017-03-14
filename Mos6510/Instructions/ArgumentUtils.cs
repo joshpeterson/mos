@@ -14,10 +14,10 @@ namespace Mos6510.Instructions
         address = OffsetAddressFor(model, RegisterName.X, operand);
       else if (mode == AddressingMode.AbsoluteY || mode == AddressingMode.ZeropageY)
         address = OffsetAddressFor(model, RegisterName.Y, operand);
-      else if (mode == AddressingMode.IndexedIndirectX)
-        address = IndexedIndirectAddressFor(model, memory, RegisterName.X, operand);
-      else if (mode == AddressingMode.IndexedIndirectY)
-        address = IndexedIndirectAddressFor(model, memory, RegisterName.Y, operand);
+      else if (mode == AddressingMode.IndirectX)
+        address = IndirectAddressFor(model, memory, RegisterName.X, operand);
+      else if (mode == AddressingMode.IndirectY)
+        address = IndirectAddressFor(model, memory, RegisterName.Y, operand);
 
       return new Argument(memory.GetValue(address), address);
     }
@@ -39,7 +39,7 @@ namespace Mos6510.Instructions
       return false;
     }
 
-    private static ushort IndexedIndirectAddressFor(ProgrammingModel model,
+    private static ushort IndirectAddressFor(ProgrammingModel model,
         Memory memory,
         RegisterName register,
         ushort operand)

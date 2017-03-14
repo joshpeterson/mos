@@ -15,8 +15,8 @@ namespace Mos6510.Tests
     private const byte andZeropageCode = 0x25;
     private const byte andZeropageXCode = 0x35;
     private const byte andZeropageYCode = 0x45;
-    private const byte andIndexedIndirectXCode = 0x21;
-    private const byte andIndexedIndirectYCode = 0x31;
+    private const byte andIndirectXCode = 0x21;
+    private const byte andIndirectYCode = 0x31;
     private Assembler assembler;
 
     [SetUp]
@@ -31,11 +31,11 @@ namespace Mos6510.Tests
         { andZeropageCode, Opcode.And, null, AddressingMode.Zeropage, 0, 0 },
         { andZeropageXCode, Opcode.And, null, AddressingMode.ZeropageX, 0, 0 },
         { andZeropageYCode, Opcode.And, null, AddressingMode.ZeropageY, 0, 0 },
-        { andIndexedIndirectXCode, Opcode.And, null,
-          AddressingMode.IndexedIndirectX, 0, 0
+        { andIndirectXCode, Opcode.And, null,
+          AddressingMode.IndirectX, 0, 0
         },
-        { andIndexedIndirectYCode, Opcode.And, null,
-          AddressingMode.IndexedIndirectY, 0, 0
+        { andIndirectYCode, Opcode.And, null,
+          AddressingMode.IndirectY, 0, 0
         },
       };
       assembler = new Assembler(registry);
@@ -60,12 +60,12 @@ namespace Mos6510.Tests
     [TestCase("And $80,Y", andZeropageYCode, 0x80 )]
     [TestCase("And $80,y", andZeropageYCode, 0x80 )]
     [TestCase("And 64,Y", andZeropageYCode, 0x40 )]
-    [TestCase("And ($80,X)", andIndexedIndirectXCode, 0x80 )]
-    [TestCase("And (64,X)", andIndexedIndirectXCode, 0x40 )]
-    [TestCase("And ($80,x)", andIndexedIndirectXCode, 0x80 )]
-    [TestCase("And ($80),Y", andIndexedIndirectYCode, 0x80 )]
-    [TestCase("And (64),Y", andIndexedIndirectYCode, 0x40 )]
-    [TestCase("And ($80),y", andIndexedIndirectYCode, 0x80 )]
+    [TestCase("And ($80,X)", andIndirectXCode, 0x80 )]
+    [TestCase("And (64,X)", andIndirectXCode, 0x40 )]
+    [TestCase("And ($80,x)", andIndirectXCode, 0x80 )]
+    [TestCase("And ($80),Y", andIndirectYCode, 0x80 )]
+    [TestCase("And (64),Y", andIndirectYCode, 0x40 )]
+    [TestCase("And ($80),y", andIndirectYCode, 0x80 )]
     public void CanReadOneArgumentInstruction(string input, byte code,
         byte argument)
     {

@@ -46,8 +46,8 @@ namespace Mos6510.Tests
     [TestCase(AddressingMode.Zeropage)]
     [TestCase(AddressingMode.ZeropageX)]
     [TestCase(AddressingMode.ZeropageY)]
-    [TestCase(AddressingMode.IndexedIndirectX)]
-    [TestCase(AddressingMode.IndexedIndirectY)]
+    [TestCase(AddressingMode.IndirectX)]
+    [TestCase(AddressingMode.IndirectY)]
     public void GetsOneByteTheOperandFor(AddressingMode mode)
     {
       const ushort address = 0xFF10;
@@ -64,8 +64,8 @@ namespace Mos6510.Tests
     [TestCase(AddressingMode.Zeropage)]
     [TestCase(AddressingMode.ZeropageX)]
     [TestCase(AddressingMode.ZeropageY)]
-    [TestCase(AddressingMode.IndexedIndirectX)]
-    [TestCase(AddressingMode.IndexedIndirectY)]
+    [TestCase(AddressingMode.IndirectX)]
+    [TestCase(AddressingMode.IndirectY)]
     public void IncrementsThePCAferReadingAOneByteOperand(AddressingMode mode)
     {
       const ushort initialAddress = 0xFF10;

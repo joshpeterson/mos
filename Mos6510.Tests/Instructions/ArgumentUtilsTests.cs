@@ -75,9 +75,9 @@ namespace Mos6510.Tests.Instructions
                   Is.EqualTo(0x8));
     }
 
-    [TestCase(AddressingMode.IndexedIndirectX, RegisterName.X)]
-    [TestCase(AddressingMode.IndexedIndirectY, RegisterName.Y)]
-    public void ForIndexedIndirectMode(AddressingMode mode, RegisterName register)
+    [TestCase(AddressingMode.IndirectX, RegisterName.X)]
+    [TestCase(AddressingMode.IndirectY, RegisterName.Y)]
+    public void ForIndirectMode(AddressingMode mode, RegisterName register)
     {
       memory.SetValue(0x8000, 0x8);
       memory.SetValue(0x0070, 0x00);
@@ -113,8 +113,8 @@ namespace Mos6510.Tests.Instructions
     [TestCase(AddressingMode.Immediate, RegisterName.Y)]
     [TestCase(AddressingMode.Absolute, RegisterName.Y)]
     [TestCase(AddressingMode.Implied, RegisterName.Y)]
-    [TestCase(AddressingMode.IndexedIndirectX, RegisterName.Y)]
-    [TestCase(AddressingMode.IndexedIndirectY, RegisterName.Y)]
+    [TestCase(AddressingMode.IndirectX, RegisterName.Y)]
+    [TestCase(AddressingMode.IndirectY, RegisterName.Y)]
     [TestCase(AddressingMode.Zeropage, RegisterName.Y)]
     [TestCase(AddressingMode.ZeropageX, RegisterName.Y)]
     [TestCase(AddressingMode.ZeropageY, RegisterName.Y)]
