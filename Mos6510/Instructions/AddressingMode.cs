@@ -10,6 +10,7 @@ namespace Mos6510.Instructions
     Implied,
     IndirectX,
     IndirectY,
+    Relative,
     Zeropage,
     ZeropageX,
     ZeropageY,
