@@ -47,7 +47,7 @@ namespace Mos6510.Tests
 
       var memory = new Memory();
       new Repl(model, memory).TryRead("Inx");
-      Assert.That(memory.GetValue(pcValue), Is.EqualTo(0xE0));
+      Assert.That(memory.GetValue(pcValue), Is.EqualTo(0xE8));
     }
 
     [Test]
