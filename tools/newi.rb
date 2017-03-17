@@ -10,11 +10,6 @@ namespace Mos6510.Instructions
     {
       throw new System.NotImplementedException();
     }
-
-    public int CyclesFor(AddressingMode mode)
-    {
-      throw new System.NotImplementedException();
-    }
   }
 }
 }
