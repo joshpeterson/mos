@@ -1,6 +1,6 @@
 namespace Mos6510.Instructions
 {
-  public struct Argument
+  public class Argument
   {
     public byte value;
     public ushort address;

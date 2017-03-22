@@ -26,7 +26,11 @@ namespace Mos6510.Instructions
     {
       var register = model.GetRegister(name);
       var value = register.GetValue();
+      SetZeroFlag(model, (byte)value);
+    }
 
+    public static void SetZeroFlag(ProgrammingModel model, byte value)
+    {
       model.ZeroFlag = (sbyte)value == 0;
     }
 
@@ -34,7 +38,11 @@ namespace Mos6510.Instructions
     {
       var register = model.GetRegister(name);
       var value = register.GetValue();
+      SetNegativeFlag(model, (byte)value);
+    }
 
+    public static void SetNegativeFlag(ProgrammingModel model, byte value)
+    {
       model.NegativeFlag = (sbyte)value < 0;
     }
 
