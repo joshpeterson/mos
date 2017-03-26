@@ -37,6 +37,7 @@ namespace Mos6510.Tests
       new TestCaseData(new SetUp(InitializeForEor), "Eor ($10),Y", "A:  0xF5"),
       new TestCaseData(new SetUp(InitializeForLda), "Lda #$77", "A:  0x77"),
       new TestCaseData(new SetUp(InitializeForLda), "Lda $1000", "A:  0xDF"),
+      new TestCaseData(new SetUp(InitializeForAsl), "Asl A", "A:  0xFE"),
     };
 
     public static object[] MemoryTestCases =
@@ -122,6 +123,11 @@ namespace Mos6510.Tests
     {
       model.GetRegister(RegisterName.A).SetValue(0xFF);
       memory.SetValue(0x2400, 0x87);
+    }
+
+    private static void InitializeForAsl(ProgrammingModel model, Memory memory)
+    {
+      model.GetRegister(RegisterName.A).SetValue(0x7F);
     }
   }
 }

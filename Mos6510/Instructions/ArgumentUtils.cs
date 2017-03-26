@@ -6,7 +6,9 @@ namespace Mos6510.Instructions
                                        AddressingMode mode, ushort operand)
     {
       ushort address = 0;
-      if (mode == AddressingMode.Immediate)
+      if (mode == AddressingMode.Accumulator)
+        return new AccumulatorArgument();
+      else if (mode == AddressingMode.Immediate)
         return new Argument((byte)operand, address);
       else if (mode == AddressingMode.Absolute || mode == AddressingMode.Zeropage)
         address = operand;

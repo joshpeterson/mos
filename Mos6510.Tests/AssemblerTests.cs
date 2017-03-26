@@ -17,6 +17,7 @@ namespace Mos6510.Tests
     private const byte andZeropageYCode = 0x45;
     private const byte andIndirectXCode = 0x21;
     private const byte andIndirectYCode = 0x31;
+    private const byte aslAccumulatorCode = 0x0A;
     private Assembler assembler;
 
     [SetUp]
@@ -24,6 +25,7 @@ namespace Mos6510.Tests
     {
       var registry = new Registry {
         { nopCode, Opcode.Nop, null, AddressingMode.Implied, 0, 0 },
+        { aslAccumulatorCode, Opcode.Asl, null, AddressingMode.Accumulator, 0, 0 },
         { andImmediateCode, Opcode.And, null, AddressingMode.Immediate, 0, 0 },
         { andAbsoluteCode, Opcode.And, null, AddressingMode.Absolute, 0, 0 },
         { andAbsoluteXCode, Opcode.And, null, AddressingMode.AbsoluteX, 0, 0 },
@@ -66,6 +68,7 @@ namespace Mos6510.Tests
     [TestCase("And ($80),Y", andIndirectYCode, 0x80 )]
     [TestCase("And (64),Y", andIndirectYCode, 0x40 )]
     [TestCase("And ($80),y", andIndirectYCode, 0x80 )]
+    [TestCase("Asl A", aslAccumulatorCode, 0 )]
     public void CanReadOneArgumentInstruction(string input, byte code,
         byte argument)
     {

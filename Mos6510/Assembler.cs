@@ -28,7 +28,9 @@ namespace Mos6510
         var token = StripAbsoluteIdentifier(tokens[1]);
 
         ushort result;
-        if (TryParseNumber(token, out result))
+        if (token == "A")
+          arguments = new byte[] { 0 };
+        else if (TryParseNumber(token, out result))
           arguments = ConvertArgumentToBytes(result);
         else
           return Enumerable.Empty<byte>();
@@ -75,6 +77,8 @@ namespace Mos6510
       {
         if (IsAbsoluteIdentifier(tokens[1]))
           mode = AddressingMode.Immediate;
+        else if (IsAccumulatorIdentifier(tokens[1]))
+          mode = AddressingMode.Accumulator;
         else if (numberOfArguments == 1)
           mode = AddressingMode.Zeropage;
         else
@@ -121,6 +125,11 @@ namespace Mos6510
     private static bool IsAbsoluteIdentifier(string token)
     {
       return token.StartsWith("#");
+    }
+
+    private static bool IsAccumulatorIdentifier(string token)
+    {
+      return token == "A";
     }
 
     private static string RemoveParantheses(string line)

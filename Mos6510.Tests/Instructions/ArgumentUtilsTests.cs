@@ -125,5 +125,13 @@ namespace Mos6510.Tests.Instructions
       Assert.That(ArgumentUtils.CrossesPageBoundary(model, mode, 0x10E0), Is.False,
                   "We reported incorrectly that a page boundary was crossed.");
     }
+
+    [Test]
+    public void ReturnsAnAccumulatorArgumentForAccumulatorMode()
+    {
+      Assert.IsInstanceOfType(typeof(AccumulatorArgument),
+                              ArgumentUtils.ArgumentFor(model, memory,
+                                  AddressingMode.Accumulator, 0));
+    }
   }
 }
