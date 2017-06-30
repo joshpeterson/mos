@@ -121,3 +121,7 @@ packages/
 
 # NUnit
 testrunner/
+
+# Bundler
+.bundle/
+vendor/
