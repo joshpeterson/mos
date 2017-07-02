@@ -6,7 +6,7 @@ namespace Mos6510.Instructions
 {
   public class <class> : Instruction
   {
-    public void Execute(ProgrammingModel model, Memory memory, Argument argument)
+    public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
       throw new System.NotImplementedException();
     }

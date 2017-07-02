@@ -125,9 +125,10 @@ namespace Mos6510.Tests.Instructions
 
   public class InstructionTestDouble : Instruction
   {
-    public virtual void Execute(ProgrammingModel model, Memory memory,
-                                Argument argument)
+    public virtual Result Execute(ProgrammingModel model, Memory memory,
+                                  Argument argument)
     {
+      return Result.Success;
     }
   }
 }

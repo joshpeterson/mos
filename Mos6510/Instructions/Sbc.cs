@@ -4,7 +4,7 @@ namespace Mos6510.Instructions
 {
   public class Sbc : Instruction
   {
-    public void Execute(ProgrammingModel model, Memory memory, Argument argument)
+    public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
       var status = model.GetRegister(RegisterName.S);
       byte carry = (byte)(status.GetValue() & 0x01);
@@ -16,6 +16,8 @@ namespace Mos6510.Instructions
       RegisterUtils.SetNegativeFlag(model, RegisterName.A);
       RegisterUtils.SetOverflowFlag(model, previousValue);
       RegisterUtils.SetCarryFlag(model, previousValue, argument.value);
+
+      return Result.Success;
     }
   }
 }

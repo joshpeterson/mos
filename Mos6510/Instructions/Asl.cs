@@ -4,7 +4,7 @@ namespace Mos6510.Instructions
 {
   public class Asl : Instruction
   {
-    public void Execute(ProgrammingModel model, Memory memory, Argument argument)
+    public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
       int previousValue;
       int newValue;
@@ -26,6 +26,8 @@ namespace Mos6510.Instructions
       RegisterUtils.SetZeroFlag(model, (byte)newValue);
       RegisterUtils.SetNegativeFlag(model, (byte)newValue);
       model.CarryFlag = ((byte)previousValue & 0x80) == 0x80;
+
+      return Result.Success;
     }
 
     private int ShiftLeft(int value)
