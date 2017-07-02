@@ -69,6 +69,7 @@
     <Compile Include="Instructions\Ldy.cs" />
     <Compile Include="Instructions\Asl.cs" />
     <Compile Include="Instructions\AccumulatorArgument.cs" />
+    <Compile Include="Instructions\Bcc.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
