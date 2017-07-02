@@ -4,8 +4,7 @@ namespace Mos6510.Instructions
 {
   public class Ora : Instruction
   {
-    public virtual Result Execute(ProgrammingModel model, Memory memory,
-                                  Argument argument)
+    public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
       var accumulator = model.GetRegister(RegisterName.A);
       accumulator.SetValue((byte)accumulator.GetValue() | argument.value);

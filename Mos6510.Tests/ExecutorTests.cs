@@ -94,8 +94,8 @@ namespace Mos6510.Tests
         private set;
       }
 
-      public virtual Result Execute(ProgrammingModel model, Memory memory,
-                                    Argument argument)
+      public Result Execute(ProgrammingModel model, Memory memory,
+                            Argument argument)
       {
         ExecuteCalled = true;
         ProvidedArgument = argument;
