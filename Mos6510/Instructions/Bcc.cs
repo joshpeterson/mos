@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Mos6510.Instructions
@@ -6,10 +7,18 @@ namespace Mos6510.Instructions
   {
     public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
+      Result result = Result.Success;
       if (!model.CarryFlag)
-        model.GetRegister(RegisterName.PC).SetValue(argument.address);
+      {
+        var pc = model.GetRegister(RegisterName.PC);
+        var previousValue = pc.GetValue();
+        pc.SetValue(argument.address);
+        result |= Result.BranchTaken;
+        if (Math.Abs(previousValue - (int)argument.address) > 256)
+          result |= Result.BranchAcrossPageBoundary;
+      }
 
-      return Result.Success;
+      return result;
     }
   }
 }
