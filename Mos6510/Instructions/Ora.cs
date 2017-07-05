@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Mos6510.Instructions
 {
   public class Ora : Instruction
