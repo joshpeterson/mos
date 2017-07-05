@@ -21,6 +21,7 @@ namespace Mos6510.Tests
         { 0x01, opcode, instruction, AddressingMode.Absolute, 42, 0 },
         { 0x02, opcode, instruction, AddressingMode.AbsoluteX, 42, 0 },
         { 0x03, opcode, instruction, AddressingMode.AbsoluteY, 42, 0 },
+        { 0x04, opcode, instruction, AddressingMode.Relative, 42, 0 },
       };
 
       model = new ProgrammingModel();
@@ -82,6 +83,23 @@ namespace Mos6510.Tests
                   Is.EqualTo(InstructionTestDouble.NumberOfCycles));
     }
 
+    [Test]
+    public void ReturnsTheProperNumberOfCyclesWhenBranchIsTaken()
+    {
+      instruction.InstructionResult = Result.BranchTaken;
+      Assert.That(executor.Execute(opcode, AddressingMode.Relative, 0),
+                  Is.EqualTo(InstructionTestDouble.NumberOfCycles + 1));
+    }
+
+    [Test]
+    public void ReturnsTheProperNumberOfCyclesWhenBranchIsAcrossAPageBoundary()
+    {
+      instruction.InstructionResult = Result.BranchTaken |
+                                      Result.BranchAcrossPageBoundary;
+      Assert.That(executor.Execute(opcode, AddressingMode.Relative, 0),
+                  Is.EqualTo(InstructionTestDouble.NumberOfCycles + 2));
+    }
+
     public class InstructionTestDouble : Instruction
     {
       public const int NumberOfCycles = 42;
@@ -93,6 +111,7 @@ namespace Mos6510.Tests
         get;
         private set;
       }
+      public Result InstructionResult = Result.Success;
 
       public Result Execute(ProgrammingModel model, Memory memory,
                             Argument argument)
@@ -100,7 +119,7 @@ namespace Mos6510.Tests
         ExecuteCalled = true;
         ProvidedArgument = argument;
 
-        return Result.Success;
+        return InstructionResult;
       }
     }
   }
