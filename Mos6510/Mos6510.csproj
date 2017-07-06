@@ -71,6 +71,7 @@
     <Compile Include="Instructions\AccumulatorArgument.cs" />
     <Compile Include="Instructions\Bcc.cs" />
     <Compile Include="Instructions\Bcs.cs" />
+    <Compile Include="Instructions\BranchUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
