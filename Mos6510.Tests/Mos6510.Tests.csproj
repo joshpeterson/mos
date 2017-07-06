@@ -71,6 +71,7 @@
     <Compile Include="Instructions\BmiTests.cs" />
     <Compile Include="Instructions\BneTests.cs" />
     <Compile Include="Instructions\BplTests.cs" />
+    <Compile Include="Instructions\BvcTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">

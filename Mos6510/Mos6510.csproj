@@ -76,6 +76,7 @@
     <Compile Include="Instructions\Bmi.cs" />
     <Compile Include="Instructions\Bne.cs" />
     <Compile Include="Instructions\Bpl.cs" />
+    <Compile Include="Instructions\Bvc.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
