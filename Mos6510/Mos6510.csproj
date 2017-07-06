@@ -72,6 +72,7 @@
     <Compile Include="Instructions\Bcc.cs" />
     <Compile Include="Instructions\Bcs.cs" />
     <Compile Include="Instructions\BranchUtils.cs" />
+    <Compile Include="Instructions\Beq.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
