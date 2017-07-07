@@ -23,7 +23,7 @@ namespace Mos6510.Instructions
 
       RegisterUtils.SetZeroFlag(model, (byte)newValue);
       RegisterUtils.SetNegativeFlag(model, (byte)newValue);
-      model.CarryFlag = ((byte)previousValue & 0x80) == 0x80;
+      model.CarryFlag = ((byte)previousValue).IsSet(0x80);
 
       return Result.Success;
     }
