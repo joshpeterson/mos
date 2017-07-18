@@ -83,6 +83,7 @@
     <Compile Include="Instructions\Cli.cs" />
     <Compile Include="Instructions\Cld.cs" />
     <Compile Include="Instructions\Clv.cs" />
+    <Compile Include="Instructions\Cmp.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
