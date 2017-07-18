@@ -81,6 +81,7 @@
     <Compile Include="Instructions\Bit.cs" />
     <Compile Include="BitUtils.cs" />
     <Compile Include="Instructions\Cli.cs" />
+    <Compile Include="Instructions\Cld.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
