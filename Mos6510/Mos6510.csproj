@@ -80,6 +80,7 @@
     <Compile Include="Instructions\Bvs.cs" />
     <Compile Include="Instructions\Bit.cs" />
     <Compile Include="BitUtils.cs" />
+    <Compile Include="Instructions\Cli.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
