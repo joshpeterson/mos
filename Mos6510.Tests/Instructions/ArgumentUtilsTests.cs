@@ -129,9 +129,9 @@ namespace Mos6510.Tests.Instructions
     [Test]
     public void ReturnsAnAccumulatorArgumentForAccumulatorMode()
     {
-      Assert.IsInstanceOfType(typeof(AccumulatorArgument),
-                              ArgumentUtils.ArgumentFor(model, memory,
-                                  AddressingMode.Accumulator, 0));
+      Assert.IsInstanceOf<AccumulatorArgument>(ArgumentUtils.ArgumentFor(model,
+          memory,
+          AddressingMode.Accumulator, 0));
     }
   }
 }
