@@ -78,6 +78,7 @@
     <Compile Include="Instructions\CldTests.cs" />
     <Compile Include="Instructions\ClvTests.cs" />
     <Compile Include="Instructions\CmpTests.cs" />
+    <Compile Include="Instructions\CpxTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">
