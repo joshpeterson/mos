@@ -4,15 +4,7 @@ namespace Mos6510.Instructions
   {
     public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
-      var register = model.GetRegister(RegisterName.X);
-      var previousValue = (byte)register.GetValue();
-      var newValue = (byte)(previousValue - argument.value);
-
-      RegisterUtils.SetZeroFlag(model, newValue);
-      RegisterUtils.SetNegativeFlag(model, newValue);
-      RegisterUtils.SetCarryFlag(model, previousValue, argument.value);
-
-      return Result.Success;
+      return CompareUtils.Compare(RegisterName.X, model, memory, argument);
     }
   }
 }

@@ -86,6 +86,7 @@
     <Compile Include="Instructions\Cmp.cs" />
     <Compile Include="Instructions\Cpx.cs" />
     <Compile Include="Instructions\Cpy.cs" />
+    <Compile Include="CompareUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
