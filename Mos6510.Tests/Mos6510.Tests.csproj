@@ -83,6 +83,7 @@
     <Compile Include="Instructions\CompareTestUtils.cs" />
     <Compile Include="Instructions\DecTests.cs" />
     <Compile Include="Instructions\DexTests.cs" />
+    <Compile Include="Instructions\DeyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">
