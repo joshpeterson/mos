@@ -90,6 +90,7 @@
     <Compile Include="Instructions\Dec.cs" />
     <Compile Include="Instructions\Dex.cs" />
     <Compile Include="Instructions\Dey.cs" />
+    <Compile Include="Instructions\Inc.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
