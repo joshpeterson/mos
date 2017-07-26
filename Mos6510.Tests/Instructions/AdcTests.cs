@@ -24,7 +24,7 @@ namespace Mos6510.Tests.Instructions
       var accumulator = model.GetRegister(RegisterName.A);
       accumulator.SetValue(0xA);
 
-      var status = model.GetRegister(RegisterName.S);
+      var status = model.GetRegister(RegisterName.P);
       status.SetValue(status.GetValue() | 0x01);
 
       new Adc().Execute(model, null, new Argument(0x8,0));

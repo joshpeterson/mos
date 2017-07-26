@@ -4,7 +4,7 @@ namespace Mos6510.Instructions
   {
     public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
-      var status = model.GetRegister(RegisterName.S);
+      var status = model.GetRegister(RegisterName.P);
       byte carry = (byte)(status.GetValue() & 0x01);
       var accumulator = model.GetRegister(RegisterName.A);
       var previousValue = (byte)accumulator.GetValue();
