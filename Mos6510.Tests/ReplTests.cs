@@ -14,7 +14,7 @@ namespace Mos6510.Tests
         Y:  0x00
         X:  0x00
         PC: 0x0000
-        S:  0x00
+        S:  0xFF
         P:  00100000b
             NVXBDIZC";
 

@@ -155,5 +155,10 @@ namespace Mos6510.Tests
                   0x80, Is.EqualTo(expectedResult));
     }
 
+    [Test]
+    public void StackPointerIsInitializedToFF()
+    {
+      Assert.That(model.GetRegister(RegisterName.S).GetValue(), Is.EqualTo(0xFF));
+    }
   }
 }

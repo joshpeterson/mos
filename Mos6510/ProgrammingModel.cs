@@ -40,6 +40,7 @@ namespace Mos6510
       // Set the intial value to 00100000, with the unnused value at 1
       // and the rest at zero.
       GetRegister(RegisterName.P).SetValue(0x20);
+      GetRegister(RegisterName.S).SetValue(0xFF);
     }
 
     public Register GetRegister(RegisterName name)
