@@ -93,6 +93,7 @@
     <Compile Include="Instructions\Inc.cs" />
     <Compile Include="Instructions\Jmp.cs" />
     <Compile Include="Stack.cs" />
+    <Compile Include="Instructions\Jsr.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
