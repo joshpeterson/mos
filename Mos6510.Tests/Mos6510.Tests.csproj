@@ -89,6 +89,7 @@
     <Compile Include="StackTests.cs" />
     <Compile Include="Instructions\JsrTests.cs" />
     <Compile Include="Instructions\LsrTests.cs" />
+    <Compile Include="Instructions\NopTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">
