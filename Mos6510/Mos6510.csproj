@@ -94,6 +94,7 @@
     <Compile Include="Instructions\Jmp.cs" />
     <Compile Include="Stack.cs" />
     <Compile Include="Instructions\Jsr.cs" />
+    <Compile Include="Instructions\Lsr.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
