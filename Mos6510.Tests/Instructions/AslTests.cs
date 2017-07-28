@@ -6,29 +6,34 @@ namespace Mos6510.Tests.Instructions
   [TestFixture]
   public class AslTests
   {
-    [Test]
-    public void ShiftsTheBitsInTheAccumulator()
+    [TestCase(false, 0x54)]
+    [TestCase(true, 0x55)]
+    public void ShiftsTheBitsInTheAccumulator(bool zeroFlag, int expectedResult)
     {
       var model = new ProgrammingModel();
+
+      model.ZeroFlag = zeroFlag;
       var accumulator = model.GetRegister(RegisterName.A);
       accumulator.SetValue(0xAA);
 
       new Asl().Execute(model, null, new AccumulatorArgument());
-      Assert.That(accumulator.GetValue(), Is.EqualTo(0x54));
+      Assert.That(accumulator.GetValue(), Is.EqualTo(expectedResult));
     }
 
-    [Test]
-    public void ShiftsTheBitsInTheMemoryLocation()
+    [TestCase(false, 0x7E)]
+    [TestCase(true, 0x7F)]
+    public void ShiftsTheBitsInTheMemoryLocation(bool zeroFlag, int expectedResult)
     {
       var model = new ProgrammingModel();
       var memory = new Memory();
 
+      model.ZeroFlag = zeroFlag;
       const ushort address = 0x2400;
       const byte initialValue = 0xBF;
       memory.SetValue(address, initialValue);
 
       new Asl().Execute(model, memory, new Argument(initialValue, address));
-      Assert.That(memory.GetValue(address), Is.EqualTo(0x7E));
+      Assert.That(memory.GetValue(address), Is.EqualTo(expectedResult));
     }
 
     [TestCase(0x80, true)]
