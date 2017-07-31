@@ -97,6 +97,7 @@
     <Compile Include="Instructions\Lsr.cs" />
     <Compile Include="Instructions\Nop.cs" />
     <Compile Include="Instructions\Pha.cs" />
+    <Compile Include="Instructions\Php.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
