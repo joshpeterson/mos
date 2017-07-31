@@ -4,8 +4,7 @@ namespace Mos6510.Instructions
   {
     public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
-      var value = (byte)model.GetRegister(RegisterName.A).GetValue();
-      Stack.Push(model, memory, value);
+      RegisterUtils.Push(model, memory, RegisterName.A);
       return Result.Success;
     }
   }

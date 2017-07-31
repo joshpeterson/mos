@@ -67,5 +67,11 @@ namespace Mos6510.Instructions
     {
       model.CarryFlag = previousValue < argument;
     }
+
+    public static void Push(ProgrammingModel model, Memory memory,
+                            RegisterName name)
+    {
+      Stack.Push(model, memory, (byte)model.GetRegister(name).GetValue());
+    }
   }
 }
