@@ -92,6 +92,7 @@
     <Compile Include="Instructions\NopTests.cs" />
     <Compile Include="Instructions\PhaTests.cs" />
     <Compile Include="Instructions\PhpTests.cs" />
+    <Compile Include="Instructions\PlaTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">

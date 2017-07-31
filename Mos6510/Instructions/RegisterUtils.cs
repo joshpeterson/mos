@@ -73,5 +73,13 @@ namespace Mos6510.Instructions
     {
       Stack.Push(model, memory, (byte)model.GetRegister(name).GetValue());
     }
+
+    public static void Pull(ProgrammingModel model, Memory memory,
+                            RegisterName name)
+    {
+      var value = Stack.Top(model, memory);
+      model.GetRegister(name).SetValue(value);
+      Stack.Pop(model, memory);
+    }
   }
 }
