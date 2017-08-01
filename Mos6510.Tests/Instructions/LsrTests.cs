@@ -6,34 +6,28 @@ namespace Mos6510.Tests.Instructions
   [TestFixture]
   public class LsrTests
   {
-    [TestCase(false, 0x55)]
-    [TestCase(true, 0xD5)]
-    public void ShiftsTheBitsInTheAccumulator(bool zeroFlag, int expectedResult)
+    public void ShiftsTheBitsInTheAccumulator()
     {
       var model = new ProgrammingModel();
 
-      model.ZeroFlag = zeroFlag;
       var accumulator = model.GetRegister(RegisterName.A);
       accumulator.SetValue(0xAA);
 
       new Lsr().Execute(model, null, new AccumulatorArgument());
-      Assert.That(accumulator.GetValue(), Is.EqualTo(expectedResult));
+      Assert.That(accumulator.GetValue(), Is.EqualTo(0x55));
     }
 
-    [TestCase(false, 0x5F)]
-    [TestCase(true, 0xDF)]
-    public void ShiftsTheBitsInTheMemoryLocation(bool zeroFlag, int expectedResult)
+    public void ShiftsTheBitsInTheMemoryLocation()
     {
       var model = new ProgrammingModel();
       var memory = new Memory();
 
-      model.ZeroFlag = zeroFlag;
       const ushort address = 0x2400;
       const byte initialValue = 0xBF;
       memory.SetValue(address, initialValue);
 
       new Lsr().Execute(model, memory, new Argument(initialValue, address));
-      Assert.That(memory.GetValue(address), Is.EqualTo(expectedResult));
+      Assert.That(memory.GetValue(address), Is.EqualTo(0x5F));
     }
 
     [Test]
