@@ -100,6 +100,7 @@
     <Compile Include="Instructions\Php.cs" />
     <Compile Include="Instructions\Pla.cs" />
     <Compile Include="Instructions\Plp.cs" />
+    <Compile Include="Instructions\Rol.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
