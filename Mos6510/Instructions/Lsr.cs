@@ -4,33 +4,13 @@ namespace Mos6510.Instructions
   {
     public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
-      int previousValue;
-      int newValue;
-
-      if (argument is AccumulatorArgument)
-      {
-        var accumulator = model.GetRegister(RegisterName.A);
-        previousValue = accumulator.GetValue();
-        newValue = ShiftRight(previousValue);
-        model.GetRegister(RegisterName.A).SetValue(newValue);
-      }
-      else
-      {
-        previousValue = argument.value;
-        newValue = ShiftRight(previousValue);
-        memory.SetValue(argument.address, (byte)newValue);
-      }
+      var values = ShiftUtils.Shift(model, memory, argument,
+                                    (int v) => v >> 1, 0x01);
 
       model.NegativeFlag = false;
-      RegisterUtils.SetZeroFlag(model, (byte)previousValue);
-      model.CarryFlag = ((byte)previousValue).IsSet(0x01);
+      RegisterUtils.SetZeroFlag(model, (byte)values.PreviousValue);
 
       return Result.Success;
-    }
-
-    private int ShiftRight(int value)
-    {
-      return value >> 1;
     }
   }
 }
