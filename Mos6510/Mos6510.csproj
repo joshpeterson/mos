@@ -104,6 +104,7 @@
     <Compile Include="Instructions\Ror.cs" />
     <Compile Include="Instructions\ShiftUtils.cs" />
     <Compile Include="Instructions\Rts.cs" />
+    <Compile Include="Instructions\Sec.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
