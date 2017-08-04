@@ -22,6 +22,13 @@ namespace Mos6510.Instructions
       RegisterUtils.SetNegativeFlag(model, name);
     }
 
+    public static void StoreRegister(ProgrammingModel model, Memory memory,
+                                     RegisterName name, ushort address)
+    {
+      var value = (byte)model.GetRegister(name).GetValue();
+      memory.SetValue(address, value);
+    }
+
     public static void SetZeroFlag(ProgrammingModel model, RegisterName name)
     {
       var register = model.GetRegister(name);
