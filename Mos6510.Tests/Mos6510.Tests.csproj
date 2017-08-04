@@ -99,6 +99,7 @@
     <Compile Include="Instructions\RtsTests.cs" />
     <Compile Include="Instructions\SecTests.cs" />
     <Compile Include="Instructions\SedTests.cs" />
+    <Compile Include="Instructions\SeiTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">
