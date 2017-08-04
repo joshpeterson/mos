@@ -7,7 +7,7 @@ namespace Mos6510.Tests.Instructions
   public class StaTests
   {
     [Test]
-    public void PutsItsTheAccumulatorInTheAddress()
+    public void StoresTheAccumulatorInMemory()
     {
       var model = new ProgrammingModel();
       var accumulator = model.GetRegister(RegisterName.A);
