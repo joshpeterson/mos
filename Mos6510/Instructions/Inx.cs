@@ -6,7 +6,7 @@ namespace Mos6510.Instructions
   {
     public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
-      RegisterUtils.IncrementRegister(model, RegisterName.X);
+      RegisterUtils.Increment(model, RegisterName.X);
 
       return Result.Success;
     }

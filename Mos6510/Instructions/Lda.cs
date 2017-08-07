@@ -4,7 +4,7 @@ namespace Mos6510.Instructions
   {
     public Result Execute(ProgrammingModel model, Memory memory, Argument argument)
     {
-      RegisterUtils.LoadRegister(model, RegisterName.A, argument.value);
+      RegisterUtils.Load(model, RegisterName.A, argument.value);
 
       return Result.Success;
     }

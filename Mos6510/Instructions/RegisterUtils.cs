@@ -2,7 +2,7 @@ namespace Mos6510.Instructions
 {
   public static class RegisterUtils
   {
-    public static void IncrementRegister(ProgrammingModel model, RegisterName name)
+    public static void Increment(ProgrammingModel model, RegisterName name)
     {
       var register = model.GetRegister(name);
       var previousValue = register.GetValue();
@@ -13,8 +13,7 @@ namespace Mos6510.Instructions
       SetNegativeFlag(model, name);
     }
 
-    public static void LoadRegister(ProgrammingModel model, RegisterName name,
-                                    byte value)
+    public static void Load(ProgrammingModel model, RegisterName name, byte value)
     {
       model.GetRegister(name).SetValue(value);
 
@@ -22,8 +21,8 @@ namespace Mos6510.Instructions
       RegisterUtils.SetNegativeFlag(model, name);
     }
 
-    public static void StoreRegister(ProgrammingModel model, Memory memory,
-                                     RegisterName name, ushort address)
+    public static void Store(ProgrammingModel model, Memory memory,
+                             RegisterName name, ushort address)
     {
       var value = (byte)model.GetRegister(name).GetValue();
       memory.SetValue(address, value);
