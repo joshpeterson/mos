@@ -109,6 +109,7 @@
     <Compile Include="Instructions\Sei.cs" />
     <Compile Include="Instructions\Stx.cs" />
     <Compile Include="Instructions\Sty.cs" />
+    <Compile Include="Instructions\Tax.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
