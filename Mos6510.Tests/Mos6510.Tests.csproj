@@ -103,6 +103,7 @@
     <Compile Include="Instructions\StxTests.cs" />
     <Compile Include="Instructions\StyTests.cs" />
     <Compile Include="Instructions\TaxTests.cs" />
+    <Compile Include="Instructions\TayTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mos6510\Mos6510.csproj">
