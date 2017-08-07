@@ -29,6 +29,16 @@ namespace Mos6510.Instructions
       memory.SetValue(address, value);
     }
 
+    public static void Copy(ProgrammingModel model, RegisterName source,
+                            RegisterName destination)
+    {
+      var value = model.GetRegister(source).GetValue();
+      model.GetRegister(destination).SetValue(value);
+
+      RegisterUtils.SetNegativeFlag(model, (byte)value);
+      RegisterUtils.SetZeroFlag(model, (byte)value);
+    }
+
     public static void SetZeroFlag(ProgrammingModel model, RegisterName name)
     {
       var register = model.GetRegister(name);
