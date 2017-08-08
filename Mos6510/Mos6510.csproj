@@ -114,6 +114,7 @@
     <Compile Include="Instructions\Txa.cs" />
     <Compile Include="Instructions\Tya.cs" />
     <Compile Include="Instructions\Txs.cs" />
+    <Compile Include="Instructions\Tsx.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="instructions.csv">
