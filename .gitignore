@@ -125,3 +125,6 @@ testrunner/
 # Bundler
 .bundle/
 vendor/
+
+# Rider
+.idea/
